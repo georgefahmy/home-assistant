@@ -1,0 +1,16 @@
+blueprint:
+  name: Thermostat Target Temperature
+  description: Pulls the target temperature attribute from a climate device
+  domain: script
+  input:
+    reference_entity:
+      name: Climate Entity to Extract Target
+      description: The Climate device to extract the target temperature from
+      selector:
+        entity:
+          domain: climate
+variables:
+  reference_entity: !input reference_entity
+sensor:
+  state: "{{ states.climate.upstairs_thermostat.attributes.temperature }}"
+  availability: "{{ states(reference_entity) not in ('unknown', 'unavailable') }}"
