@@ -2,6 +2,7 @@ blueprint:
   name: Thermostat Target Temperature
   description: Pulls the target temperature attribute from a climate device
   domain: template
+  source_url: https://github.com/georgefahmy/home-assistant/blob/main/blueprints/thermostat_target_temperature.yaml
   input:
     reference_entity:
       name: Climate Entity to Extract Target
