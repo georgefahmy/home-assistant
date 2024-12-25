@@ -1,7 +1,7 @@
 blueprint:
   name: Thermostat Target Temperature
   description: Pulls the target temperature attribute from a climate device
-  domain: script
+  domain: template
   input:
     reference_entity:
       name: Climate Entity to Extract Target
