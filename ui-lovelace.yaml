@@ -2,11 +2,7 @@ views:
   - title: Fahmy House
     path: fahmy_house
     icon: mdi:floor-plan
-    panel: true
     theme: floorplan-theme
-    visibility:
-      - condition: screen
-        media_query: '(min-width: 1280px)'
     cards:
       - type: horizontal-stack
         cards:
@@ -62,9 +58,9 @@ views:
                       background: #ff000033;
                     }
 
-          #################################################
-          # Floor Plan
-          #################################################
+        #################################################
+        # Floor Plan
+        #################################################
           - type: custom:floorplan-card
             card_mod:
               style: >
@@ -111,7 +107,6 @@ views:
 
 
               rules:
-
                 - name: Thermostat Target Temperature
                   entities:
                     - sensor.upstairs_thermostat_target_temperature
@@ -265,6 +260,7 @@ views:
                     action: call-service
                     service: floorplan.class_set
                     service_data: '${(entity.state === "off") ? "media-player-off" : "media-player-on"}'
+
                   hold_action: more-info
                   tap_action:
                     action: fire-dom-event
@@ -283,6 +279,9 @@ views:
                             }
                         content:
                           type: vertical-stack
+                          grid_options:
+                            columns: 12
+                            rows: auto
                           cards:
                             - type: horizontal-stack
                               cards:
@@ -319,38 +318,29 @@ views:
                                     name: true
                                     icon: true
                                     power: false
-                            - square: true
-                              type: grid
+                            - type: grid
+                              square: true
                               columns: 3
                               card_mod:
                                 style: |
                                   :host {
-                                    aspect-ratio: 1;
+                                    aspect-ratio: 1/1;
                                   }
                               cards:
                                 - type: custom:button-card
                                   show_name: false
                                   show_icon: true
                                   size: 100px
-                                  aspect_ratio: 1/1
                                   tap_action:
-                                    action: perform-action
-                                    perform_action: remote.send_command
-                                    target:
-                                      device_id: 7dc5c1afe19ff69babc531051adebdf7
-                                    data:
-                                      num_repeats: 1
-                                      delay_secs: 0.1
-                                      hold_secs: 0
-                                      command: KEY_POWER
-                                  entity: remote.samsung_q80aa_65_tv
+                                    action: toggle
+                                  entity: media_player.samsung_q80aa_65_tv
+                                  name: Power
                                   icon: mdi:power
                                   show_state: false
                                 - type: custom:button-card
                                   show_name: false
                                   show_icon: true
                                   size: 100px
-                                  aspect_ratio: 1/1
                                   tap_action:
                                     action: perform-action
                                     perform_action: remote.send_command
@@ -358,7 +348,7 @@ views:
                                       device_id: 7dc5c1afe19ff69babc531051adebdf7
                                     data:
                                       num_repeats: 1
-                                      delay_secs: 0.1
+                                      delay_secs: 0.4
                                       hold_secs: 0
                                       command: KEY_UP
                                   entity: remote.samsung_q80aa_65_tv
@@ -369,7 +359,6 @@ views:
                                   show_name: false
                                   show_icon: true
                                   size: 100px
-                                  aspect_ratio: 1/1
                                   tap_action:
                                     action: perform-action
                                     perform_action: remote.send_command
@@ -377,7 +366,7 @@ views:
                                       device_id: 7dc5c1afe19ff69babc531051adebdf7
                                     data:
                                       num_repeats: 1
-                                      delay_secs: 0.1
+                                      delay_secs: 0.4
                                       hold_secs: 0
                                       command: KEY_HDMI
                                   entity: remote.samsung_q80aa_65_tv
@@ -388,7 +377,6 @@ views:
                                   show_name: false
                                   show_icon: true
                                   size: 100px
-                                  aspect_ratio: 1/1
                                   tap_action:
                                     action: perform-action
                                     perform_action: remote.send_command
@@ -396,7 +384,7 @@ views:
                                       device_id: 7dc5c1afe19ff69babc531051adebdf7
                                     data:
                                       num_repeats: 1
-                                      delay_secs: 0.1
+                                      delay_secs: 0.4
                                       hold_secs: 0
                                       command: KEY_LEFT
                                   entity: remote.samsung_q80aa_65_tv
@@ -407,7 +395,6 @@ views:
                                   show_name: false
                                   show_icon: true
                                   size: 100px
-                                  aspect_ratio: 1/1
                                   tap_action:
                                     action: perform-action
                                     perform_action: remote.send_command
@@ -415,7 +402,7 @@ views:
                                       device_id: 7dc5c1afe19ff69babc531051adebdf7
                                     data:
                                       num_repeats: 1
-                                      delay_secs: 0.1
+                                      delay_secs: 0.4
                                       hold_secs: 0
                                       command: KEY_ENTER
                                   entity: remote.samsung_q80aa_65_tv
@@ -426,7 +413,6 @@ views:
                                   show_name: false
                                   show_icon: true
                                   size: 100px
-                                  aspect_ratio: 1/1
                                   tap_action:
                                     action: perform-action
                                     perform_action: remote.send_command
@@ -434,7 +420,7 @@ views:
                                       device_id: 7dc5c1afe19ff69babc531051adebdf7
                                     data:
                                       num_repeats: 1
-                                      delay_secs: 0.1
+                                      delay_secs: 0.4
                                       hold_secs: 0
                                       command: KEY_RIGHT
                                   entity: remote.samsung_q80aa_65_tv
@@ -445,26 +431,19 @@ views:
                                   show_name: false
                                   show_icon: true
                                   size: 100px
-                                  aspect_ratio: 1/1
                                   tap_action:
                                     action: perform-action
-                                    perform_action: remote.send_command
+                                    perform_action: media_player.volume_down
                                     target:
-                                      device_id: 7dc5c1afe19ff69babc531051adebdf7
-                                    data:
-                                      num_repeats: 1
-                                      delay_secs: 0.1
-                                      hold_secs: 0
-                                      command: KEY_PLAY
-                                  entity: remote.samsung_q80aa_65_tv
-                                  name: Play/Pause
-                                  icon: mdi:play-pause
+                                      entity_id: media_player.sonos
+                                  entity: media_player.sonos
+                                  name: Volume Down
+                                  icon: mdi:volume-minus
                                   show_state: false
                                 - type: custom:button-card
                                   show_name: false
                                   show_icon: true
                                   size: 100px
-                                  aspect_ratio: 1/1
                                   tap_action:
                                     action: perform-action
                                     perform_action: remote.send_command
@@ -472,7 +451,7 @@ views:
                                       device_id: 7dc5c1afe19ff69babc531051adebdf7
                                     data:
                                       num_repeats: 1
-                                      delay_secs: 0.1
+                                      delay_secs: 0.4
                                       hold_secs: 0
                                       command: KEY_DOWN
                                   entity: remote.samsung_q80aa_65_tv
@@ -483,7 +462,19 @@ views:
                                   show_name: false
                                   show_icon: true
                                   size: 100px
-                                  aspect_ratio: 1/1
+                                  tap_action:
+                                    action: perform-action
+                                    perform_action: media_player.volume_up
+                                    target:
+                                      entity_id: media_player.sonos
+                                  entity: media_player.sonos
+                                  name: Volume Up
+                                  icon: mdi:volume-plus
+                                  show_state: false
+                                - type: custom:button-card
+                                  show_name: false
+                                  show_icon: true
+                                  size: 100px
                                   tap_action:
                                     action: perform-action
                                     perform_action: remote.send_command
@@ -491,12 +482,48 @@ views:
                                       device_id: 7dc5c1afe19ff69babc531051adebdf7
                                     data:
                                       num_repeats: 1
-                                      delay_secs: 0.1
+                                      delay_secs: 0.4
+                                      hold_secs: 0
+                                      command: KEY_BACK
+                                  entity: remote.samsung_q80aa_65_tv
+                                  name: Home
+                                  icon: mdi:backup-restore
+                                  show_state: false
+                                - type: custom:button-card
+                                  show_name: false
+                                  show_icon: true
+                                  size: 100px
+                                  tap_action:
+                                    action: perform-action
+                                    perform_action: remote.send_command
+                                    target:
+                                      device_id: 7dc5c1afe19ff69babc531051adebdf7
+                                    data:
+                                      num_repeats: 1
+                                      delay_secs: 0.4
                                       hold_secs: 0
                                       command: KEY_HOME
                                   entity: remote.samsung_q80aa_65_tv
                                   name: Home
                                   icon: mdi:home
+                                  show_state: false
+                                - type: custom:button-card
+                                  show_name: false
+                                  show_icon: true
+                                  size: 100px
+                                  tap_action:
+                                    action: perform-action
+                                    perform_action: remote.send_command
+                                    target:
+                                      device_id: 7dc5c1afe19ff69babc531051adebdf7
+                                    data:
+                                      num_repeats: 1
+                                      delay_secs: 0.4
+                                      hold_secs: 0
+                                      command: KEY_PLAY
+                                  entity: remote.samsung_q80aa_65_tv
+                                  name: Play/Pause
+                                  icon: mdi:play-pause
                                   show_state: false
 
                 - entity: climate.main_floor_thermostat
@@ -767,9 +794,9 @@ views:
                             entity_id: entity
                             brightness_step_pct: "HCJS: return variables.y_percentage / 10;"
 
-      #################################################
-      # Sonos
-      #################################################
+        #################################################
+        # Sonos
+        #################################################
           - type: custom:mod-card
             card_mod:
               style: |
@@ -903,6 +930,16 @@ views:
                                   title: Family Room
                                   icon: mdi:couch
                                   id: cam_3
+                                - camera_entity: camera.office_fluent
+                                  live_provider: auto
+                                  title: Office
+                                  icon: mdi:couch
+                                  id: cam_5
+                                - camera_entity: camera.garage_fluent
+                                  live_provider: auto
+                                  title: Office
+                                  icon: mdi:garage
+                                  id: cam_6
                               view:
                                 default: live
                                 dark_mode: "on"
@@ -1233,7 +1270,7 @@ views:
                                               name: Hassio
                                               tap_action:
                                                 action: call-service
-                                                confirmation: Are you sure?
+                                                # confirmation: Are you sure?
                                                 service: homeassistant.restart
                                           show_header_toggle: false
                                           show_state: false
@@ -1249,7 +1286,7 @@ views:
                                               name: Automations
                                               tap_action:
                                                 action: call-service
-                                                confirmation: Are you sure?
+                                                # confirmation: Are you sure?
                                                 service: automation.reload
                                           show_header_toggle: false
                                           show_state: false
@@ -1265,7 +1302,7 @@ views:
                                               name: Core Config
                                               tap_action:
                                                 action: call-service
-                                                confirmation: Are you sure?
+                                                # confirmation: Are you sure?
                                                 service: homeassistant.reload_core_config
                                           show_header_toggle: false
                                           show_state: false
@@ -1283,7 +1320,7 @@ views:
                                               name: Scripts
                                               tap_action:
                                                 action: call-service
-                                                confirmation: Are you sure?
+                                                # confirmation: Are you sure?
                                                 service: script.reload
                                           show_header_toggle: false
                                           show_state: false
@@ -1299,7 +1336,7 @@ views:
                                               name: Groups
                                               tap_action:
                                                 action: call-service
-                                                confirmation: Are you sure?
+                                                # confirmation: Are you sure?
                                                 service: group.reload
                                           show_header_toggle: false
                                           show_state: false
@@ -1315,7 +1352,7 @@ views:
                                               name: Frontend
                                               tap_action:
                                                 action: call-service
-                                                confirmation: Are you sure?
+                                                # confirmation: Are you sure?
                                                 service: frontend.reload_themes
                                           show_header_toggle: false
                                           show_state: false
@@ -1399,316 +1436,316 @@ views:
                                             icon: false
                                           height: 300
                                           width: 200
-                                # - type: vertical-stack
-                                #   cards:
-                                #     - type: horizontal-stack
-                                #       cards:
-                                #         - type: custom:button-card
-                                #           entity: person.britney_fahmy
-                                #           aspect_ratio: 1/1
-                                #           grid_options:
-                                #             columns: 6
-                                #           name: Person
-                                #           show_entity_picture: true
-                                #           show_name: false
-                                #           hold_action:
-                                #             action: none
-                                #           state:
-                                #             - value: home
-                                #               styles:
-                                #                 custom_fields:
-                                #                   icon:
-                                #                     - border-color: '#77c66e'
-                                #             - value: not_home
-                                #               styles:
-                                #                 card:
-                                #                   - background-color: '#dedede'
-                                #                 custom_fields:
-                                #                   icon:
-                                #                     - border-color: '#EF4F1A'
-                                #             - value: Work
-                                #               styles:
-                                #                 custom_fields:
-                                #                   icon:
-                                #                     - border-color: deepskyblue
-                                #           styles:
-                                #             card:
-                                #               - background-color: white
-                                #               - border-radius: 5%
-                                #               - padding: 5%
-                                #               - color: gray
-                                #               - font-size: 10px
-                                #               - text-shadow: 0px 0px 0px black
-                                #               - text-transform: capitalize
-                                #               - justify-self: end
-                                #               - align-self: middle
-                                #             grid:
-                                #               - grid-template-areas: '"icon status" "n n" "battery proximity" "wifi ss" "sd sd"'
-                                #               - grid-template-columns: 2fr 1fr
-                                #               - grid-template-rows: 1fr min-content min-content min-content min-content
-                                #             name:
-                                #               - font-size: 15px
-                                #               - align-self: middle
-                                #               - justify-self: start
-                                #               - padding-bottom: 10px
-                                #             custom_fields:
-                                #               icon:
-                                #                 - clip-path: circle()
-                                #                 - width: 80%
-                                #                 - pointer-events: none
-                                #                 - display: grid
-                                #                 - border: 5px solid
-                                #                 - border-color: gray
-                                #                 - border-radius: 500px
-                                #                 - margin: 0 +10% 0 0
-                                #                 - justify-self: end
-                                #                 - opacity: 1
-                                #               status:
-                                #                 - align-self: start
-                                #                 - justify-self: end
-                                #                 - color: gray
-                                #               proximity:
-                                #                 - padding: 0.5em 0px
-                                #                 - align-self: middle
-                                #                 - justify-self: start
-                                #                 - color: gray
-                                #               wifi:
-                                #                 - padding: 0.5em 0px
-                                #                 - align-self: middle
-                                #                 - justify-self: start
-                                #                 - color: gray
-                                #                 - '--text-wifi-color-sensor': >-
-                                #                     [[[ if
-                                #                     (states["sensor.britneys_iphone_connection_type"].state ==
-                                #                     '<not connected>') return "#aaaaaa"; ]]]
-                                #               battery:
-                                #                 - padding: 0.5em 0px
-                                #                 - align-self: middle
-                                #                 - justify-self: start
-                                #                 - color: gray
-                                #                 - '--text-color-sensor': >-
-                                #                     [[[ if
-                                #                     (states["sensor.britneys_iphone_battery_level"].state <
-                                #                     50) return "#EF4F1A"; ]]]
-                                #           custom_fields:
-                                #             icon: >
-                                #               [[[ return entity === undefined ? null : `<img
-                                #               src="${states[entity.entity_id].attributes.entity_picture}"
-                                #               width="100%">`; ]]]
-                                #             status: |
-                                #               [[[
-                                #                 if (states['person.britney_fahmy'].state =='not_home') {
-                                #                 return `<ha-icon icon="mdi:home-export-outline"
-                                #                   style="width: 20px; height: 20px; color: '#888888';">
-                                #                   </ha-icon><span> Away</span>`;
-                                #                 }
-                                #                 if (states['person.britney_fahmy'].state =='home') {
-                                #                 return `<ha-icon
-                                #                   icon="mdi:home"
-                                #                   style="width: 20px; height: 20px; color: 888888;">
-                                #                   </ha-icon><span> ${entity.state}</span>`;
-                                #                 } else {
-                                #                 return `<ha-icon
-                                #                   icon="mdi:map-marker-radius"
-                                #                   style="width: 20px; height: 20px; color: 888888;">
-                                #                   </ha-icon><span> ${entity.state}</span>`;
-                                #                 }
-                                #               ]]]
-                                #             proximity: |
-                                #               [[[
-                                #                 return `<ha-icon
-                                #                   icon="mdi:map-marker-distance"
-                                #                   style="width: 20px; height: 20px; color: #888888;">
-                                #                   </ha-icon>  <span>\<span style="color: var(--text-color-sensor); ">${(states['sensor.britneys_iphone_distance'].state/1000)}km </span></span>`
-                                #               ]]]
-                                #             battery: |
-                                #               [[[
-                                #                 if (states['sensor.britneys_iphone_battery_state'].state =='charging') {
-                                #                   return `<ha-icon
-                                #                   icon="mdi:battery-charging"
-                                #                   style="width: 20px; height: 20px; color: #888888;">
-                                #                   </ha-icon> <span><span style="color: var(--text-color-sensor);">${states['sensor.britneys_iphone_battery_state'].state}% battery</span></span>`;
-                                #                 } else {
-                                #                   return `<ha-icon
-                                #                   icon="mdi:battery"
-                                #                   style="width: 20px; height: 20px; color: #888888;">
-                                #                   </ha-icon> <span><span style="color: var(--text-color-sensor);">${states['sensor.britneys_iphone_battery_level'].state}% battery</span></span>`;
-                                #                 }
-                                #               ]]]
-                                #             wifi: |
-                                #               [[[
-                                #                 if (states['binary_sensor.192_168_68_52'].state == 'off') {
-                                #                   return `<ha-icon
-                                #                   icon="mdi:wifi-off"
-                                #                   style="width: 20px; height: 20px; color: var(--text-wifi-color-sensor);">
-                                #                   </ha-icon> <span><span style="color: var(--text-wifi-color-sensor);">Disconnected</span></span>`;
-                                #                 } else {
-                                #                   return `<ha-icon
-                                #                   icon="mdi:wifi"
-                                #                   style="width: 20px; height: 20px; color: #888888;">
-                                #                   </ha-icon> <span><span style="color: var(--text-color-sensor);">${states['sensor.britneys_iphone_connection_type'].state}</span></span>`;
-                                #                 }
-                                #               ]]]
-                                #         - type: custom:button-card
-                                #           entity: person.george_fahmy
-                                #           aspect_ratio: 1/1
-                                #           name: Person
-                                #           show_entity_picture: true
-                                #           show_name: false
-                                #           grid_options:
-                                #             columns: 6
-                                #           hold_action:
-                                #             action: none
-                                #           state:
-                                #             - value: home
-                                #               styles:
-                                #                 custom_fields:
-                                #                   icon:
-                                #                     - border-color: '#77c66e'
-                                #             - value: not_home
-                                #               styles:
-                                #                 card:
-                                #                   - background-color: '#dedede'
-                                #                 custom_fields:
-                                #                   icon:
-                                #                     - border-color: '#EF4F1A'
-                                #             - value: Work
-                                #               styles:
-                                #                 custom_fields:
-                                #                   icon:
-                                #                     - border-color: deepskyblue
-                                #           styles:
-                                #             card:
-                                #               - background-color: white
-                                #               - border-radius: 5%
-                                #               - padding: 5%
-                                #               - color: gray
-                                #               - font-size: 10px
-                                #               - text-shadow: 0px 0px 0px black
-                                #               - text-transform: capitalize
-                                #               - justify-self: end
-                                #               - align-self: middle
-                                #             grid:
-                                #               - grid-template-areas: '"icon status" "n n" "battery proximity" "wifi ss" "sd sd"'
-                                #               - grid-template-columns: 2fr 1fr
-                                #               - grid-template-rows: 1fr min-content min-content min-content min-content
-                                #             name:
-                                #               - font-size: 15px
-                                #               - align-self: middle
-                                #               - justify-self: start
-                                #               - padding-bottom: 10px
-                                #             custom_fields:
-                                #               icon:
-                                #                 - clip-path: circle()
-                                #                 - width: 80%
-                                #                 - pointer-events: none
-                                #                 - display: grid
-                                #                 - border: 5px solid
-                                #                 - border-color: gray
-                                #                 - border-radius: 500px
-                                #                 - margin: 0 +10% 0 0
-                                #                 - justify-self: end
-                                #                 - opacity: 1
-                                #               status:
-                                #                 - align-self: start
-                                #                 - justify-self: end
-                                #                 - color: gray
-                                #               proximity:
-                                #                 - padding: 0.5em 0px
-                                #                 - align-self: middle
-                                #                 - justify-self: start
-                                #                 - color: gray
-                                #               wifi:
-                                #                 - padding: 0.5em 0px
-                                #                 - align-self: middle
-                                #                 - justify-self: start
-                                #                 - color: gray
-                                #                 - '--text-wifi-color-sensor': >-
-                                #                     [[[ if
-                                #                     (states["sensor.george_16pro_connection_type"].state ==
-                                #                     '<not connected>') return "#aaaaaa"; ]]]
-                                #               battery:
-                                #                 - padding: 0.5em 0px
-                                #                 - align-self: middle
-                                #                 - justify-self: start
-                                #                 - color: gray
-                                #                 - '--text-color-sensor': >-
-                                #                     [[[ if (states["sensor.george_16pro_battery_level"].state
-                                #                     < 50) return "#EF4F1A"; ]]]
-                                #           custom_fields:
-                                #             icon: >
-                                #               [[[ return entity === undefined ? null : `<img
-                                #               src="${states[entity.entity_id].attributes.entity_picture}"
-                                #               width="100%">`; ]]]
-                                #             status: |
-                                #               [[[
-                                #                 if (states['person.george_fahmy'].state =='not_home') {
-                                #                 return `<ha-icon icon="mdi:home-export-outline"
-                                #                   style="width: 20px; height: 20px; color: '#888888';">
-                                #                   </ha-icon><span> Away</span>`;
-                                #                 }
-                                #                 if (states['person.george_fahmy'].state =='home') {
-                                #                 return `<ha-icon
-                                #                   icon="mdi:home"
-                                #                   style="width: 20px; height: 20px; color: 888888;">
-                                #                   </ha-icon><span> ${entity.state}</span>`;
-                                #                 } else {
-                                #                 return `<ha-icon
-                                #                   icon="mdi:map-marker-radius"
-                                #                   style="width: 20px; height: 20px; color: 888888;">
-                                #                   </ha-icon><span> ${entity.state}</span>`;
-                                #                 }
-                                #               ]]]
-                                #             proximity: |
-                                #               [[[
-                                #                 return `<ha-icon
-                                #                   icon="mdi:map-marker-distance"
-                                #                   style="width: 20px; height: 20px; color: #888888;">
-                                #                   </ha-icon>  <span>\<span style="color: var(--text-color-sensor);">${(states['sensor.george_16pro_distance'].state)/1000}km </span></span>`
-                                #               ]]]
-                                #             battery: |
-                                #               [[[
-                                #                 if (states['sensor.george_16pro_battery_state'].state =='charging') {
-                                #                   return `<ha-icon
-                                #                   icon="mdi:battery-charging"
-                                #                   style="width: 20px; height: 20px; color: #888888;">
-                                #                   </ha-icon> <span><span style="color: var(--text-color-sensor);">${states['sensor.george_16pro_battery_state'].state}% battery</span></span>`;
-                                #                 } else {
-                                #                   return `<ha-icon
-                                #                   icon="mdi:battery"
-                                #                   style="width: 20px; height: 20px; color: #888888;">
-                                #                   </ha-icon> <span><span style="color: var(--text-color-sensor);">${states['sensor.george_16pro_battery_level'].state}% battery</span></span>`;
-                                #                 }
-                                #               ]]]
-                                #             wifi: |
-                                #               [[[
-                                #                 if (states['binary_sensor.192_168_68_50'].state =='off') {
-                                #                   return `<ha-icon
-                                #                   icon="mdi:wifi-off"
-                                #                   style="width: 20px; height: 20px; color: var(--text-wifi-color-sensor);">
-                                #                   </ha-icon> <span><span style="color: var(--text-wifi-color-sensor);">Disconnected</span></span>`;
-                                #                 } else {
-                                #                   return `<ha-icon
-                                #                   icon="mdi:wifi"
-                                #                   style="width: 20px; height: 20px; color: #888888;">
-                                #                   </ha-icon> <span><span style="color: var(--text-color-sensor);">${states['sensor.george_16pro_connection_type'].state}</span></span>`;
-                                #                 }
-                                #               ]]]
+                                - type: vertical-stack
+                                  cards:
+                                    # - type: horizontal-stack
+                                    #   cards:
+                                    #     - type: custom:button-card
+                                    #       entity: person.britney_fahmy
+                                    #       aspect_ratio: 1/1
+                                    #       grid_options:
+                                    #         columns: 6
+                                    #       name: Person
+                                    #       show_entity_picture: true
+                                    #       show_name: false
+                                    #       hold_action:
+                                    #         action: none
+                                    #       state:
+                                    #         - value: home
+                                    #           styles:
+                                    #             custom_fields:
+                                    #               icon:
+                                    #                 - border-color: '#77c66e'
+                                    #         - value: not_home
+                                    #           styles:
+                                    #             card:
+                                    #               - background-color: '#dedede'
+                                    #             custom_fields:
+                                    #               icon:
+                                    #                 - border-color: '#EF4F1A'
+                                    #         - value: Work
+                                    #           styles:
+                                    #             custom_fields:
+                                    #               icon:
+                                    #                 - border-color: deepskyblue
+                                    #       styles:
+                                    #         card:
+                                    #           - background-color: white
+                                    #           - border-radius: 5%
+                                    #           - padding: 5%
+                                    #           - color: gray
+                                    #           - font-size: 10px
+                                    #           - text-shadow: 0px 0px 0px black
+                                    #           - text-transform: capitalize
+                                    #           - justify-self: end
+                                    #           - align-self: middle
+                                    #         grid:
+                                    #           - grid-template-areas: '"icon status" "n n" "battery proximity" "wifi ss" "sd sd"'
+                                    #           - grid-template-columns: 2fr 1fr
+                                    #           - grid-template-rows: 1fr min-content min-content min-content min-content
+                                    #         name:
+                                    #           - font-size: 15px
+                                    #           - align-self: middle
+                                    #           - justify-self: start
+                                    #           - padding-bottom: 10px
+                                    #         custom_fields:
+                                    #           icon:
+                                    #             - clip-path: circle()
+                                    #             - width: 80%
+                                    #             - pointer-events: none
+                                    #             - display: grid
+                                    #             - border: 5px solid
+                                    #             - border-color: gray
+                                    #             - border-radius: 500px
+                                    #             - margin: 0 +10% 0 0
+                                    #             - justify-self: end
+                                    #             - opacity: 1
+                                    #           # status:
+                                    #           #   - align-self: start
+                                    #           #   - justify-self: end
+                                    #           #   - color: gray
+                                    #           proximity:
+                                    #             - padding: 0.5em 0px
+                                    #             - align-self: middle
+                                    #             - justify-self: start
+                                    #             - color: gray
+                                    #           wifi:
+                                    #             - padding: 0.5em 0px
+                                    #             - align-self: middle
+                                    #             - justify-self: start
+                                    #             - color: gray
+                                    #             - '--text-wifi-color-sensor': >-
+                                    #                 [[[ if
+                                    #                 (states["sensor.britneys_iphone_connection_type"].state ==
+                                    #                 '<not connected>') return "#aaaaaa"; ]]]
+                                    #           battery:
+                                    #             - padding: 0.5em 0px
+                                    #             - align-self: middle
+                                    #             - justify-self: start
+                                    #             - color: gray
+                                    #             - '--text-color-sensor': >-
+                                    #                 [[[ if
+                                    #                 (states["sensor.britneys_iphone_battery_level"].state <
+                                    #                 50) return "#EF4F1A"; ]]]
+                                    #       custom_fields:
+                                    #         icon: >
+                                    #           [[[ return entity === undefined ? null : `<img
+                                    #           src="${states[entity.entity_id].attributes.entity_picture}"
+                                    #           width="100%">`; ]]]
+                                    #         # status: |
+                                    #         #   [[[
+                                    #         #     if (states['person.britney_fahmy'].state =='not_home') {
+                                    #         #     return `<ha-icon icon="mdi:home-export-outline"
+                                    #         #       style="width: 20px; height: 20px; color: '#888888';">
+                                    #         #       </ha-icon><span> Away</span>`;
+                                    #         #     }
+                                    #         #     if (states['person.britney_fahmy'].state =='home') {
+                                    #         #     return `<ha-icon
+                                    #         #       icon="mdi:home"
+                                    #         #       style="width: 20px; height: 20px; color: 888888;">
+                                    #         #       </ha-icon><span> ${entity.state}</span>`;
+                                    #         #     } else {
+                                    #         #     return `<ha-icon
+                                    #         #       icon="mdi:map-marker-radius"
+                                    #         #       style="width: 20px; height: 20px; color: 888888;">
+                                    #         #       </ha-icon><span> ${entity.state}</span>`;
+                                    #         #     }
+                                    #         #   ]]]
+                                    #         proximity: |
+                                    #           [[[
+                                    #             return `<ha-icon
+                                    #               icon="mdi:map-marker-distance"
+                                    #               style="width: 20px; height: 20px; color: #888888;">
+                                    #               </ha-icon>  <span>\<span style="color: var(--text-color-sensor); ">${(states['sensor.britneys_iphone_distance'].state/1000)}km </span></span>`
+                                    #           ]]]
+                                    #         battery: |
+                                    #           [[[
+                                    #             if (states['sensor.britneys_iphone_battery_state'].state =='charging') {
+                                    #               return `<ha-icon
+                                    #               icon="mdi:battery-charging"
+                                    #               style="width: 20px; height: 20px; color: #888888;">
+                                    #               </ha-icon> <span><span style="color: var(--text-color-sensor);">${states['sensor.britneys_iphone_battery_state'].state}% battery</span></span>`;
+                                    #             } else {
+                                    #               return `<ha-icon
+                                    #               icon="mdi:battery"
+                                    #               style="width: 20px; height: 20px; color: #888888;">
+                                    #               </ha-icon> <span><span style="color: var(--text-color-sensor);">${states['sensor.britneys_iphone_battery_level'].state}% battery</span></span>`;
+                                    #             }
+                                    #           ]]]
+                                    #         wifi: |
+                                    #           [[[
+                                    #             if (states['binary_sensor.192_168_68_52'].state == 'off') {
+                                    #               return `<ha-icon
+                                    #               icon="mdi:wifi-off"
+                                    #               style="width: 20px; height: 20px; color: var(--text-wifi-color-sensor);">
+                                    #               </ha-icon> <span><span style="color: var(--text-wifi-color-sensor);">Disconnected</span></span>`;
+                                    #             } else {
+                                    #               return `<ha-icon
+                                    #               icon="mdi:wifi"
+                                    #               style="width: 20px; height: 20px; color: #888888;">
+                                    #               </ha-icon> <span><span style="color: var(--text-color-sensor);">${states['sensor.britneys_iphone_connection_type'].state}</span></span>`;
+                                    #             }
+                                    #           ]]]
+                                    #     - type: custom:button-card
+                                    #       entity: person.george_fahmy
+                                    #       aspect_ratio: 1/1
+                                    #       name: Person
+                                    #       show_entity_picture: true
+                                    #       show_name: false
+                                    #       grid_options:
+                                    #         columns: 6
+                                    #       hold_action:
+                                    #         action: none
+                                    #       state:
+                                    #         - value: home
+                                    #           styles:
+                                    #             custom_fields:
+                                    #               icon:
+                                    #                 - border-color: '#77c66e'
+                                    #         - value: not_home
+                                    #           styles:
+                                    #             card:
+                                    #               - background-color: '#dedede'
+                                    #             custom_fields:
+                                    #               icon:
+                                    #                 - border-color: '#EF4F1A'
+                                    #         - value: Work
+                                    #           styles:
+                                    #             custom_fields:
+                                    #               icon:
+                                    #                 - border-color: deepskyblue
+                                    #       styles:
+                                    #         card:
+                                    #           - background-color: white
+                                    #           - border-radius: 5%
+                                    #           - padding: 5%
+                                    #           - color: gray
+                                    #           - font-size: 10px
+                                    #           - text-shadow: 0px 0px 0px black
+                                    #           - text-transform: capitalize
+                                    #           - justify-self: end
+                                    #           - align-self: middle
+                                    #         grid:
+                                    #           - grid-template-areas: '"icon status" "n n" "battery proximity" "wifi ss" "sd sd"'
+                                    #           - grid-template-columns: 2fr 1fr
+                                    #           - grid-template-rows: 1fr min-content min-content min-content min-content
+                                    #         name:
+                                    #           - font-size: 15px
+                                    #           - align-self: middle
+                                    #           - justify-self: start
+                                    #           - padding-bottom: 10px
+                                    #         custom_fields:
+                                    #           icon:
+                                    #             - clip-path: circle()
+                                    #             - width: 80%
+                                    #             - pointer-events: none
+                                    #             - display: grid
+                                    #             - border: 5px solid
+                                    #             - border-color: gray
+                                    #             - border-radius: 500px
+                                    #             - margin: 0 +10% 0 0
+                                    #             - justify-self: end
+                                    #             - opacity: 1
+                                    #           status:
+                                    #             - align-self: start
+                                    #             - justify-self: end
+                                    #             - color: gray
+                                    #           proximity:
+                                    #             - padding: 0.5em 0px
+                                    #             - align-self: middle
+                                    #             - justify-self: start
+                                    #             - color: gray
+                                    #           wifi:
+                                    #             - padding: 0.5em 0px
+                                    #             - align-self: middle
+                                    #             - justify-self: start
+                                    #             - color: gray
+                                    #             - '--text-wifi-color-sensor': >-
+                                    #                 [[[ if
+                                    #                 (states["sensor.george_16pro_connection_type"].state ==
+                                    #                 '<not connected>') return "#aaaaaa"; ]]]
+                                    #           battery:
+                                    #             - padding: 0.5em 0px
+                                    #             - align-self: middle
+                                    #             - justify-self: start
+                                    #             - color: gray
+                                    #             - '--text-color-sensor': >-
+                                    #                 [[[ if (states["sensor.george_16pro_battery_level"].state
+                                    #                 < 50) return "#EF4F1A"; ]]]
+                                    #       custom_fields:
+                                    #         icon: >
+                                    #           [[[ return entity === undefined ? null : `<img
+                                    #           src="${states[entity.entity_id].attributes.entity_picture}"
+                                    #           width="100%">`; ]]]
+                                    #         # status: |
+                                    #         #   [[[
+                                    #         #     if (states['person.george_fahmy'].state =='not_home') {
+                                    #         #     return `<ha-icon icon="mdi:home-export-outline"
+                                    #         #       style="width: 20px; height: 20px; color: '#888888';">
+                                    #         #       </ha-icon><span> Away</span>`;
+                                    #         #     }
+                                    #         #     if (states['person.george_fahmy'].state =='home') {
+                                    #         #     return `<ha-icon
+                                    #         #       icon="mdi:home"
+                                    #         #       style="width: 20px; height: 20px; color: 888888;">
+                                    #         #       </ha-icon><span> ${entity.state}</span>`;
+                                    #         #     } else {
+                                    #         #     return `<ha-icon
+                                    #         #       icon="mdi:map-marker-radius"
+                                    #         #       style="width: 20px; height: 20px; color: 888888;">
+                                    #         #       </ha-icon><span> ${entity.state}</span>`;
+                                    #         #     }
+                                    #         #   ]]]
+                                    #         proximity: |
+                                    #           [[[
+                                    #             return `<ha-icon
+                                    #               icon="mdi:map-marker-distance"
+                                    #               style="width: 20px; height: 20px; color: #888888;">
+                                    #               </ha-icon>  <span>\<span style="color: var(--text-color-sensor);">${(states['sensor.george_16pro_distance'].state)/1000}km </span></span>`
+                                    #           ]]]
+                                    #         battery: |
+                                    #           [[[
+                                    #             if (states['sensor.george_16pro_battery_state'].state =='charging') {
+                                    #               return `<ha-icon
+                                    #               icon="mdi:battery-charging"
+                                    #               style="width: 20px; height: 20px; color: #888888;">
+                                    #               </ha-icon> <span><span style="color: var(--text-color-sensor);">${states['sensor.george_16pro_battery_state'].state}% battery</span></span>`;
+                                    #             } else {
+                                    #               return `<ha-icon
+                                    #               icon="mdi:battery"
+                                    #               style="width: 20px; height: 20px; color: #888888;">
+                                    #               </ha-icon> <span><span style="color: var(--text-color-sensor);">${states['sensor.george_16pro_battery_level'].state}% battery</span></span>`;
+                                    #             }
+                                    #           ]]]
+                                    #         wifi: |
+                                    #           [[[
+                                    #             if (states['binary_sensor.192_168_68_50'].state =='off') {
+                                    #               return `<ha-icon
+                                    #               icon="mdi:wifi-off"
+                                    #               style="width: 20px; height: 20px; color: var(--text-wifi-color-sensor);">
+                                    #               </ha-icon> <span><span style="color: var(--text-wifi-color-sensor);">Disconnected</span></span>`;
+                                    #             } else {
+                                    #               return `<ha-icon
+                                    #               icon="mdi:wifi"
+                                    #               style="width: 20px; height: 20px; color: #888888;">
+                                    #               </ha-icon> <span><span style="color: var(--text-color-sensor);">${states['sensor.george_16pro_connection_type'].state}</span></span>`;
+                                    #             }
+                                    #           ]]]
 
-                                #     - type: entities
-                                #       entities:
-                                #         - entity: sensor.benson_battery
-                                #         - entity: sensor.george_16pro_battery_level
-                                #         - entity: sensor.britneys_iphone_battery_level
-                                #         - entity: sensor.george_16pro_watch_battery_level
-                                #       state_color: true
-                                #       header:
-                                #         type: picture
-                                #         image: /local/images/battery_logo.png
-                                #         tap_action:
-                                #           action: none
-                                #         hold_action:
-                                #           action: none
+                                    - type: entities
+                                      entities:
+                                        - entity: sensor.benson_battery
+                                        - entity: sensor.george_16pro_battery_level
+                                        - entity: sensor.britneys_iphone_battery_level
+                                        - entity: sensor.george_16pro_watch_battery_level
+                                      state_color: true
+                                      header:
+                                        type: picture
+                                        image: /local/images/battery_logo.png
+                                        tap_action:
+                                          action: none
+                                        hold_action:
+                                          action: none
                                 - type: entities
                                   entities:
                                     - entity: sensor.sensor_count
