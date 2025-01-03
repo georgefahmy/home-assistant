@@ -25,15 +25,15 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.29402792"
-     inkscape:cx="896.17338"
-     inkscape:cy="794.14226"
+     inkscape:zoom="0.5706125"
+     inkscape:cx="1320.5109"
+     inkscape:cy="733.42242"
      inkscape:window-width="1624"
      inkscape:window-height="997"
      inkscape:window-x="56"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
-     inkscape:current-layer="areas" /><defs
+     inkscape:current-layer="light_overlays_floor_1" /><defs
      id="defs4975"><inkscape:perspective
        sodipodi:type="inkscape:persp3d"
        inkscape:vp_x="364.04398 : 263.62635 : 1"
@@ -116,7 +116,8 @@
          id="light_overlay.floor_1_family_room_main"
          x="0"
          y="0"
-         inkscape:label="floor_1_family_room_main" /><image
+         inkscape:label="floor_1_family_room_main"
+         style="display:inline" /><image
          width="677.33331"
          height="381"
          preserveAspectRatio="none"
@@ -125,7 +126,7 @@
          x="0"
          y="0"
          inkscape:label="floor_1_kitchen_cabinets"
-         style="display:none" /><image
+         style="display:inline" /><image
          width="677.33331"
          height="381"
          preserveAspectRatio="none"
@@ -134,7 +135,7 @@
          x="0"
          y="0"
          inkscape:label="floor_1_kitchen_main"
-         style="display:none" /><image
+         style="display:inline" /><image
          width="677.33331"
          height="381"
          preserveAspectRatio="none"
@@ -143,7 +144,7 @@
          x="0"
          y="0"
          inkscape:label="floor_1_kitchen_sink"
-         style="display:none" /><image
+         style="display:inline" /><image
          width="677.33331"
          height="381"
          preserveAspectRatio="none"
@@ -152,7 +153,7 @@
          x="0"
          y="0"
          inkscape:label="floor_1_kitchen_table"
-         style="display:none" /><image
+         style="display:inline" /><image
          width="677.33331"
          height="381"
          preserveAspectRatio="none"
@@ -161,7 +162,7 @@
          x="0"
          y="0"
          inkscape:label="floor_1_office_lamp"
-         style="display:none" /><image
+         style="display:inline" /><image
          width="677.33331"
          height="381"
          preserveAspectRatio="none"
@@ -170,7 +171,7 @@
          x="0"
          y="0"
          inkscape:label="floor_1_pantry"
-         style="display:none" /></g><g
+         style="display:inline" /></g><g
        inkscape:groupmode="layer"
        id="light_overlays_floor_2"
        inkscape:label="light_overlays_floor_2"
