@@ -1,0 +1,42 @@
+
+card:
+  type: markdown
+  content: >-
+    # Hello {{ user.split()[0] }}
+    {% set weather = states('weather.forecast_home') %}
+    {% set temp = states('sensor.main_floor_thermostat_outdoor_temperature') %}
+    {% set humidity = states('sensor.main_floor_thermostat_outdoor_humidity') %}
+    {% set wind_speed = state_attr('weather.forecast_home','wind_speed') %}
+
+    {% if weather == "sunny" %}
+
+    The sun is shining brightly with a pleasant **{{ temp }}°F**. A perfect day to be outside!
+
+    {% elif weather == "cloudy" %}
+
+    The sky is overcast with **{{ temp }}°F**, creating a calm and cool atmosphere.
+
+    {% elif weather == "partlycloudy" %}
+
+    The sky is slighty overcast with **{{ temp }}°F**, creating a calm and cool atmosphere.
+
+    {% elif weather == "rainy" %}
+
+    Rain is falling steadily, with a temperature of **{{ temp }}°F**. Make sure to grab an umbrella!
+
+    {% elif weather == "snowy" %}
+
+    Snowflakes are gently covering the ground, with chilly **{{ temp }}°F**. Stay warm and cozy!
+
+    {% elif weather == "windy" %}
+
+    Strong winds are sweeping through, making the **{{ temp }}°F** feel even cooler.  Hold onto your hat!
+
+    {% else %}
+
+    The weather is currently {{ weather | capitalize }}, with a temperature of **{{ temp }}°F**.
+
+    {% endif %}
+
+    The air feels **{{ humidity }}%** humid, and a breeze of **{{ wind_speed }} mph** is passing through.
+  text_only: true
