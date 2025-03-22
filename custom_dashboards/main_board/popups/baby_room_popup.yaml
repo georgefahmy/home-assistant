@@ -1,0 +1,98 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: '#baby-room'
+    button_type: name
+    name: Baby Room
+    icon: mdi:bed
+    sub_button:
+      - entity: sensor.baby_room_temp_temperature
+        state_background: false
+        show_state: true
+        show_attribute: false
+        show_last_changed: false
+        show_name: false
+    bg_color: ''
+    hide_backdrop: true
+    backdrop_blur: '25'
+    styles: |-
+      .bubble-button-card-container {
+        background: skyblue !important;
+      }
+      .bubble-name {
+        color: black
+      }
+    width_desktop: 840px
+  - type: custom:bubble-card
+    card_type: separator
+    name: Lights
+    icon: mdi:lamps
+  - type: horizontal-stack
+    cards:
+      - type: custom:mushroom-light-card
+        entity: light.baby_room_rgb
+        show_color_temp_control: false
+        show_color_control: false
+        show_brightness_control: true
+        collapsible_controls: false
+        use_light_color: true
+        fill_container: true
+        icon: mdi:lamp
+        icon_type: icon
+        layout: horizontal
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: light.baby_room_rgb
+            state: "on"
+        card:
+          type: custom:mushroom-light-card
+          entity: light.baby_room_rgb
+          show_brightness_control: false
+          show_color_temp_control: true
+          show_color_control: true
+          collapsible_controls: true
+          use_light_color: true
+          fill_container: false
+          layout: horizontal
+          icon_type: none
+          name: Lamp Color
+          primary_info: none
+          secondary_info: none
+          tap_action:
+            action: none
+          hold_action:
+            action: none
+          double_tap_action:
+            action: none
+  - type: custom:bubble-card
+    card_type: separator
+    name: Temperature & Humidity
+    icon: mdi:home-thermometer-outline
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        button_type: state
+        name: Temperature
+        icon: mdi:thermometer
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        slider_live_update: true
+        sub_button: []
+        card_type: button
+        entity: sensor.baby_room_temp_temperature
+      - type: custom:bubble-card
+        button_type: state
+        name: Humidity
+        icon: mdi:water-percent
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        slider_live_update: true
+        sub_button: []
+        card_type: button
+        entity: sensor.baby_room_temp_humidity

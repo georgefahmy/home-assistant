@@ -1,0 +1,6 @@
+ card:
+  type: custom:bubble-card
+  card_type: separator
+  name: "[[separator_name]]"
+  icon: "[[separator_icon]]"
+  card_layout: large

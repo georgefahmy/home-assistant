@@ -1,0 +1,53 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: '#garage'
+    name: Garage
+    show_header: true
+    icon: mdi:garage
+    sub_button:
+      - entity: sensor.garage_temp_temperature
+        show_state: true
+        state_background: false
+    styles: |-
+      .bubble-button-card-container {
+        background: grey !important;
+      }
+    width_desktop: 840px
+  - type: custom:bubble-card
+    card_type: cover
+    entity: cover.garage_door_blaq_garage_door
+    show_name: true
+    show_icon: true
+    show_attribute: false
+    show_state: true
+    icon_open: mdi:garage-open-variant
+    icon_close: mdi:garage-variant
+    icon_down: mdi:garage-variant
+    icon_up: mdi:garage-open-variant
+    hold_action:
+      action: none
+    show_last_changed: true
+    name: Garage Door
+  - type: custom:mod-card
+    card:
+      type: custom:ha-card-waze-travel-time
+      header: false
+      name: Route to...
+      unit: mi
+      columns:
+        - to
+        - duration
+        - distance
+      destinations:
+        - entity: sensor.waze_parents_travel_time
+          to: Parents
+        - entity: sensor.waze_britney_travel_time
+          to: Britney
+        - entity: sensor.waze_work_travel_time
+          to: Work
+        - entity: sensor.waze_san_martin_travel_time
+          to: San Martin (E16)
+        - entity: sensor.waze_redding_travel_time
+          to: Harpers

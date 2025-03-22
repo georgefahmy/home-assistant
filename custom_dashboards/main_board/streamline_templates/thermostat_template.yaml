@@ -1,0 +1,26 @@
+card:
+  type: custom:mushroom-climate-card
+  entity: "[[thermostat_entity]]"
+  name: "[[thermostat_name]]"
+  layout: horizontal
+  fill_container: true
+  icon_type: icon
+  secondary_info: name
+  primary_info: state
+  hvac_modes:
+    - heat
+    - cool
+    - "off"
+  show_temperature_control: true
+  collapsible_controls: false
+  tap_action:
+    action: more-info
+  hold_action:
+    action: perform-action
+    perform_action: climate.set_preset_mode
+    target:
+      entity_id: "[[thermostat_entity]]"
+    data:
+      preset_mode: NoHold
+  double_tap_action:
+    action: none

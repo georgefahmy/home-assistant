@@ -1,0 +1,36 @@
+card:
+  type: markdown
+  content: >-
+    {% if "00:00:00" < as_datetime(now()).strftime("%H:%M:%S") < "12:00:00" %}
+      # Good Morning {{ user.split()[0] }}
+    {% elif "12:00:00" <= as_datetime(now()).strftime("%H:%M:%S") < "17:00:00" %}
+      # Good Afternoon {{ user.split()[0] }}
+    {% elif "17:00:00" <= as_datetime(now()).strftime("%H:%M:%S") <= "23:59:59" %}
+      # Good Evening {{ user.split()[0] }}
+    {% else %}
+      # Hello {{ user.split()[0] }}
+    {% endif %}
+
+    {% set weather = states('weather.forecast_jasper') %}
+    {% set temp = states('sensor.jasper_sensors_temperature') %}
+    {% set humidity = states('sensor.jasper_sensors_humidity') %}
+    {% set wind_speed = states('sensor.jasper_sensors_wind_speed') %}
+    {% set rain_intensity = states('sensor.jasper_sensors_precipitation_intensity') %}
+
+    {% if weather == "sunny" %}
+      The sun is shining brightly with a pleasant tempeature of **{{ temp }}°F**. A perfect day to be outside!
+    {% elif weather == "cloudy" %}
+      The sky is overcast with a temperature of **{{ temp }}°F**, creating a calm and cool atmosphere.
+    {% elif weather == "partlycloudy" %}
+      The sky is slighty overcast with a temperature of **{{ temp }}°F**, creating a calm and cool atmosphere.
+    {% elif weather == "rainy" %}
+      Rain is falling steadily, with a temperature of **{{ temp }}°F** . Make sure to grab an umbrella!
+    {% elif weather == "snowy" %}
+      Snowflakes are gently covering the ground, with a chilly tempeature of **{{ temp }}°F**. Stay warm and cozy!
+    {% elif weather == "windy" %}
+      Strong winds are sweeping through, making the temperature of **{{ temp }}°F** feel even cooler. Hold onto your hat!
+    {% else %}
+      The weather is currently {{ weather | capitalize }}, with a temperature of **{{ temp }}°F**.
+    {% endif %}
+      The air feels **{{ humidity }}%** humid, and a breeze of **{{ wind_speed }} mph** is passing through.
+  text_only: true
