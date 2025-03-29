@@ -1,1 +1,11 @@
 *.tar
+.storage/
+.cloud/
+.HA_VERSION
+secrets.yaml
+.shopping_list.json
+lutron*
+image/
+www/community/
+custom_components/
+home-assistant_v2.db
