@@ -1,0 +1,1217 @@
+- id: '1733468481966'
+  alias: Doorbell Sonos Announcement
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.front_door_visitor
+    to: 'on'
+  conditions: []
+  actions:
+  - action: tts.speak
+    metadata: {}
+    data:
+      cache: true
+      media_player_entity_id: media_player.homepod_mini
+      message: Someone is at the door
+    target:
+      entity_id: tts.home_assistant_cloud
+  - device_id: dd6f4797a2f3b0def8f8cdf98f3d5bf6
+    domain: mobile_app
+    type: notify
+    message: Someone is at the door!
+    data:
+      push:
+        interruption-level: critical
+    title: Doorbell
+  mode: single
+- id: '1733597874537'
+  alias: Pico Nightstands
+  description: ''
+  triggers:
+  - device_id: dc4ed07a0d1de052bc65cf7e99b017c1
+    domain: lutron_caseta
+    type: press
+    subtype: 'on'
+    trigger: device
+    id: 'on'
+  - device_id: dc4ed07a0d1de052bc65cf7e99b017c1
+    domain: lutron_caseta
+    type: press
+    subtype: 'off'
+    trigger: device
+    id: 'off'
+  - device_id: dc4ed07a0d1de052bc65cf7e99b017c1
+    domain: lutron_caseta
+    type: press
+    subtype: raise
+    trigger: device
+    id: raise
+  - device_id: dc4ed07a0d1de052bc65cf7e99b017c1
+    domain: lutron_caseta
+    type: press
+    subtype: lower
+    trigger: device
+    id: lower
+  - device_id: dc4ed07a0d1de052bc65cf7e99b017c1
+    domain: lutron_caseta
+    type: press
+    subtype: stop
+    trigger: device
+    id: stop
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - 'on'
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data:
+          kelvin: 2300
+          brightness_pct: 90
+          effect: 'Off'
+        target:
+          entity_id:
+          - light.george_nightstand_rgb_tapo
+          - light.britney_nightstand_rgb_tapo
+    - conditions:
+      - condition: trigger
+        id:
+        - 'off'
+      sequence:
+      - action: light.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id:
+          - light.george_nightstand_rgb_tapo
+          - light.britney_nightstand_rgb_tapo
+    - conditions:
+      - condition: trigger
+        id:
+        - raise
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data:
+          brightness_step_pct: 10
+          effect: 'Off'
+        target:
+          entity_id:
+          - light.george_nightstand_rgb_tapo
+          - light.britney_nightstand_rgb_tapo
+    - conditions:
+      - condition: trigger
+        id:
+        - lower
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data:
+          brightness_step_pct: -10
+          effect: 'Off'
+        target:
+          entity_id:
+          - light.george_nightstand_rgb_tapo
+          - light.britney_nightstand_rgb_tapo
+    - conditions:
+      - condition: trigger
+        id:
+        - stop
+        enabled: true
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data:
+          brightness_pct: 50
+          effect: Relax
+        target:
+          entity_id:
+          - light.george_nightstand_rgb_tapo
+          - light.britney_nightstand_rgb_tapo
+  mode: single
+- id: '1733608466931'
+  alias: Person Counter
+  description: ''
+  triggers:
+  - type: turned_on
+    device_id: 901e6e97d72b6f8c82c4ef6504d07f09
+    entity_id: 753da1b20f41d0c27be5fa036314b848
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: counter.increment
+    metadata: {}
+    data: {}
+    target:
+      entity_id: counter.persons
+  mode: single
+- id: '1733608525397'
+  alias: Reset Person Counter
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    hours: '23'
+    minutes: '59'
+    seconds: '59'
+  conditions: []
+  actions:
+  - action: counter.reset
+    metadata: {}
+    data: {}
+    target:
+      entity_id: counter.persons
+  mode: single
+- id: '1733622519322'
+  alias: Doorbell Day/Night Mode
+  description: Uses the sunrise and sunset times to set the doorbell to night or day
+    mode
+  triggers:
+  - trigger: sun
+    event: sunrise
+    offset: -00:15:00
+  - trigger: sun
+    event: sunset
+    offset: 00:30:00
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: sun
+        before: sunrise
+        after: sunset
+        before_offset: -00:15:00
+        after_offset: 00:30:00
+      sequence:
+      - device_id: 901e6e97d72b6f8c82c4ef6504d07f09
+        domain: select
+        entity_id: 21682e872c62006201defdcaf09be348
+        type: select_last
+    - conditions:
+      - condition: sun
+        before: sunset
+        after: sunrise
+        after_offset: -00:15:00
+        before_offset: 00:30:00
+      sequence:
+      - device_id: 901e6e97d72b6f8c82c4ef6504d07f09
+        domain: select
+        entity_id: 21682e872c62006201defdcaf09be348
+        type: select_first
+  mode: single
+- id: '1734160576291'
+  alias: Garbage Day Notification
+  description: ''
+  triggers:
+  - trigger: calendar
+    entity_id: calendar.garbage_collection
+    event: start
+    offset: '-5:0:0'
+  conditions: []
+  actions:
+  - action: notify.mobile_app_george_16pro
+    metadata: {}
+    data:
+      message: Garbage day - Take out the Gray Bin
+      title: Garbage Day
+  mode: single
+- id: '1734160633046'
+  alias: Recycle Day Notification
+  description: ''
+  triggers:
+  - trigger: calendar
+    entity_id: calendar.recycle_collection
+    event: start
+    offset: '-5:0:0'
+  conditions: []
+  actions:
+  - action: notify.mobile_app_george_16pro
+    metadata: {}
+    data:
+      message: Recycle day - Take out the Blue Bin
+      title: Recycle Day
+  mode: single
+- id: '1734586113720'
+  alias: Dishwasher Complete
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.whirlpool_dishwasher_on
+    from: 'on'
+    to: 'off'
+  conditions: []
+  actions:
+  - action: notify.mobile_app_george_16pro
+    metadata: {}
+    data:
+      message: Dishwasher is Done!
+      title: Dishwasher
+  mode: single
+- id: '1734646859772'
+  alias: Washing Machine Done
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.whirlpool_washing_machine_on
+    from: 'on'
+    to: 'off'
+  conditions: []
+  actions:
+  - action: notify.mobile_app_britneys_iphone
+    metadata: {}
+    data:
+      message: Washing Machine is done!
+      title: Whirlpool Washing Machine
+  mode: single
+- id: '1737015707199'
+  alias: Morning Disarm
+  description: ''
+  triggers:
+  - trigger: sun
+    event: sunrise
+    offset: 01:00:00
+  conditions:
+  - condition: state
+    entity_id: alarm_control_panel.home
+    state: armed_night
+    attribute: arm_mode
+  actions:
+  - action: alarm_control_panel.alarm_disarm
+    metadata: {}
+    data: {}
+    target:
+      entity_id: alarm_control_panel.home
+  mode: single
+- id: '1737066631894'
+  alias: Sunset Close Windows
+  description: ''
+  triggers:
+  - trigger: sun
+    event: sunset
+    offset: 00:5:00
+  conditions: []
+  actions:
+  - action: cover.set_cover_tilt_position
+    metadata: {}
+    data:
+      tilt_position: 100
+    target:
+      entity_id:
+      - cover.family_room_window_3
+      - cover.family_room_window_4
+      - cover.kitchen_window_1
+      - cover.kitchen_window_2
+      - cover.kitchen_window_3
+      - cover.kitchen_window_4
+      - cover.family_room_window_1
+      - cover.family_room_window_2
+  mode: single
+- id: '1737077420710'
+  alias: Sunrise Open Windows
+  description: ''
+  triggers:
+  - trigger: sun
+    event: sunrise
+    offset: -00:20:00
+  conditions: []
+  actions:
+  - action: cover.set_cover_tilt_position
+    metadata: {}
+    data:
+      tilt_position: 50
+    target:
+      entity_id:
+      - cover.family_room_window_3
+      - cover.family_room_window_4
+      - cover.kitchen_window_1
+      - cover.kitchen_window_2
+      - cover.kitchen_window_3
+      - cover.kitchen_window_4
+      - cover.family_room_window_1
+      - cover.family_room_window_2
+  mode: single
+- id: '1737169848774'
+  alias: Turn on Both Nightstands
+  description: ''
+  triggers:
+  - device_id: 1dd484f9d8f18d3025624e34b49b32fc
+    domain: zha
+    type: remote_button_double_press
+    subtype: button
+    trigger: device
+  - device_id: 5aa59cc1d2042c5a740ed0fad47fc9bb
+    domain: zha
+    type: remote_button_double_press
+    subtype: button
+    trigger: device
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: light.george_nightstand_rgb_tapo
+        state: 'on'
+      - condition: state
+        entity_id: light.britney_nightstand_rgb_tapo
+        state: 'on'
+      sequence:
+      - action: light.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: light.nightstands
+    - conditions:
+      - condition: state
+        entity_id: light.george_nightstand_rgb_tapo
+        state: 'off'
+      - condition: state
+        entity_id: light.britney_nightstand_rgb_tapo
+        state: 'on'
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: light.george_nightstand_rgb_tapo
+    - conditions:
+      - condition: state
+        entity_id: light.george_nightstand_rgb_tapo
+        state: 'on'
+      - condition: state
+        entity_id: light.britney_nightstand_rgb_tapo
+        state: 'off'
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id:
+          - light.britney_nightstand_rgb_tapo
+    - conditions:
+      - condition: state
+        entity_id: light.george_nightstand_rgb_tapo
+        state: 'off'
+      - condition: state
+        entity_id: light.britney_nightstand_rgb_tapo
+        state: 'off'
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: light.nightstands
+  mode: single
+- id: '1737169947442'
+  alias: George Night Stand Toggle
+  description: ''
+  triggers:
+  - device_id: 5aa59cc1d2042c5a740ed0fad47fc9bb
+    domain: zha
+    type: remote_button_short_press
+    subtype: button
+    trigger: device
+  conditions: []
+  actions:
+  - action: light.toggle
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.george_nightstand_rgb_tapo
+  mode: single
+- id: '1737169993257'
+  alias: Britney Nightstand Toggle
+  description: ''
+  triggers:
+  - device_id: 1dd484f9d8f18d3025624e34b49b32fc
+    domain: zha
+    type: remote_button_short_press
+    subtype: button
+    trigger: device
+  conditions: []
+  actions:
+  - action: light.toggle
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.britney_nightstand_rgb_tapo
+  mode: single
+- id: '1737342538327'
+  alias: Reset Britney Meds Counter
+  description: ''
+  triggers:
+  - trigger: time
+    at: 04:00:00
+  conditions: []
+  actions:
+  - action: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.britney_meds_toggle
+  mode: single
+- id: '1737342846767'
+  alias: Britney medicine Alert
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    minutes: '1'
+  - trigger: time_pattern
+    minutes: '31'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.britney_meds_toggle
+    state: 'on'
+  - condition: time
+    after: '22:30:00'
+    before: 04:00:00
+  actions:
+  - action: notify.mobile_app_britneys_iphone
+    metadata: {}
+    data:
+      message: Don't Forget to Take your meds
+      title: Medicine Reminder Alerts
+      data:
+        push:
+          interruption-level: time-sensitive
+  - action: notify.mobile_app_george_16pro
+    metadata: {}
+    data:
+      message: Remind Britney to take her meds
+      title: Medicine Reminder Alerts
+  mode: single
+- id: '1737342953115'
+  alias: Medicine Reminder Toggle
+  description: ''
+  triggers:
+  - trigger: tag
+    tag_id: 6d8e7ee1-9ee9-4fba-9395-f03a314beb3b
+  conditions: []
+  actions:
+  - action: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.britney_meds_toggle
+  mode: single
+- id: '1737357333632'
+  alias: Disarm Alarm
+  description: ''
+  triggers:
+  - device_id: dd6f4797a2f3b0def8f8cdf98f3d5bf6
+    domain: device_tracker
+    entity_id: c48abe8f686ffa26b7147f9733906029
+    type: enters
+    trigger: device
+    zone: zone.home
+  - device_id: 8e9cf973b1b0a5fbaa861b5f5bd77229
+    domain: device_tracker
+    entity_id: c3f9a6dc7b4c92b38bc74ede7d4eab10
+    type: enters
+    trigger: device
+    zone: zone.home
+  conditions: []
+  actions:
+  - action: alarm_control_panel.alarm_disarm
+    metadata: {}
+    data: {}
+    target:
+      entity_id: alarm_control_panel.home
+  mode: single
+- id: '1737361183177'
+  alias: George Toggle Opposite Nightstand
+  description: ''
+  triggers:
+  - device_id: 5aa59cc1d2042c5a740ed0fad47fc9bb
+    domain: zha
+    type: remote_button_long_press
+    subtype: button
+    trigger: device
+  conditions: []
+  actions:
+  - action: light.toggle
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - light.britney_nightstand_rgb_tapo
+  mode: single
+- id: '1737361270122'
+  alias: Britney Toggle Opposite Nightstand
+  description: ''
+  triggers:
+  - device_id: 1dd484f9d8f18d3025624e34b49b32fc
+    domain: zha
+    type: remote_button_long_press
+    subtype: button
+    trigger: device
+  conditions: []
+  actions:
+  - action: light.toggle
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.george_nightstand_rgb_tapo
+  mode: single
+- id: '1737477371084'
+  alias: Tea Kettle Done
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.smart_kettle_temperature
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+    above: 190
+  conditions:
+  - condition: device
+    type: is_on
+    device_id: 0d327eacc3f11820406a8d15f0763268
+    entity_id: 6c960c284db90ff5275cf482c186094d
+    domain: switch
+  - condition: device
+    device_id: dd6f4797a2f3b0def8f8cdf98f3d5bf6
+    domain: device_tracker
+    entity_id: c48abe8f686ffa26b7147f9733906029
+    type: is_home
+  - condition: device
+    device_id: 8e9cf973b1b0a5fbaa861b5f5bd77229
+    domain: device_tracker
+    entity_id: c3f9a6dc7b4c92b38bc74ede7d4eab10
+    type: is_home
+  actions:
+  - action: media_player.volume_set
+    metadata: {}
+    data:
+      volume_level: 0.4
+    target:
+      entity_id: media_player.homepod_mini
+  - action: notify.mobile_app_george_16pro
+    metadata: {}
+    data:
+      message: Kettle is Done
+      title: Tea Kettle
+  - action: notify.mobile_app_britneys_iphone
+    metadata: {}
+    data:
+      message: Kettle is Done :)
+      title: Tea Kettle
+  - if:
+    - condition: device
+      type: is_on
+      device_id: 0d327eacc3f11820406a8d15f0763268
+      entity_id: 6c960c284db90ff5275cf482c186094d
+      domain: switch
+      for:
+        hours: 0
+        minutes: 20
+        seconds: 0
+    then:
+    - type: turn_off
+      device_id: 0d327eacc3f11820406a8d15f0763268
+      entity_id: 6c960c284db90ff5275cf482c186094d
+      domain: switch
+  - action: tts.cloud_say
+    metadata: {}
+    data:
+      entity_id: media_player.homepod_mini
+      message: Tea Kettle is Done
+  mode: single
+- id: '1737611071073'
+  alias: Garage Open Notification
+  description: ''
+  triggers:
+  - type: running
+    device_id: 293d71ccd49818e8d5e6047cd4a0bfb3
+    entity_id: fbe624028094fe2f79963561bbac0a60
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: device
+        device_id: 293d71ccd49818e8d5e6047cd4a0bfb3
+        domain: cover
+        entity_id: 4c36c50d1eb80029e7f3ee96c3b8e1d2
+        type: is_opening
+      sequence:
+      - action: notify.mobile_app_george_16pro
+        metadata: {}
+        data:
+          message: Garage Door is Opening
+          title: Garage Door
+      - action: notify.mobile_app_britneys_iphone
+        metadata: {}
+        data:
+          title: Garage Door
+          message: Garage Door is Opening
+    - conditions:
+      - condition: device
+        device_id: 293d71ccd49818e8d5e6047cd4a0bfb3
+        domain: cover
+        entity_id: 4c36c50d1eb80029e7f3ee96c3b8e1d2
+        type: is_closing
+      sequence:
+      - action: notify.mobile_app_george_16pro
+        metadata: {}
+        data:
+          message: Garage Door is Closing
+          title: Garage Door
+    - conditions:
+      - condition: state
+        entity_id: cover.garage_door_blaq_garage_door
+        state: open
+        for:
+          hours: 0
+          minutes: 15
+          seconds: 0
+      sequence:
+      - action: notify.mobile_app_george_16pro
+        metadata: {}
+        data:
+          title: Garage Door
+          message: Garage has been open for 15 Minutes
+      - action: notify.mobile_app_britneys_iphone
+        metadata: {}
+        data:
+          title: Garage Door
+          message: Garage has been open for 15 minutes
+  mode: single
+- id: '1737862632345'
+  alias: Presence Control of Office Lamp
+  description: ''
+  triggers:
+  - type: motion
+    device_id: 78d5c5e53b583b42fc713592a450b519
+    entity_id: d20a990078cd8b79c327490cf50616ef
+    domain: binary_sensor
+    trigger: device
+  - type: no_motion
+    device_id: 78d5c5e53b583b42fc713592a450b519
+    entity_id: d20a990078cd8b79c327490cf50616ef
+    domain: binary_sensor
+    trigger: device
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - type: is_motion
+        condition: device
+        device_id: 78d5c5e53b583b42fc713592a450b519
+        entity_id: d20a990078cd8b79c327490cf50616ef
+        domain: binary_sensor
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: light.office_lamp
+    - conditions:
+      - type: is_no_motion
+        condition: device
+        device_id: 78d5c5e53b583b42fc713592a450b519
+        entity_id: d20a990078cd8b79c327490cf50616ef
+        domain: binary_sensor
+      sequence:
+      - action: light.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: light.office_lamp
+  mode: single
+- id: '1738275390881'
+  alias: Baby Room Lamp Toggle
+  description: ''
+  triggers:
+  - device_id: 7ef71e0780ed960ce39ec98216ed7ad9
+    domain: zha
+    type: remote_button_short_press
+    subtype: button
+    trigger: device
+    id: '0'
+  - device_id: 7ef71e0780ed960ce39ec98216ed7ad9
+    domain: zha
+    type: remote_button_double_press
+    subtype: button
+    trigger: device
+    id: '1'
+  - device_id: 7ef71e0780ed960ce39ec98216ed7ad9
+    domain: zha
+    type: remote_button_long_press
+    subtype: button
+    trigger: device
+    id: '2'
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - '0'
+      sequence:
+      - action: light.toggle
+        metadata: {}
+        data: {}
+        target:
+          entity_id: light.baby_room_rgb
+    - conditions:
+      - condition: trigger
+        id:
+        - '1'
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data:
+          brightness_pct: 100
+          kelvin: 5417
+        target:
+          entity_id: light.baby_room_rgb
+    - conditions:
+      - condition: trigger
+        id:
+        - '2'
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data:
+          brightness_pct: 15
+          kelvin: 3500
+        target:
+          entity_id: light.baby_room_rgb
+  mode: single
+- id: '1738735204772'
+  alias: Guest Room Lamp Toggle
+  description: ''
+  triggers:
+  - device_id: 3dfb9bafbe8acfe1f0bd108ea8009f3a
+    domain: zha
+    type: remote_button_short_press
+    subtype: button
+    trigger: device
+  conditions: []
+  actions:
+  - type: toggle
+    device_id: 216186eb5a201f6836915e473892b61f
+    entity_id: d14833022d215b65c29f813ad63a0100
+    domain: switch
+  mode: single
+- id: '1739243671951'
+  alias: Doorbell Actionable Notification
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.front_door_person
+    to: 'on'
+  conditions:
+  - condition: template
+    value_template: '{{as_timestamp(now()) - as_timestamp(state_attr(''automation.doorbell_actionable_notification'',
+      ''last_triggered''), 0) > 60}}'
+  actions:
+  - action: camera.snapshot
+    metadata: {}
+    data:
+      filename: /media/reolink_snapshot/last_snapshot_doorbell.jpg
+    target:
+      entity_id: camera.front_door_fluent
+  - action: camera.record
+    metadata: {}
+    data:
+      duration: 12
+      filename: /media/reolink_snapshot/last_record_doorbell.mp4
+      lookback: 10
+    target:
+      entity_id:
+      - camera.front_door_clear
+  - action: automation.trigger
+    metadata: {}
+    data:
+      skip_condition: false
+    target:
+      entity_id: automation.doorbell_notification_ai_analysis
+  - action: notify.mobile_app_george_16pro
+    metadata: {}
+    data:
+      message: Someone detected at the door
+      title: Front Door
+      data:
+        video: /media/local/reolink_snapshot/last_record_doorbell.mp4
+        push:
+          interruption-level: time-sensitive
+          badge: 1
+        actions:
+        - action: URI
+          uri: /lovelace-yaml/home-dashboard/#security
+          title: Open
+  - action: notify.mobile_app_britneys_iphone
+    metadata: {}
+    data:
+      message: Someone detected at the door
+      title: Front Door
+      data:
+        video: /media/local/reolink_snapshot/last_record_doorbell.mp4
+        push:
+          interruption-level: time-sensitive
+        actions:
+        - action: URI
+          activationMode: background
+          uri: /lovelace/mobile-main/
+          title: Open
+  mode: single
+- id: '1740434483821'
+  alias: Pico Blinds
+  description: ''
+  triggers:
+  - device_id: ab8e1624a03eff4109811901e0178ec7
+    domain: lutron_caseta
+    type: press
+    subtype: 'on'
+    trigger: device
+    id: up
+  - device_id: ab8e1624a03eff4109811901e0178ec7
+    domain: lutron_caseta
+    type: press
+    subtype: 'off'
+    trigger: device
+    id: down
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - up
+      sequence:
+      - action: cover.set_cover_tilt_position
+        metadata: {}
+        data:
+          tilt_position: 50
+        target:
+          entity_id:
+          - cover.kitchen_window_1
+          - cover.kitchen_window_2
+          - cover.kitchen_window_3
+          - cover.kitchen_window_4
+          - cover.family_room_window_3
+          - cover.family_room_window_4
+          - cover.family_room_window_1
+          - cover.family_room_window_2
+    - conditions:
+      - condition: trigger
+        id:
+        - down
+      sequence:
+      - action: cover.set_cover_tilt_position
+        metadata: {}
+        data:
+          tilt_position: 99
+        target:
+          entity_id:
+          - cover.kitchen_window_1
+          - cover.kitchen_window_2
+          - cover.kitchen_window_3
+          - cover.kitchen_window_4
+          - cover.family_room_window_3
+          - cover.family_room_window_4
+          - cover.family_room_window_1
+          - cover.family_room_window_2
+  mode: single
+- id: '1740628451108'
+  alias: 'Dryer complete notification '
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.dryer_on
+    from: 'on'
+    to: 'off'
+  conditions: []
+  actions:
+  - action: notify.mobile_app_britneys_iphone
+    metadata: {}
+    data:
+      message: Dryer is done!
+      title: Whirlpool Dryer
+  mode: single
+- id: '1741158427461'
+  alias: Family Room Presence Sensor Lights
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.everything_presence_lite_061618_zone_1_occupancy
+    - binary_sensor.everything_presence_lite_061618_zone_2_occupancy
+    to: 'on'
+    id: detected
+  - trigger: state
+    entity_id:
+    - binary_sensor.everything_presence_lite_061618_zone_1_occupancy
+    - binary_sensor.everything_presence_lite_061618_zone_2_occupancy
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+    id: clear
+  conditions:
+  - condition: sun
+    before: sunrise
+    after: sunset
+    before_offset: '1:00:00'
+    after_offset: '1:00:00'
+  - condition: numeric_state
+    entity_id: sensor.everything_presence_lite_061618_illuminance
+    below: 2
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: binary_sensor.everything_presence_lite_061618_zone_1_occupancy
+        state: 'on'
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data:
+          brightness_pct: 10
+        target:
+          entity_id: light.family_room_main
+    - conditions:
+      - condition: state
+        entity_id: binary_sensor.everything_presence_lite_061618_zone_2_occupancy
+        state: 'on'
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data:
+          brightness_pct: 10
+        target:
+          entity_id: light.kitchen_main
+    - conditions:
+      - condition: state
+        entity_id: binary_sensor.everything_presence_lite_061618_zone_1_occupancy
+        state: 'off'
+      sequence:
+      - action: light.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: light.family_room_main
+    - conditions:
+      - condition: state
+        entity_id: binary_sensor.everything_presence_lite_061618_zone_2_occupancy
+        state: 'off'
+      sequence:
+      - action: light.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id:
+          - light.kitchen_main
+  mode: single
+- id: '1741211926251'
+  alias: Illuminance Light Trigger
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    minutes: /1
+  conditions:
+  - condition: numeric_state
+    entity_id: sensor.everything_presence_lite_061618_illuminance
+    below: '5'
+  - condition: state
+    entity_id: binary_sensor.everything_presence_lite_061618_occupancy
+    state: 'on'
+  actions:
+  - action: light.turn_on
+    metadata: {}
+    data:
+      brightness_pct: 20
+    target:
+      entity_id: light.family_room_main
+  mode: single
+- id: '1741744292000'
+  alias: Bottle Warmer Notification
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.bottle_warmer_status
+    from: 'on'
+    to: 'off'
+  conditions: []
+  actions:
+  - action: tts.cloud_say
+    metadata: {}
+    data:
+      entity_id: media_player.homepod_mini
+      message: Bottle is ready
+  - type: turn_off
+    device_id: 6a86fd7dceecb19a8cd6ccf7c13e3e4a
+    entity_id: 60e9063a2558bbaf9e7de49aecd5b448
+    domain: switch
+  mode: single
+- id: '1742146901361'
+  alias: Entrance Cam Motion Light
+  description: ''
+  triggers:
+  - type: turned_on
+    device_id: da243b6514d1c2836e98dd59a91df5b1
+    entity_id: 88b7f877c6550e6ca0c2dc70a135b5bb
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - light.entrance_main
+      - light.entrance_stairs
+  mode: single
+- id: '1742275180534'
+  alias: AI Event Summary (v1.4.1)
+  description: ''
+  use_blueprint:
+    path: valentinfrlch/event_summary.yaml
+    input:
+      remember: true
+      notify_device: []
+      camera_entities:
+      - camera.baby_room_fluent_2
+      motion_sensors:
+      - binary_sensor.baby_room_motion_2
+      tap_navigate: /lovelace-yaml/home-dashboard/#security
+      duration: 10
+      max_frames: 20
+      provider: 01JPKSW1ZC61QKDM15CQK0PE5A
+      model: gemini-2.0-flash-lite
+      temperature: 0.9
+      important: true
+      notification_delivery: Dynamic
+      max_tokens: 100
+      run_conditions: []
+      cooldown: 5
+      preview_mode: Snapshot
+      message: Summarize the events based on a series of images captured at short
+        intervals. Focus only on moving subjects such as people, vehicles, and other
+        active elements. Ignore static objects and scenery. Provide a clear and concise
+        account of movements and interactions. Do not mention or imply the existence
+        of images—present the information as if directly observing the events.
+- id: '1742517170358'
+  alias: Doorbell Notification AI Analysis
+  description: ''
+  triggers: []
+  conditions:
+  - condition: template
+    value_template: '{{as_timestamp(now()) - as_timestamp(state_attr(''automation.doorbell_notification_ai_analysis'',
+      ''last_triggered''), 0) > 300}}'
+    enabled: false
+  actions:
+  - alias: Importance Analysis
+    action: llmvision.video_analyzer
+    data:
+      remember: false
+      max_frames: 10
+      include_filename: false
+      target_width: 640
+      max_tokens: 5
+      temperature: 0.1
+      generate_title: false
+      expose_images: false
+      provider: 01JPKSW1ZC61QKDM15CQK0PE5A
+      message: 'Classify the security event based on this image. Choose from the following
+        options: "passive" for unimportant events, "time-sensitive" for notable but
+        non-critical events such as a person at the front door, and "critical" only
+        for potential burglaries or highly suspicious activity. Respond with one of
+        these options exactly, without additional explanation. If the time is after
+        8PM local time make it "critical" regardless of the analysis.'
+      video_file: /media/reolink_snapshot/last_record_doorbell.mp4
+    response_variable: importance
+  - alias: Video Analysis
+    action: llmvision.video_analyzer
+    data:
+      remember: true
+      include_filename: false
+      temperature: 0.1
+      generate_title: true
+      expose_images: true
+      provider: 01JPKSW1ZC61QKDM15CQK0PE5A
+      message: Analyze the video for movement, particularly people. Analyze whether
+        any people in the frame are coming in through the gate or going out, or both
+        in and out. If any people are in the frame, analyze whether or not they are
+        carrying a package or not. If they do analyze the attire, If they have on
+        teal, or blue, it is likely an Amazon delivery person, state that. If it is
+        brown, it is likely UPS, state that. If it is White and purple, or just purple,
+        it is likely FedEx, state that. Do not use an intro, just describe the video
+        immediately.
+      video_file: /media/reolink_snapshot/last_record_doorbell.mp4
+      max_tokens: 250
+      target_width: 1280
+      max_frames: 10
+    response_variable: response
+  - action: notify.mobile_app_george_16pro
+    metadata: {}
+    data:
+      message: '{{response.response_text}}'
+      title: '{{response.title}}'
+      data:
+        image: '{{ response.key_frame.replace(''/config/www/'',''/local/'') }}'
+        push:
+          interruption-level: '{{importance.response_text|lower }}'
+  mode: single
+- id: '1743011098595'
+  alias: Purge Noisy Power Entities
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    hours: '4'
+    minutes: '15'
+    seconds: '0'
+  conditions: []
+  actions:
+  - action: recorder.purge_entities
+    metadata: {}
+    data:
+      keep_days: 3
+      entity_id:
+      - sensor.total_power
+      - sensor.total_energy
+      - sensor.appliances_power
+  mode: single
+- id: '1743208383494'
+  alias: Hair Straightener Alert
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.hair_straightener_power
+    for:
+      hours: 1
+      minutes: 0
+      seconds: 0
+    above: 10
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 2fa705b9de15cfae6db3a8c8254a70c3
+    entity_id: 692882167690f379808154655c623e68
+    domain: switch
+  - action: notify.mobile_app_britneys_iphone
+    metadata: {}
+    data:
+      message: Hair Straightener has been on for more than 1 hour. turning it off
+      title: Hair Straightener Alert
+  mode: single

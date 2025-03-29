@@ -1,0 +1,35 @@
+# Example configuration entry for finding
+# MAC addresses, Service UUIDs, iBeacon UUIDs, and identifiers
+substitutions:
+  name: esp32-ble-tracker
+  friendly_name: BLE Tracker
+
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  friendly_name: ${friendly_name}
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+ota:
+  - platform: esphome
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: tKQ1/dREr5SMjeAErNPvZCNpT8NRN8G/88jxu9Anf5s=
+
+
+esp32_ble_tracker:
+  on_ble_advertise:
+    - then:
+
+logger:
+  level: VERY_VERBOSE
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password

@@ -1,0 +1,36 @@
+welcome_home:
+  sequence:
+  - action: calendar.get_events
+    target:
+      entity_id:
+      - calendar.general_calandar
+    data:
+      start_date_time: '{{ now().isoformat() }}'
+      end_date_time: '{{ now().replace(hour=23, minute=59, second=59).isoformat()
+        }}'
+    response_variable: calendar_events
+  - action: google_generative_ai_conversation.generate_content
+    metadata: {}
+    data:
+      prompt: "Welcome people to home. Use the info below. This will be broadcasted
+        on speakers so don't give me options to choose from. You can be slightly deadpan
+        and funny, like Jarvis from the Iron Man movies.\nThe house average temperature
+        is {{ states('sensor.average_inside_temperature') | float | round(1) }} degrees.
+        The lowest temperature today is {{ states('sensor.minimum_inside_temperature')
+        | float | round(1) }} degrees.\nCalendar events as follows:\n    {% if calendar_events
+        %}\n      You have the following events today:\n      {% for calendar, data
+        in calendar_events.items() %}\n        {% for event in data.events %}\n          {%
+        if calendar == 'calendar.general_calandar' %}\n            - Person Name 1:
+        {{ event.summary }} from \n          {% endif %}\n            {{ as_datetime(event.start).strftime('%I:%M
+        %p') }} to \n            {{ as_datetime(event.end).strftime('%I:%M %p') }}\n
+        \       {% endfor %}\n      {% endfor %}\n    {% else %}\n      You have no
+        events today.\n    {% endif %}"
+    response_variable: response
+  - action: tts.cloud_say
+    metadata: {}
+    data:
+      cache: false
+      entity_id: media_player.homepod_mini
+      message: '{{ response.text }}'
+  alias: Welcome Home
+  description: ''

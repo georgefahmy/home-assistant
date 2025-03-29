@@ -1,0 +1,32 @@
+esphome:
+  name: wifi-node
+  friendly_name: Wifi Node
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "qXe0lwBSzRAy9hoZySZGFm/2efxM9plomgJa5Zy51EY="
+
+ota:
+  - platform: esphome
+    password: "5d3dc3b0a1ab2b978f08d75b4f4f4a13"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Wifi-Node Fallback Hotspot"
+    password: "PzfqKW1UILC4"
+
+captive_portal:
+    

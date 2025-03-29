@@ -1,0 +1,32 @@
+esphome:
+  name: ble-tracker
+  friendly_name: BLE Tracker
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "xYNnd6bzojDeme8tbl/+GKQzLXaXq1C6cIDOW08jTQM="
+
+ota:
+  - platform: esphome
+    password: "6bec9a45929b46e02308fb5a81bf10c8"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Ble-Tracker Fallback Hotspot"
+    password: "YSUVWmp5BXLY"
+
+captive_portal:
+    

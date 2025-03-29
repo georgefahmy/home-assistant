@@ -1,0 +1,32 @@
+esphome:
+  name: thread-boarder-router
+  friendly_name: thread boarder router
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "HBBDiESKruT4W39kDUVROWIdUukStmn6cx4bkbxCEW0="
+
+ota:
+  - platform: esphome
+    password: "5276c68c39cad68ecace08057130c132"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Thread-Boarder-Router"
+    password: "EHrgtaQIqLjf"
+
+captive_portal:
+    

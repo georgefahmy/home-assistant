@@ -1,5 +1,0 @@
-type: custom:streamline-card # downstairs thermostat
-template: thermostat_template
-variables:
-  thermostat_entity: climate.main_floor_thermostat
-  thermostat_name: Downstairs

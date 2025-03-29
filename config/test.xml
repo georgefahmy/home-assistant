@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Local Encryption</key>
+	<dict>
+		<key>Encrypted Diversifier</key>
+		<data>
+		AAA=
+		</data>
+		<key>Long-term Key</key>
+		<data>
+		ntboSRej45/zOEgNRQpDSw==
+		</data>
+		<key>Long-term Key Length</key>
+		<data>
+		EA==
+		</data>
+		<key>Long-term Key Type</key>
+		<data>
+		Aw==
+		</data>
+		<key>Random Number</key>
+		<data>
+		AAAAAAAAAAA=
+		</data>
+	</dict>
+	<key>Remote Encryption</key>
+	<dict>
+		<key>Long-term Key</key>
+		<data>
+		ntboSRej45/zOEgNRQpDSw==
+		</data>
+		<key>Long-term Key Length</key>
+		<data>
+		EA==
+		</data>
+		<key>Long-term Key Type</key>
+		<data>
+		Aw==
+		</data>
+	</dict>
+	<key>Remote IRK</key>
+	<data>
+	5I1C8ScDnJs/vfla/OOSTg==
+	</data>
+</dict>
+</plist>

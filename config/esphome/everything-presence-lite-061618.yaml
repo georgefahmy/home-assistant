@@ -1,0 +1,17 @@
+substitutions:
+  name: everything-presence-lite-061618
+  friendly_name: Everything Presence Lite 061618
+packages:
+  EverythingSmartTechnology.Everything Presence Lite: github://everythingsmarthome/everything-presence-lite/everything-presence-lite-ha-no-ble.yaml@main
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  friendly_name: ${friendly_name}
+api:
+  encryption:
+    key: lC6ubFnqD+Qu4JILps1uY1f8WexQFayyHHToADEbsC4=
+
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password

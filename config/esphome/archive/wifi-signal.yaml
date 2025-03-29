@@ -1,0 +1,53 @@
+esphome:
+  name: wifi-signal
+  friendly_name: Wifi Signal & BT Proxy Office
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+
+packages:
+  esphome.bluetooth-proxy: github://esphome/bluetooth-proxies/esp32-generic/esp32-generic.yaml@main
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "i7cIlJicbX77BwqXQ9Z340Bj/x2zJEryGlrVdNAy8C4="
+
+ota:
+  - platform: esphome
+    password: "901754106b53ab952f830f47e3b0baf2"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Wifi-Signal Fallback Hotspot"
+    password: "RxqcO9p0r3gs"
+
+captive_portal:
+
+
+sensor:
+  - platform: wifi_signal # Reports the WiFi signal strength/RSSI in dB
+    name: "WiFi Signal dB"
+    id: wifi_signal_db
+    update_interval: 60s
+    entity_category: "diagnostic"
+
+  - platform: copy # Reports the WiFi signal strength in %
+    source_id: wifi_signal_db
+    name: "WiFi Signal Percent"
+    filters:
+      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
+    unit_of_measurement: "Signal %"
+    entity_category: "diagnostic"
+    device_class: ""
+    
