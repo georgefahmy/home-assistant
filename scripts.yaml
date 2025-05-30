@@ -1,0 +1,126 @@
+welcome_home:
+  sequence:
+  - action: calendar.get_events
+    target:
+      entity_id:
+      - calendar.general_calandar
+    data:
+      start_date_time: '{{ now().isoformat() }}'
+      end_date_time: '{{ now().replace(hour=23, minute=59, second=59).isoformat()
+        }}'
+    response_variable: calendar_events
+  - action: google_generative_ai_conversation.generate_content
+    metadata: {}
+    data:
+      prompt: "Welcome people to home. Use the info below. This will be broadcasted
+        on speakers so don't give me options to choose from. You can be slightly deadpan
+        and funny, like Jarvis from the Iron Man movies.\nThe house average temperature
+        is {{ states('sensor.average_inside_temperature') | float | round(1) }} degrees.
+        The lowest temperature today is {{ states('sensor.minimum_inside_temperature')
+        | float | round(1) }} degrees.\nCalendar events as follows:\n    {% if calendar_events
+        %}\n      You have the following events today:\n      {% for calendar, data
+        in calendar_events.items() %}\n        {% for event in data.events %}\n          {%
+        if calendar == 'calendar.general_calandar' %}\n            - Person Name 1:
+        {{ event.summary }} from \n          {% endif %}\n            {{ as_datetime(event.start).strftime('%I:%M
+        %p') }} to \n            {{ as_datetime(event.end).strftime('%I:%M %p') }}\n
+        \       {% endfor %}\n      {% endfor %}\n    {% else %}\n      You have no
+        events today.\n    {% endif %}"
+    response_variable: response
+  - action: tts.cloud_say
+    metadata: {}
+    data:
+      cache: false
+      entity_id: media_player.homepod_mini
+      message: '{{ response.text }}'
+  alias: Welcome Home
+  description: ''
+decrease_baby_room_brightness_1min:
+  alias: Decrease baby room brightness - 1min
+  use_blueprint:
+    path: op00/increase-or-decrease-light-brightness-over-time.yaml
+    input:
+      light_entity: light.baby_room_rgb
+      transition_time: 60
+      initial_brightness: 50
+      target_brightness: 10
+  description: ''
+'1745907643769':
+  sequence:
+  - alias: Upstairs Thermostat Reset
+    sequence:
+    - target:
+        entity_id: climate.upstairs_thermostat
+      data:
+        temperature: '{{ states(''sensor.upstairs_thermostat_target_temperature'')|
+          float(0) }}'
+      action: climate.set_temperature
+  alias: Upstairs Thermostat Reset Script
+  description: ''
+downstairs_thermostat_reset_script:
+  sequence:
+  - alias: Downstairs Thermostat Reset
+    sequence:
+    - target:
+        entity_id: climate.main_floor_thermostat
+      data:
+        temperature: '{{ states(''sensor.downstairs_thermostat_target_temperature'')|
+          float(0) }}'
+      action: climate.set_temperature
+  alias: Downstairs Thermostat Reset Script
+  description: ''
+color_wheel:
+  sequence:
+  - action: light.turn_on
+    metadata: {}
+    data:
+      transition: 10
+      rgb_color:
+      - 255
+      - 58
+      - 48
+    target:
+      entity_id: light.baby_room_rgb
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - action: light.turn_on
+    metadata: {}
+    data:
+      transition: 10
+      rgb_color:
+      - 50
+      - 199
+      - 89
+    target:
+      entity_id: light.baby_room_rgb
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - action: light.turn_on
+    metadata: {}
+    data:
+      transition: 10
+      rgb_color:
+      - 1
+      - 97
+      - 253
+    target:
+      entity_id: light.baby_room_rgb
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - action: light.turn_on
+    metadata: {}
+    data:
+      transition: 10
+      color_temp_kelvin: 3153
+    target:
+      entity_id: light.baby_room_rgb
+  alias: Color Wheel
+  description: ''

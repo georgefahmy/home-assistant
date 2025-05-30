@@ -1,0 +1,39 @@
+- id: "1733597572487"
+  name: Fun Time
+  entities:
+    light.george_nighstand_rgb:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+        - color_temp
+        - hs
+        - xy
+      color_mode:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: George Nighstand RGB
+      supported_features: 0
+      state: "off"
+    light.britney_nightstand_rgb:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+        - color_temp
+        - hs
+        - xy
+      color_mode:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Britney Nightstand RGB
+      supported_features: 0
+      state: "off"
+  icon: mdi:bed
+  metadata: {}

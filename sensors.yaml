@@ -1,0 +1,14 @@
+- platform: average
+  name: "Whirlpool Dishwasher Average Power"
+  unique_id: 5739e-12358f-ghkdl-1857jg8d1ld908
+  duration: 600
+  entities:
+    - sensor.whirlpool_dishwasher_power
+- platform: average
+  name: "Whirlpool Washing Machine Average power"
+  unique_id: 5739e-12358f-ghkdl-1830jg8d1kd908
+  duration: 600
+  entities:
+    - sensor.whirlpool_washing_machine_power
+
+- !include subreddit.yaml

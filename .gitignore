@@ -1,11 +1,10 @@
-blueprints/automation/AndreiRadchenko
-blueprints/automation/homeassistant
-blueprints/automation/SgtBatten
-blueprints/automation/valentinfrlch
-blueprints/automation/vorion
-blueprints/script/homeassistant/
-blueprints/script/op00/
-blueprints/template/homeassistant
+# blueprint folders
+blueprints/
+!blueprints/automation/georgefahmy
+!blueprints/script/georgefahmy
+!blueprints/template/georgefahmy
+
+# custom components
 custom_components/
 esphome/
 image/
@@ -13,25 +12,28 @@ llmvision/
 themes/
 tts/
 www/
-.geofahm*
-.shopping_list.json
-automations.yaml
+
+# other files
 home-assistant.log*
 lutron_caseta*
-scenes.yaml
-scrape.yaml
-scripts.yaml
-secrets.yaml
-sensors.yaml
-solcast*
-subreddit.yaml
 test.xml
-zigbee*
 home-assistant_v2.db*
+solcast*
+
+# yaml files
+secrets.yaml
+automations.yaml
+
+# other folders
+zigbee*
 acme*
 production_auth*
 remote_*
+
+# hidden stuff
 .storage
 .cloud
 .git
+.shopping_list.json
+.geofahm*
 .HA_VERSION
