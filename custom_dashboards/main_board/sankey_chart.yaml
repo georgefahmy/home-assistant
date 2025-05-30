@@ -3,7 +3,7 @@ height: 400
 unit_prefix: k
 round: 1
 convert_units_to: ""
-co2_intensity_entity: sensor.co2_signal_co2_intensity
+co2_intensity_entity: ""
 gas_co2_intensity: 66.6
 min_box_size: 3
 min_box_distance: 5

@@ -86,11 +86,11 @@
     - type: conditional
       conditions:
         - condition: state
-          entity: lock.lock_front_door
+          entity: lock.front_door_lock
           state_not: locked
       chip:
         type: entity
-        entity: lock.lock_front_door
+        entity: lock.front_door_lock
         use_entity_picture: true
         icon_color: red
     - type: conditional
@@ -239,7 +239,7 @@
 - type: custom:mushroom-template-badge
   content: |-
     Memory - {{ states('sensor.system_monitor_memory_usage') }}%
-    | CPU - {{ states('sensor.system_monitor_processor_use') | float  }}%  
+    | CPU - {{ states('sensor.system_monitor_processor_use') | float  }}%
     {{ states('sensor.system_monitor_processor_temperature')}}°C
   icon: mdi:server
   color: >-
