@@ -1,0 +1,28 @@
+type: custom:streamline-card # guest room card
+grid_options:
+  columns: 6
+  rows: auto
+template: control_card_template
+variables:
+  # card info
+  - room_name: Guest
+  - room_temp_entity: sensor.guest_room_temp_temperature
+  - popup_nav_path: "#guest-room"
+  - room_icon: mdi:bed-empty
+  - icon_color: rgba(255, 98, 98, 0.25)
+
+  # sub button 1
+  - sub_button_1_entity: light.guest_room_lamp_switch
+  - sub_button_1_tap_action: toggle
+  - sub_button_1_hold_action: more-info
+  - sub_button_1_icon: mdi:lamp
+  - sub_button_1_name: Guest Room Nightstand Lamp
+  - sub_button_1_enabled: true
+
+  # sub button 2
+  - sub_button_2_entity: switch.space_heater_switch
+  - sub_button_2_tap_action: toggle
+  - sub_button_2_hold_action: more-info
+  - sub_button_2_icon: mdi:radiator
+  - sub_button_2_name: Space Heater
+  - sub_button_2_enabled: true

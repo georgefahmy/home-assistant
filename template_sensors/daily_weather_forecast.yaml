@@ -1,0 +1,53 @@
+trigger:
+  - trigger: time_pattern
+    hours: /1
+action:
+  - action: weather.get_forecasts
+    data:
+      type: daily
+    target:
+      entity_id: weather.forecast_jasper
+    response_variable: daily
+
+# DAILY
+# weather.forecast_jasper:
+#   forecast:
+#     - condition: rainy
+#       datetime: "2025-03-14T07:00:00+00:00"
+#       precipitation_icon: chance-rain
+#       precipitation_probability: 30
+#       precipitation_type: rain
+#       wind_bearing: 280
+#       temperature: 50
+#       templow: 37
+#       wind_gust_speed: 26.84
+#       wind_speed: 7.35
+#       precipitation: 0
+
+sensor:
+  - name: 10 Day Forecast
+    unique_id: forecast_10_day
+    state: "{{ now().isoformat() }}"
+    attributes:
+      forecast: "{{ daily['weather.forecast_jasper'].forecast }}"
+  - name: Temperature Forecast High
+    unique_id: temperature_forecast_high
+    icon: mdi:thermometer-high
+    device_class: Temperature
+    state: "{{ daily['weather.forecast_jasper'].forecast[0].temperature }}"
+    unit_of_measurement: °F
+  - name: Temperature Forecast Low
+    unique_id: temperature_forecast_low
+    icon: mdi:thermometer-low
+    device_class: Temperature
+    state: "{{ daily['weather.forecast_jasper'].forecast[0].templow }}"
+    unit_of_measurement: °F
+  - name: Precipitation Forecast Probability
+    unique_id: precipitation_probability_forecast_day
+    state: "{{ daily['weather.forecast_jasper'].forecast[0].precipitation_probability }}"
+    unit_of_measurement: "%"
+
+binary_sensor:
+  - name: Precipitation Forecast Binary Sensor
+    unique_id: precipitation_probability_forecast_day_binary_sensor
+    state: "{{ daily['weather.forecast_jasper'].forecast[0].precipitation_probability > 0 }}"

@@ -1,0 +1,38 @@
+kiosk_mode:
+  hide_header: false
+
+streamline_templates: !include_dir_named ./custom_dashboards/main_board/streamline_templates/
+
+views:
+  - type: sections
+    subview: false
+    title: Home
+    path: home-dashboard
+    max_columns: 3
+    dense_section_placement: true
+    theme: HaCasa
+
+    background:
+      opacity: 100
+      alignment: center
+      size: cover
+      repeat: repeat
+      attachment: fixed
+
+    header: !include custom_dashboards/main_board/header.yaml
+    badges: !include custom_dashboards/main_board/header_badges.yaml
+    sections:
+      #thermostats section
+      - type: grid
+        cards: !include_dir_list custom_dashboards/main_board/0.0_thermostat_cards/
+      #controls section
+      - type: grid
+        cards: !include_dir_list custom_dashboards/main_board/0.1_control_cards/
+      #monitoring section
+      - type: grid
+        cards: !include_dir_list custom_dashboards/main_board/0.2_monitoring_cards/
+      #popup cards
+      - type: grid
+        cards: !include_dir_list custom_dashboards/main_board/0.3_popups/
+  - !include custom_dashboards/main_board/subviews/security_grid.yaml
+  - !include custom_dashboards/main_board/subviews/battery_dashboard.yaml

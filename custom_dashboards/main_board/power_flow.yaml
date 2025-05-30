@@ -1,0 +1,163 @@
+type: custom:power-flow-card-plus
+entities:
+  battery:
+    entity: ""
+    state_of_charge: sensor.george_16pro_battery_level
+  grid:
+    entity: sensor.net_power_minute_average
+    display_zero_tolerance: 0
+    secondary_info:
+      entity: sensor.net_energy_daily
+      unit_of_measurement: kWh
+      color_value: true
+      accept_negative: true
+      unit_white_space: false
+      display_zero: true
+      decimals: 1
+    color_icon: true
+    color_circle: true
+    display_state: two_way
+    invert_state: false
+    color_value: true
+  solar:
+    entity: sensor.solar_generation_power_minute_average
+    display_zero_state: true
+    name: Solar
+    color_value: true
+    color_icon: true
+    invert_state: false
+    use_metadata: false
+    secondary_info:
+      entity: sensor.solar_generation_energy_daily
+      unit_of_measurement: kWh
+      color_value: true
+      display_zero: true
+      unit_white_space: false
+  home:
+    entity: sensor.total_usage_power_minute_average
+    subtract_individual: false
+    override_state: false
+    color_value: true
+    color_icon: true
+    circle_animation: true
+    secondary_info:
+      entity: sensor.total_energy_energy_daily
+      unit_of_measurement: kWh
+      decimals: 1
+      color_value: true
+      display_zero: true
+      accept_negative: true
+      unit_white_space: false
+  individual:
+    - entity: sensor.balance_power_minute_average
+      name: Balance
+      color_value: true
+      display_zero: false
+      show_direction: false
+      icon: mdi:flash-alert-outline
+      calculate_flow_rate: true
+      display_zero_state: false
+      display_zero_tolerance: 240
+      secondary_info: {}
+      color_icon: true
+    - entity: sensor.entertainment_hub_current_consumption
+      name: TV Hub
+      icon: mdi:television
+      calculate_flow_rate: true
+      display_zero_state: false
+      color_value: true
+      display_zero: false
+      secondary_info: {}
+      display_zero_tolerance: 16
+      show_direction: false
+    - entity: sensor.air_conditioner_power_minute_average
+      secondary_info: {}
+      display_zero: false
+      name: AC/Heater
+      icon: mdi:air-conditioner
+      color_value: true
+      calculate_flow_rate: true
+      show_direction: false
+      color_icon: true
+    - entity: sensor.range_power_minute_average
+      secondary_info: {}
+      name: Range
+      icon: mdi:stove
+      color_value: true
+      color_icon: true
+      calculate_flow_rate: true
+    - entity: sensor.water_heater_power_minute_average
+      secondary_info: {}
+      name: Water Heater
+      icon: mdi:water-boiler
+      color_value: true
+      color_icon: true
+      calculate_flow_rate: true
+    - entity: sensor.heater_power_minute_average
+      secondary_info: {}
+      name: AC/Heater Blower
+      icon: mdi:hvac
+      color_value: true
+      color_icon: true
+      calculate_flow_rate: true
+      display_zero_tolerance: 3
+    - entity: sensor.first_floor_lights_and_fans_power_minute_average
+      secondary_info: {}
+      name: First Floor
+      icon: mdi:lightbulb
+      color_value: true
+      color_icon: true
+      display_zero: false
+      calculate_flow_rate: true
+      display_zero_tolerance: 19
+    - entity: sensor.second_floor_lights_and_fans_power_minute_average
+      secondary_info: {}
+      name: Second Floor
+      icon: mdi:lightbulb
+      color_value: true
+      color_icon: true
+      display_zero: false
+      display_zero_state: false
+      calculate_flow_rate: true
+    - entity: sensor.third_floor_lights_and_fans_power_minute_average
+      secondary_info: {}
+      name: Third Floor
+      icon: mdi:lightbulb
+      color_value: true
+      color_icon: true
+      calculate_flow_rate: true
+    - entity: sensor.dryer_power_minute_average
+      secondary_info: {}
+      name: Dryer
+      icon: mdi:tumble-dryer
+      color_value: true
+      color_icon: true
+      inverted_animation: false
+      calculate_flow_rate: true
+    - entity: sensor.whirlpool_washing_machine_power
+      secondary_info: {}
+      name: Washing Machine
+      icon: mdi:washing-machine
+      color_value: true
+      color_icon: true
+      display_zero_tolerance: 3
+clickable_entities: true
+display_zero_lines:
+  mode: transparency
+  transparency: 80
+  grey_color:
+    - 189
+    - 189
+    - 189
+use_new_flow_rate_model: true
+max_expected_power: 10000
+watt_threshold: 1000
+transparency_zero_lines: 0
+dashboard_link: ""
+disable_dots: false
+w_decimals: 1
+kw_decimals: 2
+min_expected_power: 250
+max_flow_rate: 10
+sort_individual_devices: true
+min_flow_rate: 1

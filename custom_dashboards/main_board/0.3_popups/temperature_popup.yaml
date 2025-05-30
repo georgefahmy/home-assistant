@@ -1,0 +1,145 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#temperatures"
+    name: Temperature & Humidity
+    show_icon: true
+    force_icon: false
+    show_state: false
+    show_last_changed: false
+    show_attribute: false
+    icon: mdi:thermometer
+    sub_button: []
+    styles: |-
+      .bubble-button-card-container {
+        background: pink !important;
+        color: black
+      }
+    width_desktop: 840px
+    bg_opacity: "30"
+    bg_blur: "60"
+    backdrop_blur: ""
+    shadow_opacity: "50"
+    margin_top_desktop: 20px
+    margin_top_mobile: 10px
+  - type: custom:bubble-card
+    card_type: separator
+    name: Temperatures
+    icon: mdi:thermometer
+    sub_button:
+      - entity: sensor.average_inside_temperature
+        show_state: true
+        show_background: false
+        show_icon: true
+        icon: mdi:home-thermometer
+  - type: horizontal-stack
+    cards:
+      - type: custom:apexcharts-card
+        header:
+          show: true
+          show_states: true
+          colorize_states: true
+        update_interval: 5s
+        graph_span: 1h
+        series:
+          - entity: sensor.family_room_temp_temperature
+            name: Family
+          - entity: sensor.office_temp_temperature
+            name: Office
+          - entity: sensor.master_bedroom_temp_temperature
+            name: Master Bed
+          - entity: sensor.guest_room_temp_temperature
+            name: Guest
+          - entity: sensor.baby_room_temp_temperature
+            name: Baby
+          - entity: sensor.kitchen_temp_temperature
+            name: Kitchen
+          - entity: sensor.master_bathroom_temp_temperature
+            name: Master Bath
+          - entity: sensor.garage_temp_temperature
+            name: Garage
+  - type: custom:bubble-card
+    card_type: separator
+    name: Temperature Rates
+    icon: mdi:water-percent
+    sub_button:
+      - entity: sensor.average_temperature_rate
+        icon: mdi:trending-up
+        show_state: true
+        state_background: false
+        name: Temp Rate Up
+        visibility:
+          - condition: numeric_state
+            entity: sensor.average_temperature_rate
+            above: 0
+      - entity: sensor.average_temperature_rate
+        icon: mdi:trending-down
+        show_state: true
+        state_background: false
+        name: Temp Rate Down
+        visibility:
+          - condition: numeric_state
+            entity: sensor.average_temperature_rate
+            below: 0.01
+  - type: horizontal-stack
+    cards:
+      - type: custom:apexcharts-card
+        header:
+          show: true
+          show_states: true
+          colorize_states: true
+        update_interval: 5s
+        graph_span: 1h
+        series:
+          - entity: sensor.family_room_temp_rate
+            name: Family
+          - entity: sensor.office_temperature_rate
+            name: Office
+          - entity: sensor.master_bedroom_temperature_rate
+            name: Master
+          - entity: sensor.guest_room_temperature_rate
+            name: Guest
+          - entity: sensor.baby_room_temperature_rate
+            name: Baby
+          - entity: sensor.kitchen_temperature_rate
+            name: Kitchen
+          - entity: sensor.master_bathroom_temperature_rate
+            name: Master Bath
+          - entity: sensor.garage_temperature_rate
+            name: Garage
+  - type: custom:bubble-card
+    card_type: separator
+    name: Humidity
+    icon: mdi:water-percent
+    sub_button:
+      - icon: mdi:water-percent
+        show_state: true
+        state_background: false
+        entity: sensor.average_inside_humidity
+  - type: horizontal-stack
+    cards:
+      - type: custom:apexcharts-card
+        header:
+          show: true
+          show_states: true
+          colorize_states: true
+        update_interval: 30s
+        graph_span: 1h
+        series:
+          - entity: sensor.family_room_temp_humidity
+            name: Family
+          - entity: sensor.office_temp_humidity
+            name: Office
+          - entity: sensor.master_bedroom_temp_humidity
+            name: Master Bed
+          - entity: sensor.guest_room_temp_humidity
+            name: Guest
+          - entity: sensor.baby_room_temp_humidity
+            name: Baby
+          - entity: sensor.kitchen_temp_humidity
+            name: Kitchen
+          - entity: sensor.master_bathroom_temp_humidity
+            name: Master Bath
+          - entity: sensor.garage_temp_humidity
+            name: Garage

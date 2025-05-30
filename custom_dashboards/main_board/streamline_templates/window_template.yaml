@@ -1,0 +1,95 @@
+default:
+  - name: ""
+card:
+  type: "custom:bubble-card"
+  card_type: cover
+  entity: "[[entity]]"
+  name: "[[name]]"
+  icon_open: mdi:blinds-horizontal
+  icon_close: mdi:blinds-horizontal-closed
+  show_state: false
+  show_attribute: true
+  card_layout: large
+  rows: 1
+  sub_button:
+    - entity: "[[entity]]"
+      show_state: false
+      tap_action:
+        action: call-service
+        service: cover.set_cover_tilt_position
+        target:
+          entity_id: "[[entity]]"
+        data:
+          tilt_position: 98
+      visibility:
+        - condition: numeric_state
+          entity: "[[tilt_entity]]"
+          below: 0.5
+      icon: mdi:arrow-up
+    - entity: "[[entity]]"
+      icon: mdi:arrow-down
+      name: Close Down
+      tap_action:
+        action: call-service
+        service: cover.set_cover_tilt_position
+        target:
+          entity_id: "[[entity]]"
+        data:
+          tilt_position: 2
+      visibility:
+        - condition: numeric_state
+          entity: "[[tilt_entity]]"
+          above: -0.5
+    - entity: "[[entity]]"
+      icon: mdi:weather-sunny
+      tap_action:
+        action: call-service
+        service: cover.open_cover_tilt
+        target:
+          entity_id: "[[entity]]"
+      visibility:
+        - condition: or
+          conditions:
+            - condition: numeric_state
+              entity: "[[tilt_entity]]"
+              above: 0.1
+            - condition: numeric_state
+              entity: "[[tilt_entity]]"
+              below: -0.1
+  styles: |-
+    .bubble-cover-card-container {
+      gap: 8px;
+    }
+    .large .bubble-buttons {
+      gap: 8px;
+      right: 8px;
+    }
+    .bubble-button {
+      background-color: var(--card-background-color, var(--ha-card-background));
+      width: 36px;
+      height: 36px;
+      display: none;
+    }
+    .bubble-icon {
+      opacity: 0.6 !important;
+    }
+    .large .bubble-sub-button-container {
+      margin-right: 0 !important;
+    }
+    .bubble-sub-button {
+      width: 36px;
+      height: 36px;
+      border-radius: 100px;
+    }
+    .bubble-state::after {
+      content: " - ${hass.states['[[entity]]'].attributes.current_tilt_position}%";
+      margin-left: 4px;
+    }
+    .background-on {
+      background-color: var(--card-background-color, var(--ha-card-background));
+    }
+    .bubble-icon-container {
+      background-image: 
+        linear-gradient(to bottom, var(--state-cover-active-color) ${100-hass.states['[[entity]]'].attributes.current_tilt_position}%, transparent ${110-hass.states['[[entity]]'].attributes.current_tilt_position}%) !important;
+      position: relative;
+    }

@@ -1,0 +1,27 @@
+type: custom:streamline-card # kitchen card
+grid_options:
+  columns: 6
+  rows: auto
+template: control_card_template
+variables:
+  # card info
+  - room_name: Kitchen
+  - room_temp_entity: sensor.kitchen_temp_temperature
+  - popup_nav_path: "#kitchen"
+  - room_icon: mdi:fridge
+  - icon_color: rgb(67, 96, 102)
+
+  # sub button 1
+  - sub_button_1_entity: light.kitchen_main
+  - sub_button_1_tap_action: toggle
+  - sub_button_1_hold_action: more-info
+  - sub_button_1_icon: mdi:ceiling-light-multiple
+  - sub_button_1_name: Kitchen Lights
+  - sub_button_1_enabled: true
+
+  # sub button 2
+  - sub_button_2_entity: switch.smart_kettle_power_switch
+  - sub_button_2_tap_action: more-info
+  - sub_button_2_icon: mdi:kettle
+  - sub_button_2_name: Tea Kettle
+  - sub_button_2_enabled: true

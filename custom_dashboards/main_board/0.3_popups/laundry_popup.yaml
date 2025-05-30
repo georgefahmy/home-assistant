@@ -1,0 +1,83 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: '#laundry'
+    name: Laundry
+    icon: mdi:washing-machine
+    sub_button:
+      - entity: sensor.upstairs_thermostat_indoor_temperature
+        show_state: true
+        state_background: false
+        show_attribute: false
+    card_layout: normal
+    styles: |-
+      .bubble-button-card-container {
+        background: violet !important;
+      }
+      .bubble-name {
+        color: black
+      }
+    width_desktop: 840px
+    bg_opacity: "30"
+    bg_blur: "60"
+    backdrop_blur: ""
+    shadow_opacity: "50"
+    margin_top_desktop: 20px
+    margin_top_mobile: 10px
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        button_type: switch
+        name: Washing Machine
+        icon: mdi:washing-machine
+        show_state: true
+        show_attribute: false
+        sub_button:
+          - entity: sensor.whirlpool_washing_machine_power
+            show_state: true
+            state_background: false
+            show_background: true
+        button_action:
+          double_tap_action:
+            action: none
+          hold_action:
+            action: none
+          tap_action:
+            action: more-info
+        double_tap_action:
+          action: none
+        attribute: options
+        entity: binary_sensor.whirlpool_washing_machine_on
+        show_last_changed: true
+        tap_action:
+          action: none
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        button_type: switch
+        name: Dryer
+        icon: mdi:tumble-dryer
+        show_state: true
+        show_attribute: false
+        sub_button:
+          - entity: sensor.dryer_power
+            show_state: true
+            state_background: false
+        button_action:
+          double_tap_action:
+            action: none
+          hold_action:
+            action: none
+          tap_action:
+            action: more-info
+        double_tap_action:
+          action: none
+        attribute: options
+        entity: binary_sensor.dryer_on
+        tap_action:
+          action: none
+        show_last_changed: true
+        show_name: true

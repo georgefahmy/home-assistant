@@ -1,0 +1,5 @@
+type: custom:streamline-card # controls header separator card
+template: separator_card_template
+variables:
+  separator_name: Plants
+  separator_icon: mdi:leafy

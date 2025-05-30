@@ -1,0 +1,647 @@
+default:
+  - separator_name: none
+  - separator_icon: none
+  - large_separator_icon: none
+  - icon_color: none
+  - popup_nav_path: none
+  - menu_button_tap_action: navigate
+  - menu_button_hold_action: none
+  - menu_button_show_icon: true
+  - seperator_sub_button_2_entity: none
+  - seperator_sub_button_2_icon: none
+  - seperator_sub_button_2_name: none
+  - seperator_sub_button_2_icon_bool: false
+  - seperator_sub_button_2_state_bool: false
+  - seperator_sub_button_2_attribute_bool: false
+  - seperator_sub_button_2_state_background_bool: false
+  - seperator_sub_button_2_tap_action: none
+  - seperator_sub_button_2_name_bool: false
+  - seperator_sub_button_2_navigation_path: none
+
+  - sub_button_1_entity: none
+  - sub_button_1_tap_action: none
+  - sub_button_1_hold_action: none
+  - sub_button_1_nav_path: none
+  - sub_button_1_icon: none
+  - sub_button_1_show_icon: false
+  - sub_button_1_name: none
+  - sub_button_1_enabled: false
+  - sub_button_1_state: false
+  - sub_button_1_icon_color_1: white
+  - sub_button_1_icon_color_2: white
+
+  - sub_button_2_entity: none
+  - sub_button_2_tap_action: none
+  - sub_button_2_hold_action: none
+  - sub_button_2_nav_path: none
+  - sub_button_2_icon: none
+  - sub_button_2_show_icon: false
+  - sub_button_2_name: none
+  - sub_button_2_enabled: false
+  - sub_button_2_state: false
+  - sub_button_2_icon_color_1: white
+  - sub_button_2_icon_color_2: white
+
+  - sub_button_3_entity: none
+  - sub_button_3_tap_action: none
+  - sub_button_3_hold_action: none
+  - sub_button_3_nav_path: none
+  - sub_button_3_icon: none
+  - sub_button_3_show_icon: false
+  - sub_button_3_name: none
+  - sub_button_3_enabled: false
+  - sub_button_3_state: false
+  - sub_button_3_icon_color_1: white
+  - sub_button_3_icon_color_2: white
+
+  - sub_button_4_entity: none
+  - sub_button_4_tap_action: none
+  - sub_button_4_hold_action: none
+  - sub_button_4_nav_path: none
+  - sub_button_4_icon: none
+  - sub_button_4_show_icon: false
+  - sub_button_4_name: none
+  - sub_button_4_enabled: false
+  - sub_button_4_state: false
+  - sub_button_4_icon_color_1: white
+  - sub_button_4_icon_color_2: white
+
+card:
+  type: custom:vertical-stack-in-card
+  cards:
+    - type: custom:streamline-card # controls header separator card
+      template: separator_card_template
+      variables:
+        separator_name: "[[separator_name]]"
+        separator_icon: "[[separator_icon]]"
+        sub_button_1_entity: input_boolean.display_map
+        sub_button_1_icon_bool: true
+        sub_button_1_tap_action: "[[menu_button_tap_action]]"
+        sub_button_1_navigation_path: "[[popup_nav_path]]"
+        sub_button_1_icon: "mdi:menu"
+        sub_button_1_name: "menu"
+        sub_button_1_state_bool: false
+        sub_button_1_attribute_bool: false
+        sub_button_1_state_background: false
+        sub_button_1_name_bool: false
+
+        sub_button_2_entity: "[[seperator_sub_button_2_entity]]"
+        sub_button_2_icon: "[[seperator_sub_button_2_icon]]"
+        sub_button_2_name: "[[seperator_sub_button_2_name]]"
+        sub_button_2_icon_bool: "[[seperator_sub_button_2_icon_bool]]"
+        sub_button_2_state_bool: "[[seperator_sub_button_2_state_bool]]"
+        sub_button_2_attribute_bool: false
+        sub_button_2_state_background: "[[seperator_sub_button_2_state_background_bool]]"
+        sub_button_2_tap_action: "[[seperator_sub_button_2_tap_action]]"
+        sub_button_2_name_bool: false
+        sub_button_2_navigation_path: "[[seperator_sub_button_2_navigation_path]]"
+
+      styles: |
+        * {
+          .bubble-line {
+                flex-grow: 1;
+                margin-right: 0px;
+                }
+      card_layout: large
+      icon: "[[separator_icon]]"
+    - type: conditional
+      conditions:
+        - condition: screen
+          media_query: "(min-width: 1024px)"
+      card:
+        type: custom:bubble-card
+        card_type: separator
+        icon: "[[large_separator_icon]]"
+        card_layout: large
+        styles: |
+          * {
+          --bubble-line-background-color: none
+          }
+            .bubble-icon {
+              color: [[icon_color]] !important;
+              --mdc-icon-size: 45px !important;
+            }
+              .bubble-sub-button-icon {
+              --mdc-icon-size: 20px !important;
+            }
+              .bubble-sub-button {
+              height: 30px !important;
+              min-width: 8px !important;
+              border-radius: 10px;
+            }
+              .bubble-line {
+                flex-grow: 0;
+                margin-right: 0px;
+            }
+            .bubble-sub-button-1 > ha-icon {
+              color: ${
+                hass.states['[[sub_button_1_icon_template_entity]]'].state < 350 ? '[[sub_button_1_icon_color_1]]' : 
+                hass.states['[[sub_button_1_icon_template_entity]]'].state < 600 ? '[[sub_button_1_icon_color_2]]' : 
+                hass.states['[[sub_button_1_icon_template_entity]]'].state < 1000 ? '[[sub_button_1_icon_color_3]]' : 
+                hass.states['[[sub_button_1_icon_template_entity]]'].state < 2000 ? '[[sub_button_1_icon_color_4]]' : 
+                '[[sub_button_1_icon_color_5]]'
+              } !important;
+            }
+            .bubble-sub-button-2 > ha-icon {
+              color: ${hass.states['[[sub_button_2_icon_template_entity]]'].state < 0 ? '[[sub_button_2_icon_color_1]]' : '[[sub_button_2_icon_color_2]]'} !important;
+            }
+        sub_button:
+          - entity: "[[sub_button_1_entity]]"
+            show_background: "[[sub_button_1_enabled]]"
+            show_name: false
+            show_state: "[[sub_button_1_state]]"
+            state_background: false
+            tap_action:
+              action: "[[sub_button_1_tap_action]]"
+              navigation_path: "[[sub_button_1_nav_path]]"
+            hold_action:
+              action: "[[sub_button_1_hold_action]]"
+            icon: "[[sub_button_1_icon]]"
+            name: "[[sub_button_1_name]]"
+          - entity: "[[sub_button_2_entity]]"
+            show_background: "[[sub_button_2_enabled]]"
+            show_name: false
+            state_background: false
+            show_state: "[[sub_button_2_state]]"
+            tap_action:
+              action: "[[sub_button_2_tap_action]]"
+              navigation_path: "[[sub_button_2_nav_path]]"
+            hold_action:
+              action: "[[sub_button_2_hold_action]]"
+            icon: "[[sub_button_2_icon]]"
+            name: "[[sub_button_2_name]]"
+          - entity: "[[sub_button_3_entity]]"
+            show_background: "[[sub_button_3_enabled]]"
+            show_name: false
+            state_background: false
+            show_state: "[[sub_button_3_state]]"
+            tap_action:
+              action: "[[sub_button_3_tap_action]]"
+              navigation_path: "[[sub_button_3_nav_path]]"
+            hold_action:
+              action: "[[sub_button_3_hold_action]]"
+            icon: "[[sub_button_3_icon]]"
+            name: "[[sub_button_3_name]]"
+          - entity: "[[sub_button_4_entity]]"
+            show_background: "[[sub_button_4_enabled]]"
+            show_name: false
+            state_background: false
+            show_state: "[[sub_button_4_state]]"
+            tap_action:
+              action: "[[sub_button_4_tap_action]]"
+              navigation_path: "[[sub_button_4_nav_path]]"
+            hold_action:
+              action: "[[sub_button_4_hold_action]]"
+            icon: "[[sub_button_4_icon]]"
+            name: "[[sub_button_4_name]]"
+    - type: conditional
+      conditions:
+        - condition: screen
+          media_query: "(max-width: 1024px)"
+      card:
+        type: custom:bubble-card
+        card_type: separator
+        icon: "[[large_separator_icon]]"
+        card_layout: large
+        styles: |
+          * {
+          --bubble-line-background-color: none
+          }
+            .bubble-line {
+                flex-grow: 1;
+                margin-right: -20px;
+            }
+            .bubble-icon {
+              color: [[icon_color]] !important;
+              --mdc-icon-size: 45px !important;
+            }
+            .bubble-sub-button-icon {
+              --mdc-icon-size: 15px !important;
+            }
+            .bubble-sub-button {
+              height: 28px !important;
+              min-width: 4px !important;
+              border-radius: 10px;
+            }
+            .bubble-sub-button-1 > ha-icon {
+              color: ${
+                hass.states['[[sub_button_1_icon_template_entity]]'].state < 350 ? '[[sub_button_1_icon_color_1]]' : 
+                hass.states['[[sub_button_1_icon_template_entity]]'].state < 600 ? '[[sub_button_1_icon_color_2]]' : 
+                hass.states['[[sub_button_1_icon_template_entity]]'].state < 1000 ? '[[sub_button_1_icon_color_3]]' : 
+                hass.states['[[sub_button_1_icon_template_entity]]'].state < 2000 ? '[[sub_button_1_icon_color_4]]' : 
+                '[[sub_button_1_icon_color_5]]'
+              } !important;
+            }
+            .bubble-sub-button-2 > ha-icon {
+              color: ${hass.states['[[sub_button_2_icon_template_entity]]'].state < 0 ? '[[sub_button_2_icon_color_1]]' : '[[sub_button_2_icon_color_2]]'} !important;
+            }
+        sub_button:
+          - entity: "[[sub_button_1_entity]]"
+            show_background: "[[sub_button_1_enabled]]"
+            show_name: false
+            show_state: "[[sub_button_1_state]]"
+            state_background: false
+            tap_action:
+              action: "[[sub_button_1_tap_action]]"
+              navigation_path: "[[sub_button_1_nav_path]]"
+            hold_action:
+              action: "[[sub_button_1_hold_action]]"
+            icon: "[[sub_button_1_icon]]"
+            name: "[[sub_button_1_name]]"
+          - entity: "[[sub_button_2_entity]]"
+            show_background: "[[sub_button_2_enabled]]"
+            show_name: false
+            state_background: false
+            show_state: "[[sub_button_2_state]]"
+            tap_action:
+              action: "[[sub_button_2_tap_action]]"
+              navigation_path: "[[sub_button_2_nav_path]]"
+            hold_action:
+              action: "[[sub_button_2_hold_action]]"
+            icon: "[[sub_button_2_icon]]"
+            name: "[[sub_button_2_name]]"
+          - entity: "[[sub_button_3_entity]]"
+            show_background: "[[sub_button_3_enabled]]"
+            show_name: false
+            state_background: false
+            show_state: "[[sub_button_3_state]]"
+            tap_action:
+              action: "[[sub_button_3_tap_action]]"
+              navigation_path: "[[sub_button_3_nav_path]]"
+            hold_action:
+              action: "[[sub_button_3_hold_action]]"
+            icon: "[[sub_button_3_icon]]"
+            name: "[[sub_button_3_name]]"
+          - entity: "[[sub_button_4_entity]]"
+            show_background: "[[sub_button_4_enabled]]"
+            show_name: false
+            state_background: false
+            show_state: "[[sub_button_4_state]]"
+            tap_action:
+              action: "[[sub_button_4_tap_action]]"
+              navigation_path: "[[sub_button_4_nav_path]]"
+            hold_action:
+              action: "[[sub_button_4_hold_action]]"
+            icon: "[[sub_button_4_icon]]"
+            name: "[[sub_button_4_name]]"
+    - type: conditional
+      conditions:
+        - condition: state
+          entity: input_boolean.battery_sim_toggle
+          state: "on"
+      card:
+        type: vertical-stack
+        cards:
+          - type: custom:bubble-card
+            card_type: separator
+            name: Battery Simulator & Results
+          - square: false
+            type: grid
+            columns: 5
+            cards:
+              - type: custom:modern-circular-gauge
+                entity: sensor.total_usage_power_minute_average
+                secondary: {}
+                tertiary:
+                  entity: sensor.total_energy_energy_daily
+                  adaptive_state_color: true
+                name: Usage
+                segments:
+                  - from: 0
+                    color:
+                      - 0
+                      - 132
+                      - 255
+                  - from: 1000
+                    color:
+                      - 1
+                      - 254
+                      - 5
+                  - from: 2000
+                    color:
+                      - 251
+                      - 255
+                      - 0
+                  - from: 4000
+                    color:
+                      - 255
+                      - 0
+                      - 0
+                needle: true
+                smooth_segments: true
+                max: 4000
+                adaptive_state_color: false
+                adaptive_icon_color: true
+                grid_options:
+                  columns: 6
+                  rows: 3
+                header_position: top
+              - type: custom:modern-circular-gauge
+                entity: sensor.solar_generation_power_minute_average
+                secondary:
+                  state_size: small
+                  adaptive_state_color: true
+                  show_gauge: none
+                  max: 30
+                  needle: false
+                tertiary:
+                  adaptive_state_color: true
+                  show_gauge: none
+                  min: -10
+                  max: 10
+                  needle: true
+                  segments: []
+                  entity: sensor.solar_generation_energy_daily
+                smooth_segments: true
+                segments:
+                  - from: 0
+                    color:
+                      - 133
+                      - 0
+                      - 0
+                  - from: 500
+                    color:
+                      - 145
+                      - 100
+                      - 3
+                  - from: 1000
+                    color:
+                      - 212
+                      - 216
+                      - 14
+                  - color:
+                      - 68
+                      - 255
+                      - 0
+                    from: 1500
+                  - from: 2000
+                    color:
+                      - 0
+                      - 238
+                      - 255
+                  - from: 2500
+                    color:
+                      - 1
+                      - 108
+                      - 223
+                  - from: 3000
+                    color:
+                      - 118
+                      - 0
+                      - 214
+                name: Solar
+                min: 0
+                needle: true
+                adaptive_state_color: false
+                adaptive_icon_color: true
+                show_unit: true
+                show_header: true
+                max: 3200
+                header_position: top
+                grid_options:
+                  columns: 6
+                  rows: 3
+                visibility:
+                  - condition: numeric_state
+                    entity: sensor.solar_generation_power_minute_average
+                    above: 0.1
+              - type: custom:modern-circular-gauge
+                entity: sensor.battery_sim_basengreen_percentage
+                secondary:
+                  show_gauge: none
+                  state_size: small
+                  needle: true
+                  max: 3.5
+                  min: 0
+                  adaptive_state_color: true
+                  smooth_segments: true
+                  segments:
+                    - from: 0
+                      color:
+                        - 133
+                        - 0
+                        - 0
+                    - from: 0.5
+                      color:
+                        - 145
+                        - 100
+                        - 3
+                    - from: 1
+                      color:
+                        - 212
+                        - 216
+                        - 14
+                    - from: 1.5
+                      color:
+                        - 68
+                        - 255
+                        - 0
+                    - from: 2
+                      color:
+                        - 0
+                        - 238
+                        - 255
+                    - from: 2.5
+                      color:
+                        - 1
+                        - 108
+                        - 223
+                    - from: 3
+                      color:
+                        - 118
+                        - 0
+                        - 214
+                tertiary:
+                  needle: true
+                  min: 0
+                  adaptive_state_color: true
+                  show_gauge: none
+                  segments:
+                    - from: 3
+                      color:
+                        - 133
+                        - 0
+                        - 0
+                    - from: 2.5
+                      color:
+                        - 145
+                        - 100
+                        - 3
+                    - from: 2
+                      color:
+                        - 212
+                        - 216
+                        - 14
+                    - from: 1.5
+                      color:
+                        - 68
+                        - 255
+                        - 0
+                    - from: 1
+                      color:
+                        - 0
+                        - 238
+                        - 255
+                    - from: 0.5
+                      color:
+                        - 1
+                        - 108
+                        - 223
+                    - from: 0
+                      color:
+                        - 118
+                        - 0
+                        - 214
+                  max: 3.5
+                  entity: sensor.battery_sim_basengreen
+                name: Charge
+                smooth_segments: true
+                min: 0
+                header_position: top
+                needle: true
+                adaptive_state_color: false
+                adaptive_icon_color: true
+                show_header: true
+                show_unit: true
+                max: 100
+                grid_options:
+                  columns: 6
+                  rows: 3
+                segments:
+                  - from: 0
+                    color:
+                      - 0
+                      - 0
+                      - 0
+                  - color:
+                      - 255
+                      - 0
+                      - 0
+                    from: 10
+                  - color:
+                      - 255
+                      - 234
+                      - 0
+                    from: 50
+                  - from: 75
+                    color:
+                      - 0
+                      - 145
+                      - 255
+                  - from: 100
+                    color:
+                      - 30
+                      - 255
+                      - 0
+              - type: custom:modern-circular-gauge
+                entity: sensor.battery_sim_basengreen_net_power
+                secondary:
+                  entity: sensor.battery_sim_basengreen_battery_mode_now
+                  state_size: small
+                  show_gauge: none
+                tertiary: {}
+                name: Battery
+                max: 3000
+                min: -3000
+                smooth_segments: true
+                needle: true
+                adaptive_state_color: false
+                adaptive_icon_color: true
+                segments:
+                  - color:
+                      - 0
+                      - 191
+                      - 255
+                    from: -4000
+                  - from: 4000
+                    color:
+                      - 245
+                      - 180
+                      - 0
+                header_position: top
+                grid_options:
+                  columns: 6
+                  rows: 3
+              - type: custom:modern-circular-gauge
+                entity: sensor.net_energy_cost
+                secondary: {}
+                tertiary: {}
+                name: Costs
+                icon: mdi:currency-usd
+                max: 10
+                min: -10
+                smooth_segments: true
+                needle: true
+                adaptive_state_color: false
+                adaptive_icon_color: true
+                segments:
+                  - from: -10
+                    color:
+                      - 0
+                      - 132
+                      - 255
+                  - from: -5
+                    color:
+                      - 1
+                      - 254
+                      - 5
+                  - from: 5
+                    color:
+                      - 251
+                      - 255
+                      - 0
+                  - from: 10
+                    color:
+                      - 255
+                      - 0
+                      - 0
+                header_position: top
+                grid_options:
+                  columns: 6
+                  rows: 3
+          - square: false
+            type: grid
+            columns: 2
+            cards:
+              - type: tile
+                entity: sensor.battery_sim_basengreen_battery_energy_in
+                features_position: bottom
+                vertical: false
+                name: Energy In
+              - type: tile
+                entity: sensor.battery_sim_basengreen_battery_energy_out
+                features_position: bottom
+                vertical: false
+                name: Energy Out
+              - type: tile
+                entity: sensor.battery_sim_basengreen_total_money_saved
+                features_position: bottom
+                vertical: false
+                name: Net Money Saved
+              - type: tile
+                entity: sensor.battery_sim_basengreen_total_energy_saved
+                features_position: bottom
+                vertical: false
+                name: Net Energy Saved
+              - type: tile
+                entity: sensor.battery_sim_basengreen_extra_money_earned_on_exports
+                features_position: bottom
+                vertical: false
+                name: Export $ Earned
+              - type: tile
+                entity: >-
+                  sensor.battery_sim_basengreen_simulated_sensor_mainsfromgrid_energy_today
+                features_position: bottom
+                vertical: false
+                name: Sim From Grid
+              - type: tile
+                entity: sensor.battery_sim_basengreen_money_saved_on_imports
+                features_position: bottom
+                vertical: false
+                name: Import $ Saved
+              - type: tile
+                entity: >-
+                  sensor.battery_sim_basengreen_simulated_sensor_mainstogrid_energy_today
+                features_position: bottom
+                vertical: false
+                name: Sim To Grid

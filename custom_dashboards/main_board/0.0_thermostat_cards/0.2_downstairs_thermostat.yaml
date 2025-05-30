@@ -1,0 +1,7 @@
+type: custom:streamline-card # downstairs thermostat
+template: thermostat_template
+variables:
+  thermostat_entity: climate.main_floor_thermostat
+  thermostat_name: Downstairs
+  thermostat_hold_entity: binary_sensor.downstairs_thermostat_temperature_hold
+  script: script.downstairs_thermostat_reset_script

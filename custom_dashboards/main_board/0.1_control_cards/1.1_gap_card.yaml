@@ -1,0 +1,7 @@
+type: custom:gap-card
+grid_options:
+  columns: 1
+  rows: 1
+visibility:
+  - condition: screen
+    media_query: "(min-width: 1024px)"

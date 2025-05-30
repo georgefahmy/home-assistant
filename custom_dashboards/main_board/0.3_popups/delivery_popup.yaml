@@ -1,0 +1,106 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#deliveries"
+    name: Delivery Details
+    show_header: true
+    icon: mdi:package-variant
+    sub_button:
+      - entity: sensor.parcel_active_shipment
+        show_state: true
+        state_background: true
+        show_background: true
+        show_attribute: false
+        show_last_changed: false
+        show_name: false
+    styles: |-
+      .bubble-button-card-container {
+        background: rgb(33, 117, 186) !important;
+      }
+    width_desktop: 840px
+    bg_opacity: "30"
+    bg_blur: "60"
+    backdrop_blur: ""
+    shadow_opacity: "50"
+    margin_top_desktop: 20px
+    margin_top_mobile: 10px
+    tap_action:
+      action: none
+    double_tap_action:
+      action: none
+    hold_action:
+      action: none
+    button_action:
+      tap_action:
+        action: none
+      double_tap_action:
+        action: none
+      hold_action:
+        action: none
+  - type: markdown
+    content: >-
+      # Deliveries
+
+      {% set raw = state_attr('sensor.parcel_raw_shipment_data', 'deliveries') %}
+
+      {% set deliveries = raw | selectattr('status_code','>',0) | sort(attribute='status_code') %}
+
+      {% set delivered = raw | selectattr('status_code','eq',0) | list %}
+
+      {% if delivered | length > 0 %}
+      ## Delivered Packages
+      {% for delivery in delivered %}
+        _{{ delivery.description }}_ on {{ delivery.events[0].date }}
+      {% endfor %}
+      {% endif %}
+
+      {% if deliveries | length > 0%}
+      ## In Progress
+      {% for delivery in deliveries %}
+
+        {% if "date_expected" in delivery.keys() %}
+          {% set date = as_datetime(delivery.date_expected).date() %}
+        {% else %}
+          {% set date = "none" %}
+        {% endif %}
+
+        {% if delivery.events | length > 0 %}
+          {% set events = delivery.events[0] %}
+          {% set event_date = events.date %}
+          {% set latest_update = event_date + ": " + events.event | string %}
+        {% else %}
+          {% set latest_update = "NONE" %}
+        {% endif %}
+
+      ### {{ delivery.description }}
+        - Estimated - __{{ date }}__
+        - Latest Update - _{{ latest_update }}_
+        - Tracking Number: _{{ delivery.tracking_number }}_
+
+      {% endfor %}
+      {% else %}
+      No Scheduled Deliveries
+      {% endif %}
+  - type: vertical-stack
+    cards:
+      - type: entities
+        entities:
+          - entity: input_text.parcel_name
+          - entity: input_text.tracking_number_input
+          - entity: input_text.parcel_carrier
+      - show_name: true
+        show_icon: true
+        type: button
+        icon: mdi:check
+        name: Submit
+        tap_action:
+          action: perform-action
+          perform_action: automation.trigger
+          target:
+            entity_id: automation.add_new_parcel
+          data:
+            skip_condition: false
+        icon_height: 20px
+        hold_action:
+          action: none

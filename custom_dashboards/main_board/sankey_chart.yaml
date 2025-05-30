@@ -1,0 +1,321 @@
+layout: horizontal
+height: 400
+unit_prefix: k
+round: 1
+convert_units_to: ""
+co2_intensity_entity: sensor.co2_signal_co2_intensity
+gas_co2_intensity: 66.6
+min_box_size: 3
+min_box_distance: 5
+show_states: true
+show_units: true
+energy_date_selection: true
+sections:
+  - entities:
+      - entity_id: sensor.solar_generation_energy
+        type: entity
+        color: var(--warning-color)
+        children:
+          - sensor.mainstogrid_energy_today
+          - sensor.total_energy_energy_daily
+      - entity_id: sensor.mainsfromgrid_energy_today
+        type: entity
+        children:
+          - sensor.mainstogrid_energy_today
+          - sensor.total_energy_energy_daily
+  - entities:
+      - entity_id: sensor.mainstogrid_energy_today
+        subtract_entities:
+          - sensor.mainsfromgrid_energy_today
+        type: entity
+        children: []
+      - entity_id: sensor.total_energy_energy_daily
+        type: entity
+        name: Total Consumption
+        children:
+          - bottom_floor
+          - main_floor
+          - upstairs
+          - no_area
+          - unknown
+  - entities:
+      - entity_id: bottom_floor
+        type: remaining_child_state
+        name: Ground floor
+        children:
+          - garage
+          - entrance
+          - downstairs_bedroom
+      - entity_id: main_floor
+        type: remaining_child_state
+        name: Main Floor
+        children:
+          - kitchen
+          - family_room
+          - dining_room
+          - office
+      - entity_id: upstairs
+        type: remaining_child_state
+        name: Top Floor
+        children:
+          - laundry
+          - bedroom
+          - upstairs_hallway
+      - entity_id: no_area
+        type: passthrough
+        children: []
+      - entity_id: unknown
+        type: passthrough
+        children: []
+    sort_by: state
+  - entities:
+      - entity_id: garage
+        type: remaining_child_state
+        name: Garage
+        children:
+          - sensor.water_heater_energy_today
+      - entity_id: kitchen
+        type: remaining_child_state
+        name: Kitchen
+        children:
+          - sensor.lg_fridge_energy
+          - sensor.kitchen_lights_energy
+          - sensor.kitchen_cabinet_energy
+          - sensor.kitchen_sink_light_energy
+          - sensor.whirlpool_dishwasher_energy
+          - sensor.microwave_energy
+          - sensor.stove_hood_energy
+          - sensor.kettle_outlet_energy
+          - sensor.range_energy_today
+          - sensor.bottle_warmer_energy
+          - sensor.toaster_energy
+      - entity_id: family_room
+        type: remaining_child_state
+        name: Family Room
+        children:
+          - sensor.family_room_lights_energy
+          - sensor.plant_lamp_switch_energy
+          - sensor.network_hub_strip_total_consumption
+          - sensor.entertainment_hub_total_consumption
+          - sensor.couch_hub_strip_this_month_s_consumption
+          - sensor.entertainment_hub_outlet_2_playstation_5_total_consumption
+          - sensor.entertainment_hub_outlet_1_samsung_q80_tv_consumption
+          - sensor.entertainment_hub_outlet_6_home_assistant_total_consumption
+          - sensor.entertainment_hub_outlet_3_sonos_beam_total_consumption
+          - sensor.entertainment_hub_outlet_4_nintendo_switch_total_consumption
+          - sensor.sonos_play_1_right_outlet_energy
+          - sensor.family_room_outlets_energy_today
+          - sensor.chair_hub_energy
+      - entity_id: dining_room
+        type: remaining_child_state
+        name: Dining Room
+        children:
+          - sensor.kitchen_table_energy
+      - entity_id: entrance
+        type: remaining_child_state
+        name: Entrance
+        children:
+          - sensor.entrance_main_lights_energy
+          - sensor.entrance_stairs_energy
+      - entity_id: laundry
+        type: remaining_child_state
+        name: Laundry
+        children:
+          - sensor.whirlpool_washing_machine_energy
+          - sensor.dryer_energy_today
+      - entity_id: office
+        type: remaining_child_state
+        name: Office
+        children:
+          - sensor.office_desk_energy
+      - entity_id: bedroom
+        type: remaining_child_state
+        name: Master Bedroom
+        children:
+          - sensor.george_nightstand_energy
+          - sensor.britney_nightstand_energy
+      - entity_id: downstairs_bedroom
+        type: remaining_child_state
+        name: Guest Bedroom
+        children:
+          - sensor.guest_room_lamp_energy
+          - sensor.space_heater_energy
+      - entity_id: upstairs_hallway
+        type: remaining_child_state
+        name: Upstairs Hallway
+        children:
+          - sensor.upstairs_hallway_outlet_energy
+      - entity_id: no_area
+        type: remaining_child_state
+        name: No area
+        children:
+          - sensor.balance_energy
+          - sensor.first_floor_lights_and_fans_energy_today
+          - sensor.second_floor_lights_and_fans_energy_today
+          - sensor.third_floor_lights_and_fans_energy_today
+          - sensor.heater_energy_today
+          - sensor.air_conditioner_energy_today
+      - entity_id: unknown
+        type: remaining_parent_state
+        name: Unknown
+        children: []
+    sort_by: state
+    sort_group_by_parent: true
+  - entities:
+      - entity_id: sensor.water_heater_energy_today
+        type: entity
+        name: Water Heater Energy
+        children: []
+      - entity_id: sensor.lg_fridge_energy
+        type: entity
+        children: []
+      - entity_id: sensor.kitchen_lights_energy
+        type: entity
+        children: []
+      - entity_id: sensor.kitchen_cabinet_energy
+        type: entity
+        name: Kitchen Cabinet Lights Energy
+        children: []
+      - entity_id: sensor.kitchen_sink_light_energy
+        type: entity
+        children: []
+      - entity_id: sensor.whirlpool_dishwasher_energy
+        type: entity
+        children: []
+      - entity_id: sensor.microwave_energy
+        type: entity
+        children: []
+      - entity_id: sensor.stove_hood_energy
+        type: entity
+        children: []
+      - entity_id: sensor.kettle_outlet_energy
+        type: entity
+        children: []
+      - entity_id: sensor.range_energy_today
+        type: entity
+        name: Range Energy
+        children: []
+      - entity_id: sensor.bottle_warmer_energy
+        type: entity
+        children: []
+      - entity_id: sensor.toaster_energy
+        type: entity
+        name: Toaster Energy
+        children: []
+      - entity_id: sensor.family_room_lights_energy
+        type: entity
+        children: []
+      - entity_id: sensor.plant_lamp_switch_energy
+        type: entity
+        children: []
+      - entity_id: sensor.network_hub_strip_total_consumption
+        type: entity
+        name: Network Hub Energy
+        children: []
+      - entity_id: sensor.entertainment_hub_total_consumption
+        type: entity
+        name: Entertainment Hub Energy
+        children: []
+      - entity_id: sensor.couch_hub_strip_this_month_s_consumption
+        type: entity
+        name: Couch Hub Strip Energy
+        children: []
+      - entity_id: sensor.entertainment_hub_outlet_2_playstation_5_total_consumption
+        type: entity
+        name: PlayStation Energy
+        children: []
+      - entity_id: sensor.entertainment_hub_outlet_1_samsung_q80_tv_consumption
+        type: entity
+        name: Samsung TV Energy
+        children: []
+      - entity_id: sensor.entertainment_hub_outlet_6_home_assistant_total_consumption
+        type: entity
+        name: Home Assistant Energy
+        children: []
+      - entity_id: sensor.entertainment_hub_outlet_3_sonos_beam_total_consumption
+        type: entity
+        name: Sonos Beam Energy
+        children: []
+      - entity_id: sensor.entertainment_hub_outlet_4_nintendo_switch_total_consumption
+        type: entity
+        name: Nintendo Switch Energy
+        children: []
+      - entity_id: sensor.sonos_play_1_right_outlet_energy
+        type: entity
+        name: Sonos Play 1 Right Energy
+        children: []
+      - entity_id: sensor.family_room_outlets_energy_today
+        type: entity
+        name: Family Room Outlets Energy
+        children: []
+      - entity_id: sensor.chair_hub_energy
+        type: entity
+        children: []
+      - entity_id: sensor.kitchen_table_energy
+        type: entity
+        children: []
+      - entity_id: sensor.entrance_main_lights_energy
+        type: entity
+        children: []
+      - entity_id: sensor.entrance_stairs_energy
+        type: entity
+        children: []
+      - entity_id: sensor.whirlpool_washing_machine_energy
+        type: entity
+        children: []
+      - entity_id: sensor.dryer_energy_today
+        type: entity
+        name: Dryer Energy
+        children: []
+      - entity_id: sensor.office_desk_energy
+        type: entity
+        name: Office Desk Energy
+        children: []
+      - entity_id: sensor.george_nightstand_energy
+        type: entity
+        children: []
+      - entity_id: sensor.britney_nightstand_energy
+        type: entity
+        children: []
+      - entity_id: sensor.guest_room_lamp_energy
+        type: entity
+        children: []
+      - entity_id: sensor.space_heater_energy
+        type: entity
+        children: []
+      - entity_id: sensor.upstairs_hallway_outlet_energy
+        type: entity
+        children: []
+      - entity_id: sensor.balance_energy
+        type: entity
+        children: []
+      - entity_id: sensor.first_floor_lights_and_fans_energy_today
+        type: entity
+        name: First Floor Lights and Fans Energy
+        children: []
+      - entity_id: sensor.second_floor_lights_and_fans_energy_today
+        type: entity
+        name: Second Floor Lights and Fans Energy
+        children: []
+      - entity_id: sensor.third_floor_lights_and_fans_energy_today
+        type: entity
+        name: Third Floor Lights and Fans Energy
+        children: []
+      - entity_id: sensor.heater_energy_today
+        type: entity
+        name: AC/Heater Blower Energy
+        children: []
+      - entity_id: sensor.air_conditioner_energy_today
+        type: entity
+        name: AC/Heater Energy
+        children: []
+    sort_by: state
+    sort_group_by_parent: true
+type: custom:sankey-chart
+min_state: 0.1
+show_names: true
+autoconfig:
+  print_yaml: false
+sort_by: state
+sort_dir: desc
+wide: true

@@ -1,0 +1,282 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#garden"
+    name: Garden
+    show_icon: true
+    force_icon: false
+    show_state: false
+    show_last_changed: false
+    show_attribute: false
+    icon: mdi:grass
+    sub_button:
+      - entity: sensor.main_floor_thermostat_outdoor_temperature
+        show_state: true
+        state_background: false
+        show_last_changed: false
+    styles: |
+      .bubble-button-card-container {
+        background: green !important;
+      }
+    width_desktop: 840px
+    bg_opacity: "30"
+    bg_blur: "60"
+    backdrop_blur: ""
+    shadow_opacity: "50"
+    margin_top_desktop: 20px
+    margin_top_mobile: 10px
+  - type: custom:bubble-card
+    card_type: separator
+    name: Controls
+    icon: mdi:water-pump
+    sub_button:
+      - show_name: false
+        show_icon: true
+        icon: mdi:doorbell-video
+        type: button
+        tap_action:
+          action: toggle
+        entity: automation.doorbell_actionable_notification
+        name: Doorbell Automation Switch
+        icon_height: 20px
+        show_state: false
+  - type: horizontal-stack
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:bubble-card
+            card_type: button
+            button_type: switch
+            name: Smart Hose
+            icon: ""
+            show_state: true
+            entity: switch.smart_hose_tap_timer_zone
+            styles: ""
+            use_accent_color: false
+            sub_button:
+              - entity: sensor.smart_hose_tap_timer_battery_level
+                show_state: true
+                show_attribute: false
+                state_background: false
+              - entity: sensor.smart_hose_current_consumption
+                show_state: true
+                state_background: false
+                show_icon: true
+                show_background: false
+                icon: mdi:water
+            card_layout: large-2-rows
+          - type: custom:bubble-card
+            card_type: button
+            button_type: switch
+            name: Smart Watering
+            icon: mdi:brain
+            show_state: true
+            show_attribute: false
+            attribute: run_times
+            force_icon: false
+            entity: switch.smart_hose_smart_watering_program
+            show_last_changed: false
+            card_layout: normal
+          - type: custom:bubble-card
+            card_type: button
+            button_type: switch
+            name: Program A
+            icon: ""
+            show_state: true
+            show_attribute: false
+            force_icon: false
+            entity: switch.smart_hose_main_program_program
+          - type: custom:bubble-card
+            card_type: button
+            button_type: switch
+            name: Rain Delay
+            icon: ""
+            show_state: false
+            show_attribute: true
+            attribute: started_at
+            force_icon: false
+            entity: switch.smart_hose_tap_timer_rain_delay
+            sub_button:
+              - entity: sensor.smart_hose_rain_delay
+                show_state: true
+                icon: mdi:cloud-clock
+                show_attribute: false
+                show_name: false
+                state_background: true
+                show_background: false
+                visibility:
+                  - condition: state
+                    entity: switch.smart_hose_tap_timer_rain_delay
+                    state: "on"
+                tap_action:
+                  action: none
+          - type: custom:bubble-card
+            card_type: button
+            button_type: state
+            name: Next Watering
+            icon: mdi:water
+            show_state: true
+            force_icon: false
+            entity: sensor.smart_hose_next_start_time
+      - show_state: false
+        show_name: false
+        camera_view: live
+        type: picture-entity
+        theme: macOS Theme
+        camera_image: camera.front_door_fluent
+        entity: camera.front_door_fluent
+  - type: custom:bubble-card
+    card_type: separator
+    name: Pollen Tracker
+    icon: mdi:flower
+  - type: grid
+    cards:
+      - type: custom:mushroom-template-card
+        primary: >-
+          Trees: {% set level =
+          states('sensor.kleenex_pollen_radar_home_trees')|int(0) %}
+          {% if level <= 29 %} Low
+          {% elif level <= 60 %} Moderate
+          {% elif level <= 341 %} High
+          {% else %} very High
+          {% endif %}
+        secondary: "{{ states('sensor.kleenex_pollen_radar_home_trees') }} ppm"
+        icon: mdi:tree
+        icon_color: |-
+          {% set trees = states('sensor.kleenex_pollen_radar_home_trees') | int %}
+          {% if trees < 25 %}
+          #006400
+          {% elif trees < 50 %}
+          #008000
+          {% elif trees < 75 %}
+          #90EE90
+          {% elif trees < 100 %}
+          #FFFF00
+          {% elif trees < 125 %}
+          #FFD700
+          {% elif trees < 149 %}
+          #FFA500
+          {% elif trees < 250 %}
+          #FF8C00
+          {% elif trees < 400 %}
+          #FF0000
+          {% elif trees >= 400 %}
+          #8B0000
+          {% else %}
+          #800080
+          {% endif %}
+        layout: vertical
+        entity: sensor.kleenex_pollen_radar_home_trees
+        multiline_secondary: false
+        tap_action:
+          action: more-info
+        layout_options:
+          grid_columns: 1
+          grid_rows: 2
+        card_mod:
+          style: |
+            ha-card {
+              --icon-size: 60px;
+              background-color: hsla(0, 0%, 0%, 0);
+            }
+      - type: custom:mushroom-template-card
+        primary: >-
+          Grass: {% set level =
+          states('sensor.kleenex_pollen_radar_home_grass')|int(0) %}
+          {% if level <= 29 %} Low
+          {% elif level <= 60 %} Moderate
+          {% elif level <= 341 %} High
+          {% else %} very High
+          {% endif %}
+        secondary: "{{ states('sensor.kleenex_pollen_radar_home_grass') }} ppm"
+        icon: mdi:grass
+        icon_color: |-
+          {% set grass = states('sensor.kleenex_pollen_radar_home_grass') | int %}
+          {% if grass < 25 %}
+          #006400
+          {% elif grass < 50 %}
+          #008000
+          {% elif grass < 75 %}
+          #90EE90
+          {% elif grass < 100 %}
+          #FFFF00
+          {% elif grass < 125 %}
+          #FFD700
+          {% elif grass < 149 %}
+          #FFA500
+          {% elif grass < 250 %}
+          #FF8C00
+          {% elif grass < 400 %}
+          #FF0000
+          {% elif grass < 500 %}
+          #8B0000
+          {% else %}
+          #800080
+          {% endif %}
+        layout: vertical
+        entity: sensor.kleenex_pollen_radar_home_grass
+        multiline_secondary: false
+        tap_action:
+          action: more-info
+        layout_options:
+          grid_columns: 1
+          grid_rows: 2
+        card_mod:
+          style: |
+            ha-card {
+              --icon-size: 60px;
+              background-color: hsla(0, 0%, 0%, 0);
+            }
+      - type: custom:mushroom-template-card
+        primary: |-
+          Weeds:
+          {% set level = states('sensor.kleenex_pollen_radar_home_weeds')|int(0) %}
+          {% if level <= 29 %} Low
+          {% elif level <= 60 %} Moderate
+          {% elif level <= 341 %} High
+          {% else %} very High
+          {% endif %}
+        secondary: "{{ states('sensor.kleenex_pollen_radar_home_weeds') }} ppm"
+        icon: mdi:flower-pollen
+        icon_color: |-
+          {% set weeds = states('sensor.kleenex_pollen_radar_home_weeds') | int %}
+          {% if weeds < 25 %}
+          #006400
+          {% elif weeds < 50 %}
+          #008000
+          {% elif weeds < 75 %}
+          #90EE90
+          {% elif weeds < 100 %}
+          #FFFF00
+          {% elif weeds < 125 %}
+          #FFD700
+          {% elif weeds < 149 %}
+          #FFA500
+          {% elif weeds < 250 %}
+          #FF8C00
+          {% elif weeds < 400 %}
+          #FF0000
+          {% elif weeds < 500 %}
+          #8B0000
+          {% else %}
+          #800080
+          {% endif %}
+        layout: vertical
+        entity: sensor.kleenex_pollen_radar_home_weeds
+        multiline_secondary: false
+        tap_action:
+          action: more-info
+        layout_options:
+          grid_columns: 1
+          grid_rows: 2
+        card_mod:
+          style: |
+            ha-card {
+              --icon-size: 60px;
+              background-color: hsla(0, 0%, 0%, 0);
+            }
+
+
+grid_options:
+  rows: auto

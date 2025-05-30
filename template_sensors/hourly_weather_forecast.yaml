@@ -1,0 +1,124 @@
+trigger:
+  - trigger: time_pattern
+    hours: /1
+action:
+  - action: weather.get_forecasts
+    data:
+      type: hourly
+    target:
+      entity_id: weather.forecast_jasper
+    response_variable: hourly
+  - action: weather.get_forecasts
+    data:
+      type: daily
+    target:
+      entity_id: weather.forecast_jasper
+    response_variable: daily
+
+# HOURLY
+# weather.forecast_jasper:
+#   forecast:
+#     - condition: lightning
+#       datetime: "2025-03-14T23:00:00+00:00"
+#       precipitation_icon: chance-rain
+#       precipitation_probability: 90
+#       precipitation_type: storm
+#       wind_bearing: 290
+#       uv_index: 3
+#       temperature: 55
+#       apparent_temperature: 55
+#       pressure: 29.92
+#       wind_gust_speed: 26.84
+#       wind_speed: 15.66
+#       precipitation: 0.01
+#       humidity: 68
+
+sensor:
+  - name: Timestamp Next Hour
+    unique_id: timestamp_forecast_next_hour
+    state: "{{ hourly['weather.forecast_jasper'].forecast[0].datetime }}"
+  - name: Temperature Next Hour
+    unique_id: temperature_forecast_next_hour
+    state: "{{ hourly['weather.forecast_jasper'].forecast[0].temperature }}"
+    unit_of_measurement: °F
+  - name: Humidity Next Hour
+    unique_id: humidity_forecast_next_hour
+    state: "{{ hourly['weather.forecast_jasper'].forecast[0].humidity }}"
+    unit_of_measurement: "%"
+  - name: Precipitation Probability Next Hour
+    unique_id: precipitation_probability_next_hour
+    state: "{{ hourly['weather.forecast_jasper'].forecast[0].precipitation_probability }}"
+    unit_of_measurement: "%"
+  - name: UV Index Next Hour
+    unique_id: uv_index_forecast_next_hour
+    state: "{{ hourly['weather.forecast_jasper'].forecast[0].uv_index }}"
+  - name: Pressure Next Hour
+    unique_id: pressure_forecast_next_hour
+    state: "{{ hourly['weather.forecast_jasper'].forecast[0].pressure }}"
+  - name: Condition Next Hour
+    unique_id: condition_forecast_next_hour
+    state: "{{ hourly['weather.forecast_jasper'].forecast[0].condition | title }}"
+  - name: Rain Today
+    unique_id: rain_today
+    state: |-
+      {% set probability = [] %}
+      {% for day in daily['weather.forecast_jasper'].forecast %}
+        {% if day.precipitation_probability > 0 %}
+          probability.append(1)
+        {% endif %}
+      {% endfor %}
+      probability.sum()
+  - name: Forecast Summary
+    unique_id: summary_forecast_next_hour
+    state: |-
+      {% set next_hour = hourly['weather.forecast_jasper'].forecast[0] %}
+      {{ next_hour.condition | replace("_", " ") | capitalize }}.
+      {% set wind_direction = next_hour.wind_bearing %}
+      Winds from the
+      {% if 348.75 <= wind_direction < 360 or 0 <= wind_direction < 11.25 %}
+          North
+      {% elif 11.25 <= wind_direction < 33.75 %}
+        North North East
+      {% elif 33.75 <= wind_direction < 56.25 %}
+        North East
+      {% elif 56.25 <= wind_direction < 78.75 %}
+        East North East
+      {% elif 78.75 <= wind_direction < 101.25 %}
+        East
+      {% elif 101.25 <= wind_direction < 123.75 %}
+        East South East
+      {% elif 123.75 <= wind_direction < 146.25 %}
+        South East
+      {% elif 146.25 <= wind_direction < 168.75 %}
+        South South East
+      {% elif 168.75 <= wind_direction < 191.25 %}
+        South
+      {% elif 191.25 <= wind_direction < 213.75 %}
+        South South West
+      {% elif 213.75 <= wind_direction < 236.25 %}
+        South West
+      {% elif 236.25 <= wind_direction < 258.75 %}
+        West South West
+      {% elif 258.75 <= wind_direction < 281.25 %}
+        West
+      {% elif 281.25 <= wind_direction < 303.75 %}
+        West North West
+      {% elif 303.75 <= wind_direction < 326.25 %}
+        Nort West
+      {% else %}
+        North North West
+      {% endif %}
+      {{next_hour.wind_speed | round(0)}} to {{next_hour.wind_gust_speed| round(0)}} mph.
+      UV Index forecasted to be
+      {% set uv = next_hour.uv_index %}
+      {% if 0 <= uv <= 2 %}
+        {{ uv | round(0) }} [Low]. Sun protection optional.
+      {% elif 3 <= uv <= 5 %}
+        {{ uv | round(0) }} [Moderate]. Sun protection recommended.
+      {% elif 6 <= uv <= 7 %}
+        {{ uv | round(0) }} [High]. Definitely use sun protection.
+      {% elif 8 <= uv <= 10 %}
+        {{ uv | round(0) }} [Very High]. Avoid being outside for too long.
+      {% else %}
+        {{ uv }} [Extreme]. Stay inside unless absolutely necessary.
+      {% endif %}

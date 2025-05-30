@@ -1,0 +1,507 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#system"
+    button_type: name
+    name: System
+    icon: mdi:server
+    width_desktop: 840px
+    bg_opacity: "30"
+    bg_blur: "60"
+    backdrop_blur: ""
+    shadow_opacity: "50"
+    margin_top_desktop: 20px
+    margin_top_mobile: 10px
+    close_after_click_outside: false
+  - type: custom:bubble-card
+    card_type: separator
+    name: Profiles
+    icon: mdi:shield-lock-outline
+    card_layout: normal
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        entity: person.britney_fahmy
+        aspect_ratio: 1/1
+        grid_options:
+          columns: 6
+        name: Person
+        show_entity_picture: true
+        show_name: false
+        hold_action:
+          action: none
+        state:
+          - value: home
+            styles:
+              custom_fields:
+                icon:
+                  - border-color: "#77c66e"
+          - value: not_home
+            styles:
+              card:
+                - background-color: "#dedede"
+              custom_fields:
+                icon:
+                  - border-color: "#EF4F1A"
+          - value: Work
+            styles:
+              custom_fields:
+                icon:
+                  - border-color: deepskyblue
+        styles:
+          card:
+            - background-color: white
+            - border-radius: 5%
+            - padding: 5%
+            - color: gray
+            - font-size: 10px
+            - text-shadow: 0px 0px 0px black
+            - text-transform: capitalize
+            - justify-self: end
+            - align-self: middle
+          grid:
+            - grid-template-areas: >-
+                "icon status" "n n" "battery proximity" "wifi ss"
+                "sd sd"
+            - grid-template-columns: 2fr 1fr
+            - grid-template-rows: 1fr min-content min-content min-content min-content
+          name:
+            - font-size: 15px
+            - align-self: middle
+            - justify-self: start
+            - padding-bottom: 10px
+          custom_fields:
+            icon:
+              - clip-path: circle()
+              - width: 80%
+              - pointer-events: none
+              - display: grid
+              - border: 5px solid
+              - border-color: gray
+              - border-radius: 500px
+              - margin: 0 +10% 0 0
+              - justify-self: end
+              - opacity: 1
+            status:
+              - align-self: start
+              - justify-self: end
+              - color: gray
+            proximity:
+              - padding: 0.5em 0px
+              - align-self: middle
+              - justify-self: start
+              - color: gray
+            wifi:
+              - padding: 0.5em 0px
+              - align-self: middle
+              - justify-self: start
+              - color: gray
+              - "--text-wifi-color-sensor": >-
+                  [[[ if
+                  (states["sensor.britneys_iphone_connection_type"].state
+                  == '<not connected>') return "#aaaaaa"; ]]]
+            battery:
+              - padding: 0.5em 0px
+              - align-self: middle
+              - justify-self: start
+              - color: gray
+              - "--text-color-sensor": >-
+                  [[[ if
+                  (states["sensor.britneys_iphone_battery_level"].state
+                  < 50) return "#EF4F1A"; ]]]
+        custom_fields:
+          icon: >
+            [[[ return entity === undefined ? null : `<img
+            src="${states[entity.entity_id].attributes.entity_picture}"
+            width="100%">`; ]]]
+          status: |
+            [[[
+              if (states['person.britney_fahmy'].state =='not_home') {
+              return `<ha-icon icon="mdi:home-export-outline"
+                style="width: 20px; height: 20px; color: '#888888';">
+                </ha-icon><span> Away</span>`;
+              }
+              if (states['person.britney_fahmy'].state =='home') {
+              return `<ha-icon
+                icon="mdi:home"
+                style="width: 20px; height: 20px; color: 888888;">
+                </ha-icon><span> ${entity.state}</span>`;
+              } else {
+              return `<ha-icon
+                icon="mdi:map-marker-radius"
+                style="width: 20px; height: 20px; color: 888888;">
+                </ha-icon><span> ${entity.state}</span>`;
+              }
+            ]]]
+          proximity: |
+            [[[
+              return `<ha-icon
+                icon="mdi:map-marker-distance"
+                style="width: 20px; height: 20px; color: #888888;">
+                </ha-icon>  <span>\<span style="color: var(--text-color-sensor); ">${(states['sensor.britneys_iphone_distance'].state/1000)}km </span></span>`
+            ]]]
+          battery: |
+            [[[
+              if (states['sensor.britneys_iphone_battery_state'].state =='charging') {
+                return `<ha-icon
+                icon="mdi:battery-charging"
+                style="width: 20px; height: 20px; color: #888888;">
+                </ha-icon> <span><span style="color: var(--text-color-sensor);">${states['sensor.britneys_iphone_battery_state'].state}% battery</span></span>`;
+              } else {
+                return `<ha-icon
+                icon="mdi:battery"
+                style="width: 20px; height: 20px; color: #888888;">
+                </ha-icon> <span><span style="color: var(--text-color-sensor);">${states['sensor.britneys_iphone_battery_level'].state}% battery</span></span>`;
+              }
+            ]]]
+          wifi: |
+            [[[
+              if (states['binary_sensor.192_168_68_52'].state == 'off') {
+                return `<ha-icon
+                icon="mdi:wifi-off"
+                style="width: 20px; height: 20px; color: var(--text-wifi-color-sensor);">
+                </ha-icon> <span><span style="color: var(--text-wifi-color-sensor);">Disconnected</span></span>`;
+              } else {
+                return `<ha-icon
+                icon="mdi:wifi"
+                style="width: 20px; height: 20px; color: #888888;">
+                </ha-icon> <span><span style="color: var(--text-color-sensor);">${states['sensor.britneys_iphone_connection_type'].state}</span></span>`;
+              }
+            ]]]
+      - type: custom:button-card
+        entity: person.george_fahmy
+        aspect_ratio: 1/1
+        name: Person
+        show_entity_picture: true
+        show_name: false
+        grid_options:
+          columns: 6
+        hold_action:
+          action: none
+        state:
+          - value: home
+            styles:
+              custom_fields:
+                icon:
+                  - border-color: "#77c66e"
+          - value: not_home
+            styles:
+              card:
+                - background-color: "#dedede"
+              custom_fields:
+                icon:
+                  - border-color: "#EF4F1A"
+          - value: Work
+            styles:
+              custom_fields:
+                icon:
+                  - border-color: deepskyblue
+        styles:
+          card:
+            - background-color: white
+            - border-radius: 5%
+            - padding: 5%
+            - color: gray
+            - font-size: 10px
+            - text-shadow: 0px 0px 0px black
+            - text-transform: capitalize
+            - justify-self: end
+            - align-self: middle
+          grid:
+            - grid-template-areas: >-
+                "icon status" "n n" "battery proximity" "wifi ss"
+                "sd sd"
+            - grid-template-columns: 2fr 1fr
+            - grid-template-rows: 1fr min-content min-content min-content min-content
+          name:
+            - font-size: 15px
+            - align-self: middle
+            - justify-self: start
+            - padding-bottom: 10px
+          custom_fields:
+            icon:
+              - clip-path: circle()
+              - width: 80%
+              - pointer-events: none
+              - display: grid
+              - border: 5px solid
+              - border-color: gray
+              - border-radius: 500px
+              - margin: 0 +10% 0 0
+              - justify-self: end
+              - opacity: 1
+            status:
+              - align-self: start
+              - justify-self: end
+              - color: gray
+            proximity:
+              - padding: 0px
+              - align-self: middle
+              - justify-self: end
+              - color: gray
+            wifi:
+              - padding: 0.5em 0px
+              - align-self: middle
+              - justify-self: start
+              - color: gray
+              - "--text-wifi-color-sensor": >-
+                  [[[ if
+                  (states["sensor.george_16pro_connection_type"].state
+                  == '<not connected>') return "#aaaaaa"; ]]]
+            battery:
+              - padding: 0.5em 0px
+              - align-self: left
+              - justify-self: start
+              - color: gray
+              - "--text-color-sensor": >-
+                  [[[ if
+                  (states["sensor.george_16pro_battery_level"].state
+                  < 50) return "#EF4F1A"; ]]]
+        custom_fields:
+          icon: >
+            [[[ return entity === undefined ? null : `<img
+            src="${states[entity.entity_id].attributes.entity_picture}"
+            width="100%">`; ]]]
+          status: |
+            [[[
+              if (states['person.george_fahmy'].state =='not_home') {
+              return `<ha-icon icon="mdi:home-export-outline"
+                style="width: 20px; height: 20px; color: '#888888';">
+                </ha-icon><span> Away</span>`;
+              }
+              if (states['person.george_fahmy'].state =='home') {
+              return `<ha-icon
+                icon="mdi:home"
+                style="width: 20px; height: 20px; color: 888888;">
+                </ha-icon><span> ${entity.state}</span>`;
+              } else {
+              return `<ha-icon
+                icon="mdi:map-marker-radius"
+                style="width: 20px; height: 20px; color: 888888;">
+                </ha-icon><span> ${entity.state}</span>`;
+              }
+            ]]]
+          proximity: |
+            [[[
+              return `<ha-icon
+                icon="mdi:map-marker"
+                style="width: 10px; height: 20px; color: #888888;">
+                </ha-icon>  <span>\<span style="color: var(--text-color-sensor);">${(states['sensor.george_iphone_area_2'].state)} </span></span>`
+            ]]]
+          battery: |
+            [[[
+              if (states['sensor.george_16pro_battery_state'].state =='charging') {
+                return `<ha-icon
+                icon="mdi:battery-charging"
+                style="width: 10px; height: 20px; color: #888888;">
+                </ha-icon> <span><span style="color: var(--text-color-sensor);">${states['sensor.george_16pro_battery_state'].state}% battery</span></span>`;
+              } else {
+                return `<ha-icon
+                icon="mdi:battery"
+                style="width: 15px; height: 15px; color: #888888;">
+                </ha-icon> <span><span style="color: var(--text-color-sensor);">${states['sensor.george_16pro_battery_level'].state}% battery</span></span>`;
+              }
+            ]]]
+          wifi: |
+            [[[
+              if (states['binary_sensor.192_168_68_50'].state =='off') {
+                return `<ha-icon
+                icon="mdi:wifi-off"
+                style="width: 20px; height: 20px; color: var(--text-wifi-color-sensor);">
+                </ha-icon> <span><span style="color: var(--text-wifi-color-sensor);">Disconnected</span></span>`;
+              } else {
+                return `<ha-icon
+                icon="mdi:wifi"
+                style="width: 20px; height: 20px; color: #888888;">
+                </ha-icon> <span><span style="color: var(--text-color-sensor);">${states['sensor.george_16pro_connection_type'].state}</span></span>`;
+              }
+            ]]]
+  - type: custom:bubble-card
+    card_type: separator
+    name: HA Services
+    icon: mdi:shield-lock-outline
+  - type: vertical-stack
+    cards:
+      - type: horizontal-stack
+        cards:
+          - entities:
+              - entity: zone.home
+                icon: mdi:home-assistant
+                name: Restart HA
+                tap_action:
+                  action: call-service
+                  confirmation: Are you sure?
+                  service: homeassistant.restart
+            show_header_toggle: false
+            show_state: false
+            style: |
+              ha-card {
+                text-align: center;
+                    }
+            title: false
+            type: glance
+          - entities:
+              - entity: zone.home
+                icon: mdi:robot
+                name: Automations
+                tap_action:
+                  action: call-service
+                  confirmation: Are you sure?
+                  service: automation.reload
+            show_header_toggle: false
+            show_state: false
+            style: |
+              ha-card {
+                text-align: center;
+                    }
+            title: false
+            type: glance
+          - entities:
+              - entity: zone.home
+                icon: mdi:cogs
+                name: Core Config
+                tap_action:
+                  action: call-service
+                  confirmation: Are you sure?
+                  service: homeassistant.reload_core_config
+            show_header_toggle: false
+            show_state: false
+            style: |
+              ha-card {
+                text-align: center;
+                    }
+            title: false
+            type: glance
+      - type: horizontal-stack
+        cards:
+          - entities:
+              - entity: zone.home
+                icon: mdi:microsoft-visual-studio-code
+                name: VS Code
+                tap_action:
+                  action: perform-action
+                  perform_action: hassio.addon_restart
+                  confirmation: Restart Studio Code?
+                  target: {}
+                  data:
+                    addon: a0d7b954_vscode
+            show_header_toggle: false
+            show_state: false
+            style: |
+              ha-card {
+                text-align: center;
+                    }
+            title: false
+            type: glance
+          - entities:
+              - entity: zone.home
+                icon: mdi:group
+                name: Groups
+                tap_action:
+                  action: call-service
+                  confirmation: Are you sure?
+                  service: group.reload
+            show_header_toggle: false
+            show_state: false
+            style: |
+              ha-card {
+                text-align: center;
+                    }
+            title: false
+            type: glance
+          - entities:
+              - entity: zone.home
+                icon: mdi:format-paint
+                name: Frontend
+                tap_action:
+                  action: call-service
+                  confirmation: Are you sure?
+                  service: frontend.reload_themes
+            show_header_toggle: false
+            show_state: false
+            style: |
+              ha-card {
+                text-align: center;
+                    }
+            title: false
+            type: glance
+  - type: custom:bubble-card
+    card_type: separator
+    name: System Monitor
+    icon: mdi:shield-lock-outline
+    card_layout: normal
+  - type: horizontal-stack
+    cards:
+      - type: custom:apexcharts-card
+        graph_span: 2h
+        header:
+          show: true
+          title: CPU
+          show_states: true
+          colorize_states: true
+        series:
+          - entity: sensor.system_monitor_processor_use
+            color: teal
+            name: CPU
+      - type: custom:apexcharts-card
+        graph_span: 2h
+        header:
+          show: true
+          title: CPU Temp
+          show_states: true
+          colorize_states: true
+        series:
+          - entity: sensor.system_monitor_processor_temperature
+            color: orange
+            name: CPU Temp
+    grid_options:
+      columns: 24
+      rows: auto
+  - type: horizontal-stack
+    cards:
+      - type: custom:apexcharts-card
+        graph_span: 2h
+        header:
+          show: true
+          title: Memory Usage
+          show_states: true
+          colorize_states: true
+        series:
+          - entity: sensor.system_monitor_memory_usage
+            color: pink
+            name: Memory Usage
+      - type: custom:apexcharts-card
+        graph_span: 2h
+        header:
+          show: true
+          title: Disk Usage
+          show_states: true
+          colorize_states: true
+        series:
+          - entity: sensor.system_monitor_disk_use
+            color: green
+            name: Disk Usage
+          - entity: sensor.system_monitor_disk_usage
+            name: Disk Usage
+            show:
+              in_chart: false
+    grid_options:
+      columns: 24
+      rows: auto
+  - type: custom:bubble-card
+    card_type: separator
+    name: Locations
+    icon: mdi:map-outline
+    card_layout: normal
+  - type: map
+    entities:
+      - entity: person.britney_fahmy
+      - entity: person.george_fahmy
+    theme_mode: auto
+    default_zoom: 13
+    hours_to_show: 12
+visibility:
+  - condition: user
+    users:
+      - 88e302fbf7ab4f8ab29332a3880e1aa6

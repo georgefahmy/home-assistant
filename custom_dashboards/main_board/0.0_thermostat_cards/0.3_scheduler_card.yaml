@@ -1,0 +1,42 @@
+type: custom:vertical-stack-in-card
+cards:
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: input_boolean.display_schedule
+        state: "on"
+    card:
+      type: custom:scheduler-card
+      include:
+        - climate.main_floor_thermostat
+        - climate.upstairs_thermostat
+      exclude: []
+      display_options:
+        primary_info: "{entity}: {action}"
+        secondary_info:
+          - relative-time
+          - time
+        icon: action
+      show_header_toggle: false
+      tags: []
+      sort_by:
+        - title
+        - state
+      title: ""
+      customize:
+        climate.upstairs_thermostat:
+          - service: climate.set_preset_mode
+            name: Set mode
+            icon: "hass:settings"
+            variables:
+              hvac_mode:
+                name: Operation mode2
+                options:
+                  - value: NoHold
+                    icon: "hass:fire"
+                  - value: HoldUntil
+                    icon: "hass:snowflake"
+      visibility:
+        - condition: state
+          entity: input_boolean.display_schedule
+          state: "on"

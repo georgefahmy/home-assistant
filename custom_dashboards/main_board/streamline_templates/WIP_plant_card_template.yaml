@@ -1,0 +1,50 @@
+default:
+  - plant_name: none
+  - plant_last_watered_entity: none
+  - plant_watering_interval: none
+  - plant_icon: none
+
+
+card:
+  type: custom:button-card
+  entity: "[[plan_timer_entity]]"
+  name: "[[plant_name]]"
+  icon: "[[plant_icon]]"
+  show_name: true
+  show_icon: true
+  show_state: true
+  styles:
+    grid:
+      - grid-template-areas: "\"i n\" \"i s\""
+      - grid-template-columns: auto 1fr
+      - grid-template-rows: 12px 12px
+    card:
+      - padding: 22px 22px 22px 22px
+      - height: 150px
+      - background: rgba(10,10,10,0.85)
+    name:
+      - justify-self: end
+      - font-size: 18px
+      - font-weight: 500
+      - color: rgb(210,174,113)
+    state:
+      - justify-self: end
+      - font-size: 14px
+      - opacity: "0.7"
+      - padding-top: 12px
+      - padding-left: 0px
+    img_cell:
+      - justify-content: start
+      - position: absolute
+      - width: 120px
+      - height: 120px
+      - left: 0
+      - bottom: 0
+      - margin: 0 0 -20px -20px
+      - background: rgb(210,174,113)
+      - border-radius: 500px
+    icon:
+      - position: relative
+      - width: 75px
+      - color: black
+      - opacity: "0.5"

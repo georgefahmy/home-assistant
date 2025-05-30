@@ -1,0 +1,351 @@
+type: sections
+max_columns: 4
+title: Battery Sim
+path: battery-sim
+icon: mdi:battery-charging
+top_margin: false
+subview: true
+sections:
+  - type: grid
+    cards:
+      - type: custom:modern-circular-gauge
+        entity: sensor.total_usage_power_minute_average
+        secondary: {}
+        tertiary:
+          entity: sensor.total_energy_energy_daily
+          adaptive_state_color: true
+        name: Usage
+        segments:
+          - from: 0
+            color:
+              - 0
+              - 132
+              - 255
+          - from: 1000
+            color:
+              - 1
+              - 254
+              - 5
+          - from: 2000
+            color:
+              - 251
+              - 255
+              - 0
+          - from: 4000
+            color:
+              - 255
+              - 0
+              - 0
+        needle: true
+        smooth_segments: true
+        max: 4000
+        adaptive_state_color: false
+        adaptive_icon_color: true
+        grid_options:
+          columns: 6
+          rows: 3
+      - type: custom:modern-circular-gauge
+        entity: sensor.solar_generation_power_minute_average
+        secondary:
+          state_size: small
+          adaptive_state_color: true
+          show_gauge: none
+          max: 30
+          needle: false
+        tertiary:
+          adaptive_state_color: true
+          show_gauge: none
+          min: -10
+          max: 10
+          needle: true
+          segments: []
+          entity: sensor.solar_generation_energy_daily
+        smooth_segments: true
+        segments:
+          - from: 0
+            color:
+              - 133
+              - 0
+              - 0
+          - from: 500
+            color:
+              - 145
+              - 100
+              - 3
+          - from: 1000
+            color:
+              - 212
+              - 216
+              - 14
+          - color:
+              - 68
+              - 255
+              - 0
+            from: 1500
+          - from: 2000
+            color:
+              - 0
+              - 238
+              - 255
+          - from: 2500
+            color:
+              - 1
+              - 108
+              - 223
+          - from: 3000
+            color:
+              - 118
+              - 0
+              - 214
+        name: Solar
+        min: 0
+        needle: true
+        adaptive_state_color: false
+        adaptive_icon_color: true
+        show_unit: true
+        show_header: true
+        max: 3200
+        header_position: bottom
+        grid_options:
+          columns: 6
+          rows: 3
+        visibility:
+          - condition: numeric_state
+            entity: sensor.solar_generation_power_minute_average
+            above: 0.1
+      - type: custom:modern-circular-gauge
+        entity: sensor.battery_sim_basengreen_percentage
+        secondary:
+          show_gauge: none
+          state_size: small
+          needle: true
+          max: 3.5
+          min: 0
+          adaptive_state_color: true
+          smooth_segments: true
+          segments:
+            - from: 0
+              color:
+                - 133
+                - 0
+                - 0
+            - from: 0.5
+              color:
+                - 145
+                - 100
+                - 3
+            - from: 1
+              color:
+                - 212
+                - 216
+                - 14
+            - from: 1.5
+              color:
+                - 68
+                - 255
+                - 0
+            - from: 2
+              color:
+                - 0
+                - 238
+                - 255
+            - from: 2.5
+              color:
+                - 1
+                - 108
+                - 223
+            - from: 3
+              color:
+                - 118
+                - 0
+                - 214
+        tertiary:
+          needle: true
+          min: 0
+          adaptive_state_color: true
+          show_gauge: none
+          segments:
+            - from: 3
+              color:
+                - 133
+                - 0
+                - 0
+            - from: 2.5
+              color:
+                - 145
+                - 100
+                - 3
+            - from: 2
+              color:
+                - 212
+                - 216
+                - 14
+            - from: 1.5
+              color:
+                - 68
+                - 255
+                - 0
+            - from: 1
+              color:
+                - 0
+                - 238
+                - 255
+            - from: 0.5
+              color:
+                - 1
+                - 108
+                - 223
+            - from: 0
+              color:
+                - 118
+                - 0
+                - 214
+          max: 3.5
+          entity: sensor.battery_sim_basengreen
+        name: Charge %
+        smooth_segments: true
+        min: 0
+        header_position: bottom
+        needle: true
+        adaptive_state_color: false
+        adaptive_icon_color: true
+        show_header: true
+        show_unit: true
+        max: 100
+        grid_options:
+          columns: 6
+          rows: 3
+        segments:
+          - from: 0
+            color:
+              - 0
+              - 0
+              - 0
+          - color:
+              - 255
+              - 0
+              - 0
+            from: 10
+          - color:
+              - 255
+              - 234
+              - 0
+            from: 50
+          - from: 75
+            color:
+              - 0
+              - 145
+              - 255
+          - from: 100
+            color:
+              - 30
+              - 255
+              - 0
+      - type: custom:modern-circular-gauge
+        entity: sensor.battery_sim_basengreen_net_power
+        secondary:
+          entity: sensor.battery_sim_basengreen_battery_mode_now
+          state_size: small
+          show_gauge: none
+        tertiary: {}
+        name: Battery Net Power
+        max: 3000
+        min: -3000
+        smooth_segments: true
+        needle: true
+        adaptive_state_color: false
+        adaptive_icon_color: true
+        segments:
+          - color:
+              - 0
+              - 191
+              - 255
+            from: -4000
+          - from: 4000
+            color:
+              - 245
+              - 180
+              - 0
+        header_position: bottom
+        grid_options:
+          columns: 6
+          rows: 3
+      - type: custom:modern-circular-gauge
+        entity: sensor.net_power_minute_average
+        secondary:
+          state_size: small
+          show_gauge: none
+        tertiary: {}
+        name: Real Net Power
+        smooth_segments: true
+        needle: true
+        adaptive_state_color: false
+        adaptive_icon_color: true
+        segments:
+          - color:
+              - 0
+              - 191
+              - 255
+            from: -4000
+          - from: 4000
+            color:
+              - 245
+              - 180
+              - 0
+        header_position: bottom
+        grid_options:
+          columns: 6
+          rows: 3
+        max: 3000
+        min: -3000
+        visibility:
+          - condition: numeric_state
+            entity: sensor.solar_generation_power_minute_average
+            above: 0
+    column_span: 2
+  - type: grid
+    cards:
+      - type: heading
+        heading: "Metrics"
+      - type: tile
+        entity: sensor.battery_sim_basengreen_battery_energy_in
+        features_position: bottom
+        vertical: false
+        name: Energy In
+      - type: tile
+        entity: sensor.battery_sim_basengreen_battery_energy_out
+        features_position: bottom
+        vertical: false
+        name: Energy Out
+      - type: tile
+        entity: sensor.battery_sim_basengreen_total_money_saved
+        features_position: bottom
+        vertical: false
+        name: Net Money Saved
+      - type: tile
+        entity: sensor.battery_sim_basengreen_total_energy_saved
+        features_position: bottom
+        vertical: false
+        name: Net Energy Saved
+      - type: tile
+        entity: sensor.battery_sim_basengreen_extra_money_earned_on_exports
+        features_position: bottom
+        vertical: false
+        name: Export $ Earned
+      - type: tile
+        entity: >-
+          sensor.battery_sim_basengreen_simulated_sensor_mainsfromgrid_energy_today
+        features_position: bottom
+        vertical: false
+        name: Sim From Grid
+      - type: tile
+        entity: sensor.battery_sim_basengreen_money_saved_on_imports
+        features_position: bottom
+        vertical: false
+        name: Import $ Saved
+      - type: tile
+        entity: >-
+          sensor.battery_sim_basengreen_simulated_sensor_mainstogrid_energy_today
+        features_position: bottom
+        vertical: false
+        name: Sim To Grid

@@ -1,0 +1,427 @@
+- type: custom:mushroom-chips-card
+  alignment: center
+  chips:
+    - type: alarm-control-panel
+      entity: alarm_control_panel.home
+      content_info: state
+    - type: weather
+      entity: weather.forecast_jasper
+      show_conditions: true
+      show_temperature: true
+    - type: conditional
+      conditions:
+        - condition: or
+          conditions:
+            - condition: state
+              entity: lock.front_door_lock
+              state: unlocked
+            - condition: state
+              entity: lock.front_door_lock
+              state: jammed
+      chip:
+        type: entity
+        entity: lock.front_door_lock
+        tap_action:
+          action: more-info
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        icon: mdi:lock-open-alert
+        name: Front Door
+        content_info: name
+        icon_color: red
+    - type: conditional
+      conditions:
+        - condition: state
+          entity: binary_sensor.family_room_person
+          state_not: "off"
+      chip:
+        type: entity
+        entity: binary_sensor.family_room_person
+        use_entity_picture: true
+        icon_color: red
+        icon: mdi:sofa
+    - type: conditional
+      conditions:
+        - condition: state
+          entity: binary_sensor.front_door_package
+          state_not: "off"
+      chip:
+        type: entity
+        entity: binary_sensor.front_door_package
+        icon_color: blue
+        icon: mdi:garage
+        use_entity_picture: true
+    - type: conditional
+      conditions:
+        - condition: state
+          entity: binary_sensor.front_door_person
+          state_not: "off"
+      chip:
+        type: entity
+        entity: binary_sensor.front_door_person
+        icon: mdi:doorbell-video
+        icon_color: red
+    - type: conditional
+      conditions:
+        - condition: state
+          entity: binary_sensor.entry_motion
+          state_not: "off"
+      chip:
+        type: entity
+        entity: binary_sensor.entry_motion
+        icon: mdi:door
+        icon_color: red
+    - type: conditional
+      conditions:
+        - condition: state
+          entity: binary_sensor.office_person
+          state_not: "off"
+      chip:
+        type: entity
+        entity: binary_sensor.office_person
+        icon: mdi:desktop-tower-monitor
+        icon_color: red
+    - type: conditional
+      conditions:
+        - condition: state
+          entity: lock.lock_front_door
+          state_not: locked
+      chip:
+        type: entity
+        entity: lock.lock_front_door
+        use_entity_picture: true
+        icon_color: red
+    - type: conditional
+      conditions:
+        - condition: state
+          entity: binary_sensor.front_door_opening
+          state_not: "off"
+      chip:
+        type: entity
+        entity: binary_sensor.front_door_opening
+        icon: mdi:door-open
+        icon_color: red
+        use_entity_picture: false
+        name: Front Door
+    - type: conditional
+      conditions:
+        - condition: state
+          entity: input_boolean.britney_meds_toggle
+          state: "on"
+      chip:
+        type: template
+        tap_action:
+          action: toggle
+        entity: input_boolean.britney_meds_toggle
+        icon: mdi:pill-multiple
+        icon_color: red
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+    - type: conditional
+      conditions:
+        - condition: state
+          entity: input_boolean.britney_meds_toggle
+          state: "off"
+      chip:
+        type: template
+        tap_action:
+          action: perform-action
+          perform_action: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.britney_meds_toggle
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        entity: input_boolean.britney_meds_toggle
+        icon: mdi:pill-multiple
+        icon_color: green
+    - type: conditional
+      conditions:
+        - condition: state
+          entity: sun.sun
+          state: below_horizon
+        - condition: numeric_state
+          entity: sensor.baby_room_rgb_brightness
+          above: 15
+      chip:
+        type: action
+        tap_action:
+          action: perform-action
+          perform_action: automation.trigger
+          target:
+            entity_id: automation.baby_room_slow_dimming
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        icon: mdi:baby-carriage
+        icon_color: cyan
+    - type: conditional
+      conditions:
+        - condition: state
+          entity: sun.sun
+          state: below_horizon
+        - condition: numeric_state
+          entity: sensor.baby_room_rgb_brightness
+          below: 16
+      chip:
+        type: entity
+        entity: light.baby_room_rgb
+        tap_action:
+          action: more-info
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        icon: mdi:baby-carriage
+        icon_color: deep-orange
+        content_info: none
+    - type: conditional
+      conditions:
+        - condition: or
+          conditions:
+            - condition: state
+              entity: binary_sensor.family_room_window_1_sensor_opening
+              state: "on"
+            - condition: state
+              entity: binary_sensor.family_room_window_2_sensor_opening
+              state: "on"
+            - condition: state
+              entity: binary_sensor.family_room_window_3_sensor_opening
+              state: "on"
+            - condition: state
+              entity: binary_sensor.family_room_window_4_sensor_opening
+              state: "on"
+            - condition: state
+              entity: binary_sensor.kitchen_window_1_sensor_opening
+              state: "on"
+            - condition: state
+              entity: binary_sensor.kitchen_window_2_sensor_opening
+              state: "on"
+            - condition: state
+              entity: binary_sensor.kitchen_window_3_sensor_opening
+              state: "on"
+            - condition: state
+              entity: binary_sensor.kitchen_window_4_sensor_opening
+              state: "on"
+            - condition: state
+              entity: binary_sensor.guest_room_window_1_sensor_opening
+              state: "on"
+            - condition: state
+              entity: binary_sensor.guest_room_window_2_sensor_opening
+              state: "on"
+            - condition: state
+              entity: binary_sensor.guest_room_window_3_sensor_opening
+              state: "on"
+      chip:
+        type: action
+        tap_action:
+          action: none
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        icon: mdi:window-open
+        icon_color: green
+- type: entity
+  show_name: false
+  show_state: true
+  show_icon: true
+  entity: sensor.parcel_active_shipment
+  tap_action:
+    action: navigate
+    navigation_path: "#deliveries"
+- type: custom:mushroom-template-badge
+  content: |-
+    Memory - {{ states('sensor.system_monitor_memory_usage') }}%
+    | CPU - {{ states('sensor.system_monitor_processor_use') | float  }}%  
+    {{ states('sensor.system_monitor_processor_temperature')}}°C
+  icon: mdi:server
+  color: >-
+    {% if states('sensor.system_monitor_memory_usage') | float > 40  or
+    states('sensor.system_monitor_processor_use') | float > 50 %}
+    red
+    {% elif states('sensor.system_monitor_memory_usage') | float > 30  or
+    states('sensor.system_monitor_processor_use') | float > 30 %}
+    orange
+    {% elif states('sensor.system_monitor_memory_usage') | float > 20  or
+    states('sensor.system_monitor_processor_use') | float > 20 %}
+    yellow
+    {% elif states('sensor.system_monitor_memory_usage') | float > 10  or
+    states('sensor.system_monitor_processor_use') | float > 10 %}
+    blue
+    {% else %}
+    green
+    {% endif %}
+  label: System
+  tap_action:
+    action: navigate
+    navigation_path: "#system"
+  hold_action:
+    action: none
+  double_tap_action:
+    action: none
+  visibility:
+    - condition: user
+      users:
+        - 88e302fbf7ab4f8ab29332a3880e1aa6
+- type: custom:mushroom-template-badge
+  content: Automations
+  icon: mdi:home-automation
+  color: green
+  tap_action:
+    action: navigate
+    navigation_path: "#automations"
+  hold_action:
+    action: none
+  double_tap_action:
+    action: none
+  label: >-
+    Off: {{ states('sensor.disabled_automations') }} - On: {{
+    states('sensor.enabled_automations') }}
+  visibility:
+    - condition: user
+      users:
+        - 88e302fbf7ab4f8ab29332a3880e1aa6
+- type: custom:modern-circular-gauge-badge
+  entity: sensor.net_power_minute_average
+  name: Net Power
+  needle: true
+  show_name: true
+  show_icon: true
+  show_unit: true
+  smooth_segments: true
+  max: 4000
+  min: -2500
+  segments:
+    - color:
+        - 66
+        - 198
+        - 255
+      from: -1000
+    - color:
+        - 118
+        - 187
+        - 64
+      from: 0
+    - color:
+        - 255
+        - 149
+        - 0
+      from: 1000
+    - color:
+        - 255
+        - 0
+        - 0
+      from: 3000
+  tap_action:
+    action: navigate
+    navigation_path: "#powers"
+- type: custom:modern-circular-gauge-badge
+  entity: sensor.net_energy_today
+  name: Daily Energy
+  needle: true
+  show_name: true
+  show_icon: true
+  smooth_segments: true
+  max: 20
+  min: -20
+  segments:
+    - from: -15
+      color:
+        - 66
+        - 198
+        - 255
+    - from: 0
+      color:
+        - 42
+        - 244
+        - 65
+    - from: 12
+      color:
+        - 249
+        - 232
+        - 36
+    - from: 20
+      color:
+        - 255
+        - 0
+        - 0
+  tap_action:
+    action: more-info
+- type: custom:modern-circular-gauge-badge
+  entity: sensor.net_energy_this_month
+  name: Month Energy
+  needle: true
+  show_name: true
+  show_icon: true
+  smooth_segments: true
+  max: 20
+  min: -20
+  segments:
+    - from: -15
+      color:
+        - 66
+        - 198
+        - 255
+    - from: 0
+      color:
+        - 42
+        - 244
+        - 65
+    - from: 12
+      color:
+        - 249
+        - 232
+        - 36
+    - from: 20
+      color:
+        - 255
+        - 0
+        - 0
+  tap_action:
+    action: more-info
+- type: custom:modern-circular-gauge-badge
+  entity: sensor.solar_generation_power_minute_average
+  smooth_segments: true
+  segments:
+    - color:
+        - 66
+        - 198
+        - 255
+      from: 2000
+    - color:
+        - 118
+        - 187
+        - 64
+      from: 1000
+    - color:
+        - 255
+        - 149
+        - 0
+      from: 500
+    - color:
+        - 255
+        - 0
+        - 0
+      from: 0
+  show_icon: true
+  show_unit: true
+  needle: true
+  max: 3100
+  show_name: true
+  tap_action:
+    action: more-info
+  unit: W
+  icon: mdi:solar-power
+  min: 0
+  name: Solar
+  visibility:
+    - condition: numeric_state
+      entity: sensor.solar_generation_power_minute_average
+      above: 0

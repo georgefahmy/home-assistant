@@ -1,0 +1,50 @@
+card:
+  type: custom:bubble-card
+  card_type: climate
+  entity: "[[thermostat_entity]]"
+  scrolling_effect: true
+  force_icon: false
+  show_icon: true
+  show_name: true
+  show_state: true
+  show_attribute: true
+  attribute: current_temperature
+  hide_target_temp_low: false
+  hide_target_temp_high: false
+  state_color: false
+  card_layout: large
+  styles: |-
+    * {
+    --bubble-border-radius: 30px
+    }
+  name: "[[thermostat_name]]"
+  grid_options:
+    columns: 12
+    rows: 1
+  double_tap_action:
+    action: none
+  hold_action:
+    action: none
+  sub_button:
+    - entity: "[[thermostat_entity]]"
+      show_attribute: false
+      show_icon: false
+      attribute: preset_mode
+      state_background: true
+      show_background: true
+      show_name: true
+      name: Reset Hold
+      visibility:
+        - condition: state
+          entity: "[[thermostat_hold_entity]]"
+          state: "on"
+      tap_action:
+        action: perform-action
+        perform_action: "[[script]]"
+    - name: HVAC modes menu
+      select_attribute: hvac_modes
+      state_background: false
+      show_arrow: false
+      show_name: false
+      show_last_changed: false
+      show_state: false

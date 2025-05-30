@@ -1,0 +1,176 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#security"
+    button_type: name
+    name: Security
+    icon: mdi:shield
+    width_desktop: 840px
+    bg_opacity: "30"
+    bg_blur: "60"
+    backdrop_blur: ""
+    shadow_opacity: "50"
+    margin_top_desktop: 20px
+    margin_top_mobile: 10px
+    trigger:
+      - condition: or
+        conditions:
+          - condition: state
+            entity: binary_sensor.front_door_person
+            state: "on"
+  - type: custom:bubble-card
+    card_type: separator
+    name: Alarm
+    icon: mdi:shield-lock-outline
+  - type: custom:mushroom-alarm-control-panel-card
+    entity: alarm_control_panel.home
+    states:
+      - armed_away
+      - armed_night
+    fill_container: false
+  - type: custom:bubble-card
+    card_type: separator
+    name: Cameras
+    icon: mdi:cctv
+    sub_button:
+      - name: CCTV
+        icon: mdi:cctv
+        state_background: true
+        show_background: true
+        tap_action:
+          action: navigate
+          navigation_path: /lovelace-yaml/security
+  # - type: custom:bubble-card
+  #   card_type: select
+  #   entity: input_select.cameras
+  #   show_state: true
+  #   show_attribute: false
+  #   name: Camera
+  #   icon: mdi:cctv
+  #   sub_button: []
+  #   tap_action:
+  #     action: none
+  #   double_tap_action:
+  #     action: none
+  #   hold_action:
+  #     action: none
+  #   show_name: true
+  #   button_type: state
+  #   button_action:
+  #     tap_action:
+  #       action: none
+  #     double_tap_action:
+  #       action: none
+  #     hold_action:
+  #       action: none
+  #   card_layout: normal
+  #   show_icon: true
+  #   force_icon: false
+  - type: custom:mushroom-select-card
+    entity: input_select.cameras
+    icon: mdi:cctv
+    tap_action:
+      action: none
+    hold_action:
+      action: none
+    double_tap_action:
+      action: none
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: input_select.cameras
+        state: Office
+    card:
+      camera_view: live
+      type: picture-glance
+      image: https://demo.home-assistant.io/stub_config/kitchen.png
+      entities: []
+      camera_image: camera.office_fluent
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: input_select.cameras
+        state: Family Room
+    card:
+      camera_view: live
+      type: picture-glance
+      image: https://demo.home-assistant.io/stub_config/kitchen.png
+      entities: []
+      camera_image: camera.family_room_fluent
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: input_select.cameras
+        state: Baby Room
+    card:
+      camera_view: live
+      type: picture-glance
+      image: https://demo.home-assistant.io/stub_config/kitchen.png
+      entities: []
+      camera_image: camera.baby_room_fluent_2
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: input_select.cameras
+        state: Front Door
+    card:
+      camera_view: live
+      type: picture-glance
+      image: https://demo.home-assistant.io/stub_config/kitchen.png
+      entities: []
+      camera_image: camera.front_door_fluent
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: input_select.cameras
+        state: Garage
+    card:
+      camera_view: live
+      type: picture-glance
+      image: https://demo.home-assistant.io/stub_config/kitchen.png
+      entities: []
+      camera_image: camera.garage_fluent
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: input_select.cameras
+        state: Entryway
+    card:
+      camera_view: live
+      type: picture-glance
+      image: https://demo.home-assistant.io/stub_config/kitchen.png
+      entities: []
+      camera_image: camera.entry_fluent
+  - type: custom:bubble-card
+    card_type: separator
+    name: Doors / Windows
+    icon: mdi:door
+  - type: horizontal-stack
+    cards:
+      - type: entities
+        entities:
+          - entity: lock.front_door_lock
+            name: Front Door Lock
+          - entity: sensor.front_door_lock_state
+            name: Lock State
+          - entity: binary_sensor.front_door_opening
+            name: Front
+            icon: mdi:door-closed
+          - entity: binary_sensor.garage_door_opening
+            name: Garage
+            icon: mdi:door-closed
+        title: Doors
+        state_color: true
+      - type: entities
+        entities:
+          - entity: binary_sensor.garage_door_blaq_motion
+          - entity: binary_sensor.entry_motion
+          - entity: binary_sensor.front_door_package
+        title: Sensors
+        state_color: true
+  - type: custom:llmvision-card
+    entity: calendar.llm_vision_timeline
+    number_of_hours: 72
+    number_of_events: 5
+    language: en

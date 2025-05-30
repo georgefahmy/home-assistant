@@ -1,0 +1,4 @@
+type: custom:gap-card
+grid_options:
+  columns: 1
+  rows: 2

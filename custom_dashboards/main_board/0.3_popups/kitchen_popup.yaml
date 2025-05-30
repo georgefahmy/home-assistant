@@ -1,0 +1,247 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#kitchen"
+    name: Kitchen
+    icon: mdi:fridge
+    sub_button:
+      - entity: sensor.kitchen_temp_temperature
+        show_state: true
+        state_background: false
+    card_layout: normal
+    styles: |-
+      .bubble-button-card-container {
+        background: lightblue !important;
+      }
+      .bubble-name {
+        color: black
+      }
+    width_desktop: 840px
+    bg_opacity: "30"
+    bg_blur: "60"
+    backdrop_blur: ""
+    shadow_opacity: "50"
+    margin_top_desktop: 20px
+    margin_top_mobile: 10px
+  - type: custom:bubble-card
+    card_type: separator
+    name: Lights
+    icon: mdi:lamps
+  - type: custom:bubble-card
+    card_type: button
+    button_type: slider
+    entity: light.kitchen_group
+    name: Room
+    icon: mdi:lightbulb-group
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+    slider_live_update: true
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        button_type: slider
+        entity: light.kitchen_main
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        name: Ceiling
+        icon: mdi:light-recessed
+        slider_live_update: true
+      - type: custom:bubble-card
+        card_type: button
+        button_type: slider
+        name: Table
+        icon: mdi:light-recessed
+        slider_live_update: true
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        entity: light.kitchen_table
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        button_type: switch
+        entity: light.kitchen_cabinet
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        name: Cabinets
+        icon: mdi:lightbulb-fluorescent-tube
+        slider_live_update: true
+        show_state: false
+        show_last_changed: false
+      - type: custom:bubble-card
+        card_type: button
+        button_type: switch
+        name: Sink
+        icon: mdi:ceiling-light
+        slider_live_update: true
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        entity: light.kitchen_sink
+  - type: custom:bubble-card
+    card_type: separator
+    name: Window Blinds
+    icon: mdi:blinds-horizontal
+  - type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: window_template
+        variables:
+          - name: Kitchen 1
+          - entity: cover.kitchen_window_1
+          - tilt_entity: sensor.kitchen_window_1_tilt
+      - type: custom:streamline-card
+        template: window_template
+        variables:
+          - name: Kitchen 2
+          - entity: cover.kitchen_window_2
+          - tilt_entity: sensor.kitchen_window_2_tilt
+  - type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: window_template
+        variables:
+          - name: kitchen 3
+          - entity: cover.kitchen_window_3
+          - tilt_entity: sensor.kitchen_window_3_tilt
+      - type: custom:streamline-card
+        template: window_template
+        variables:
+          - name: kitchen 4
+          - entity: cover.kitchen_window_4
+          - tilt_entity: sensor.kitchen_window_4_tilt
+  - type: custom:bubble-card
+    card_type: separator
+    name: Appliances
+    icon: mdi:kettle-pour-over
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        button_type: state
+        name: Kettle
+        icon: mdi:kettle
+        entity: select.smart_kettle_mode
+        show_state: true
+        show_attribute: false
+        sub_button:
+          - entity: switch.smart_kettle_power_switch
+            name: Power
+            icon: mdi:power
+            show_state: true
+            show_attribute: false
+            tap_action:
+              action: toggle
+          - entity: select.smart_kettle_mode
+            show_state: false
+            state_background: true
+            name: Mode
+            show_name: true
+          - entity: sensor.smart_kettle_temperature
+            state_background: false
+            show_icon: false
+            show_state: true
+            show_background: false
+            name: Current Temp
+        button_action:
+          tap_action:
+            action: none
+          double_tap_action:
+            action: none
+          hold_action:
+            action: none
+        tap_action:
+          action: none
+        double_tap_action:
+          action: none
+        attribute: options
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        button_type: switch
+        name: Fridge Ice Plus
+        icon: mdi:snowflake
+        show_state: true
+        show_attribute: false
+        sub_button: []
+        button_action:
+          double_tap_action:
+            action: none
+          hold_action:
+            action: none
+          tap_action:
+            action: toggle
+        tap_action:
+          action: toggle
+        double_tap_action:
+          action: none
+        attribute: options
+        entity: switch.lg_refrigerator_ice_plus
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        button_type: switch
+        name: ""
+        icon: mdi:dishwasher
+        show_state: true
+        show_attribute: false
+        sub_button:
+          - entity: sensor.whirlpool_dishwasher_power
+            show_state: true
+            state_background: false
+        button_action:
+          double_tap_action:
+            action: none
+          hold_action:
+            action: none
+          tap_action:
+            action: more-info
+        double_tap_action:
+          action: none
+        attribute: options
+        entity: binary_sensor.whirlpool_dishwasher_on
+        tap_action:
+          action: none
+  - type: custom:bubble-card
+    card_type: separator
+    name: Temperature & Humidity
+    icon: mdi:home-thermometer-outline
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        button_type: state
+        name: Temperature
+        icon: mdi:thermometer
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        slider_live_update: true
+        sub_button: []
+        card_type: button
+        entity: sensor.kitchen_temp_temperature
+      - type: custom:bubble-card
+        button_type: state
+        name: Humidity
+        icon: mdi:water-percent
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        slider_live_update: true
+        sub_button: []
+        card_type: button
+        entity: sensor.kitchen_temp_humidity

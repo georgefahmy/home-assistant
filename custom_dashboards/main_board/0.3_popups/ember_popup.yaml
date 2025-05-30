@@ -1,0 +1,93 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#ember"
+    name: Ember
+    icon: mdi:coffee-outline
+    sub_button:
+      - entity: sensor.ember_mug_df3819b478aa_current_temp
+        show_state: true
+        state_background: false
+        show_attribute: false
+        name: Ember
+        icon: mdi:coffee
+      - entity: sensor.ember_mug_df3819b478aa_battery_percent
+        show_state: true
+        state_background: false
+        name: Battery
+      - entity: light.ember_mug_df3819b478aa_led
+        state_background: true
+        show_background: true
+        icon: mdi:led-on
+        name: LED color
+    card_layout: normal
+    styles: |-
+      .bubble-button-card-container {
+        background-color: rgba(60,98,254,1) !important;
+
+      }
+      .bubble-name {
+        color: black
+      }
+    width_desktop: 840px
+    bg_opacity: "30"
+    bg_blur: "60"
+    backdrop_blur: ""
+    shadow_opacity: "50"
+    margin_top_desktop: 20px
+    margin_top_mobile: 10px
+    tap_action:
+      action: none
+    double_tap_action:
+      action: none
+    hold_action:
+      action: none
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        button_type: state
+        name: Set Temperature
+        icon: mdi:pot-steam
+        show_state: true
+        show_attribute: false
+        sub_button: []
+        button_action:
+          double_tap_action:
+            action: none
+          hold_action:
+            action: none
+          tap_action:
+            action: more-info
+        double_tap_action:
+          action: none
+        entity: number.ember_mug_df3819b478aa_target_temp
+        tap_action:
+          action: none
+        show_last_changed: false
+        show_name: true
+      - type: custom:bubble-card
+        card_type: select
+        button_type: switch
+        name: Presets
+        icon: mdi:thermometer
+        show_state: true
+        show_attribute: false
+        sub_button: []
+        button_action:
+          double_tap_action:
+            action: none
+          hold_action:
+            action: none
+          tap_action:
+            action: more-info
+        double_tap_action:
+          action: none
+        attribute: options
+        show_last_changed: false
+        tap_action:
+          action: none
+        entity: select.ember_mug_df3819b478aa_temperature_preset
+        show_name: true
+        card_layout: normal

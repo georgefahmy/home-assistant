@@ -1,0 +1,53 @@
+type: custom:grid-layout
+path: security
+title: Security
+subview: true
+cards:
+  - type: horizontal-stack
+    cards:
+      - type: vertical-stack
+        cards:
+          - show_state: false
+            show_name: false
+            camera_view: live
+            type: picture-entity
+            entity: camera.front_door_fluent
+            camera_image: camera.front_door_fluent
+      - type: grid
+        square: false
+        cards:
+          - show_state: false
+            show_name: false
+            camera_view: live
+            type: picture-entity
+            entity: camera.baby_room_fluent_2
+            camera_image: camera.baby_room_fluent_2
+          - show_state: false
+            show_name: false
+            camera_view: live
+            type: picture-entity
+            entity: camera.entry_fluent
+            camera_image: camera.entry_fluent
+        columns: 1
+      - type: grid
+        square: false
+        cards:
+          - show_state: false
+            show_name: false
+            camera_view: live
+            type: picture-entity
+            entity: camera.family_room_fluent
+            camera_image: camera.family_room_fluent
+          - show_state: false
+            show_name: false
+            camera_view: live
+            type: picture-entity
+            entity: camera.office_fluent
+            camera_image: camera.office_fluent
+          - show_state: false
+            show_name: false
+            camera_view: live
+            type: picture-entity
+            entity: camera.garage_fluent
+            camera_image: camera.garage_fluent
+        columns: 1

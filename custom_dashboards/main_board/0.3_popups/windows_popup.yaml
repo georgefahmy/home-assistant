@@ -1,0 +1,174 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#windows"
+    name: Windows
+    icon: mdi:blinds-horizontal
+    sub_button: []
+    card_layout: normal
+    styles: |-
+      .bubble-button-card-container {
+        background: violet !important;
+      }
+      .bubble-name {
+        color: black
+      }
+    width_desktop: 840px
+    bg_opacity: "30"
+    bg_blur: "60"
+    backdrop_blur: ""
+    shadow_opacity: "50"
+    margin_top_desktop: 20px
+    margin_top_mobile: 10px
+    show_state: false
+  - type: custom:streamline-card # group header
+    template: separator_card_template
+    variables:
+      separator_name: Rooms
+      separator_icon: mdi:blinds-horizontal
+      separator_layout: large-2-rows
+
+      sub_button_1_entity: sensor.sun_solar_elevation
+      sub_button_1_icon_bool: true
+      sub_button_1_state_bool: true
+      sub_button_1_icon: mdi:sun-angle
+
+      sub_button_2_entity: sensor.sun_solar_azimuth
+      sub_button_2_icon_bool: true
+      sub_button_2_state_bool: true
+      sub_button_2_icon: mdi:sun-compass
+
+      sub_button_3_entity: switch.tilt_family_north_windows_toggle_control
+      sub_button_3_icon_bool: true
+      sub_button_3_state_bool: false
+      sub_button_3_icon: mdi:toggle-switch
+      sub_button_3_state_background: true
+      sub_button_3_name_bool: true
+      sub_button_3_tap_action: toggle
+      sub_button_3_name: FR N
+
+      sub_button_4_entity: switch.tilt_family_west_windows_toggle_control
+      sub_button_4_icon_bool: true
+      sub_button_4_state_bool: false
+      sub_button_4_icon: mdi:toggle-switch
+      sub_button_4_state_background: true
+      sub_button_4_name_bool: true
+      sub_button_4_tap_action: toggle
+      sub_button_4_name: FR W
+
+      sub_button_5_entity: switch.tilt_kitchen_west_windows_toggle_control
+      sub_button_5_icon_bool: true
+      sub_button_5_state_bool: false
+      sub_button_5_icon: mdi:toggle-switch
+      sub_button_5_state_background: true
+      sub_button_5_name_bool: true
+      sub_button_5_tap_action: toggle
+      sub_button_5_name: Ktn W
+
+  - type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: window_template
+        variables:
+          - name: Family
+          - entity: cover.family_room_windows
+          - tilt_entity: sensor.family_room_window_group_tilt
+      - type: custom:streamline-card
+        template: window_template
+        variables:
+          - name: Kitchen
+          - entity: cover.kitchen_windows
+          - tilt_entity: sensor.kitchen_window_group_tilt
+  - type: custom:streamline-card # individual header
+    template: separator_card_template
+    variables:
+      separator_name: Family Room
+      separator_icon: mdi:blinds-horizontal
+      seperator_icon_bool: false
+
+      sub_button_1_entity: sensor.tilt_family_north_windows_cover_position
+      sub_button_1_icon_bool: true
+      sub_button_1_state_bool: true
+      sub_button_1_name_bool: true
+      sub_button_1_icon: mdi:blinds-horizontal
+      sub_button_1_name: North
+
+      sub_button_2_entity: sensor.tilt_family_west_windows_cover_position
+      sub_button_2_icon_bool: true
+      sub_button_2_state_bool: true
+      sub_button_2_name_bool: true
+      sub_button_2_icon: mdi:blinds-horizontal
+      sub_button_2_name: West
+
+  - type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: window_template
+        variables:
+          - name: Family 1
+          - entity: cover.family_room_window_1
+          - tilt_entity: sensor.family_room_window_1_tilt
+      - type: custom:streamline-card
+        template: window_template
+        variables:
+          - name: Family 2
+          - entity: cover.family_room_window_2
+          - tilt_entity: sensor.family_room_window_2_tilt
+  - type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: window_template
+        variables:
+          - name: Family 3
+          - entity: cover.family_room_window_3
+          - tilt_entity: sensor.family_room_window_3_tilt
+      - type: custom:streamline-card
+        template: window_template
+        variables:
+          - name: Family 4
+          - entity: cover.family_room_window_4
+          - tilt_entity: sensor.family_room_window_4_tilt
+
+  - type: custom:streamline-card # individual header
+    template: separator_card_template
+    variables:
+      separator_name: Kitchen
+      separator_icon: mdi:blinds-horizontal
+      seperator_icon_bool: false
+
+      sub_button_1_entity: sensor.tilt_kitchen_west_windows_cover_position
+      sub_button_1_icon_bool: true
+      sub_button_1_state_bool: true
+      sub_button_1_name_bool: true
+      sub_button_1_icon: mdi:blinds-horizontal
+      sub_button_1_name: Kitchen
+
+  - type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: window_template
+        variables:
+          - name: Kitchen 1
+          - entity: cover.kitchen_window_1
+          - tilt_entity: sensor.kitchen_window_1_tilt
+      - type: custom:streamline-card
+        template: window_template
+        variables:
+          - name: Kitchen 2
+          - entity: cover.kitchen_window_2
+          - tilt_entity: sensor.kitchen_window_2_tilt
+  - type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: window_template
+        variables:
+          - name: kitchen 3
+          - entity: cover.kitchen_window_3
+          - tilt_entity: sensor.kitchen_window_3_tilt
+      - type: custom:streamline-card
+        template: window_template
+        variables:
+          - name: kitchen 4
+          - entity: cover.kitchen_window_4
+          - tilt_entity: sensor.kitchen_window_4_tilt

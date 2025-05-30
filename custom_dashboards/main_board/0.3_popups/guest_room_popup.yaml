@@ -1,0 +1,137 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#guest-room"
+    button_type: name
+    name: Guest Room
+    icon: mdi:bed
+    sub_button:
+      - entity: sensor.guest_room_temp_temperature
+        state_background: false
+        show_state: true
+        show_attribute: false
+        show_last_changed: false
+        show_name: false
+    bg_color: ""
+    hide_backdrop: true
+    styles: |-
+      .bubble-button-card-container {
+        background: lightgreen !important;
+      }
+      .bubble-name {
+        color: black
+      }
+    width_desktop: 840px
+    bg_opacity: "30"
+    bg_blur: "60"
+    backdrop_blur: ""
+    shadow_opacity: "50"
+    margin_top_desktop: 20px
+    margin_top_mobile: 10px
+  - type: custom:bubble-card
+    card_type: separator
+    name: Lights
+    icon: mdi:lamps
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        button_type: switch
+        entity: light.guest_room_lamp_switch
+        name: Nightstand Lamp
+        icon: mdi:lamp
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        show_attribute: false
+        show_state: false
+        use_accent_color: false
+  - type: custom:bubble-card
+    card_type: separator
+    name: Temperature & Humidity
+    icon: mdi:home-thermometer-outline
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        button_type: state
+        name: Temperature
+        icon: mdi:thermometer
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        slider_live_update: true
+        sub_button: []
+        card_type: button
+        entity: sensor.guest_room_temp_temperature
+      - type: custom:bubble-card
+        button_type: state
+        name: Humidity
+        icon: mdi:water-percent
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        slider_live_update: true
+        sub_button: []
+        card_type: button
+        entity: sensor.guest_room_temp_humidity
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        button_type: switch
+        entity: switch.space_heater_switch
+        name: Space Heater
+        icon: mdi:radiator
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        show_attribute: false
+        show_state: false
+        use_accent_color: false
+        show_last_changed: false
+        sub_button:
+          - entity: sensor.space_heater_power
+            name: Power
+            show_state: true
+            show_last_changed: false
+            show_name: false
+            show_attribute: false
+          - entity: sensor.space_heater_energy
+            name: Energy
+            show_state: true
+            show_background: true
+            state_background: false
+  - type: custom:bubble-card
+    card_type: separator
+    name: Windows
+    icon: mdi:window-open
+  - show_name: false
+    show_icon: true
+    show_state: true
+    type: glance
+    entities:
+      - entity: binary_sensor.guest_room_window_1_sensor_opening
+      - entity: binary_sensor.guest_room_window_2_sensor_opening
+      - entity: binary_sensor.guest_room_window_3_sensor_opening
+    columns: 3
+    state_color: true
+  - type: conditional
+    conditions:
+      - condition: numeric_state
+        entity: sensor.guest_room_temp_temperature
+        below: 65
+    card:
+      type: thermostat
+      entity: climate.guest_room_heater
+      features:
+        - type: climate-hvac-modes
+        - type: climate-preset-modes
+          style: dropdown
+      show_current_as_primary: false
+      name: Guest Room
+      theme: ios-dark-mode-dark-green-alternative

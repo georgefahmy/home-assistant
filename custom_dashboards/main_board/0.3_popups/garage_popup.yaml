@@ -1,0 +1,38 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#garage"
+    name: Garage
+    show_header: true
+    icon: mdi:garage
+    sub_button:
+      - entity: sensor.garage_temp_temperature
+        show_state: true
+        state_background: false
+    styles: |-
+      .bubble-button-card-container {
+        background: grey !important;
+      }
+    width_desktop: 840px
+    bg_opacity: "30"
+    bg_blur: "60"
+    backdrop_blur: ""
+    shadow_opacity: "50"
+    margin_top_desktop: 20px
+    margin_top_mobile: 10px
+  - type: custom:bubble-card
+    card_type: cover
+    entity: cover.garage_door_blaq_garage_door
+    show_name: true
+    show_icon: true
+    show_attribute: false
+    show_state: true
+    icon_open: mdi:garage-open-variant
+    icon_close: mdi:garage-variant
+    icon_down: mdi:garage-variant
+    icon_up: mdi:garage-open-variant
+    hold_action:
+      action: none
+    show_last_changed: true
+    name: Garage Door

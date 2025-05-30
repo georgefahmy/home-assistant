@@ -1,0 +1,232 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: '#weather'
+    name: Weather
+    icon: mdi:weather-lightning-rainy
+    sub_button:
+      - entity: sensor.jasper_temperature
+        show_state: true
+        state_background: false
+        show_attribute: false
+    card_layout: normal
+    styles: |-
+      .bubble-button-card-container {
+        background: skyblue !important;
+      }
+      .bubble-name {
+        color: black
+      }
+    width_desktop: 840px
+    bg_opacity: "30"
+    bg_blur: "60"
+    backdrop_blur: ""
+    shadow_opacity: "50"
+    margin_top_desktop: 20px
+    margin_top_mobile: 10px
+  - type: vertical-stack
+    cards:
+      - type: custom:platinum-weather-card
+        daily_forecast_layout: horizontal
+        entity_apparent_temp: sensor.jasper_feels_like
+        entity_extended: sensor.forecast_summary
+        entity_forecast_icon: weather.forecast_jasper
+        entity_forecast_max: sensor.temperature_forecast_high
+        entity_forecast_min: sensor.temperature_forecast_low
+        entity_humidity: sensor.jasper_sensors_humidity
+        entity_pop: sensor.precipitation_probability_next_hour
+        entity_pos: sensor.precipitation_forecast_probability
+        entity_pressure: sensor.jasper_air_pressure
+        entity_rainfall: sensor.jasper_sensors_precipitation_today
+        # entity_summary: sensor.condition_next_hour
+        entity_sun: sun.sun
+        entity_temperature: sensor.jasper_temperature
+        entity_update_time: sensor.jasper_sensors_data_updated
+        entity_uv_alert_summary: sensor.jasper_sensors_uv_description
+        entity_wind_bearing: sensor.jasper_wind_direction
+        entity_wind_gust: sensor.jasper_wind_gust
+        entity_wind_speed: sensor.jasper_wind_speed
+        extended_use_attr: false
+        option_pressure_decimals: 2
+        option_show_overview_separator: true
+        option_static_icons: false
+        option_time_format: 12hour
+        option_today_rainfall_decimals: true
+        option_today_temperature_decimals: false
+        option_tooltips: true
+        overview_layout: complete
+        section_order:
+          - overview
+          - extended
+          - slots
+          - daily_forecast
+        slot_l1: forecast_max
+        slot_l2: forecast_min
+        slot_l3: wind
+        slot_l4: pressure
+        slot_l5: sun_next
+        slot_l6: remove
+        slot_l7: remove
+        slot_l8: remove
+        slot_r1: pop
+        slot_r2: rainfall
+        slot_r3: uv_summary
+        slot_r4: humidity
+        slot_r5: sun_following
+        slot_r6: remove
+        slot_r7: remove
+        slot_r8: remove
+        text_card_title: Jasper Weather
+      - type: custom:hourly-weather
+        entity: weather.forecast_jasper
+        name: ""
+        num_segments: 24
+        label_spacing: "4"
+        show_wind: "false"
+        show_precipitation_probability: false
+      - type: custom:windrose-card
+        data_period:
+          period_selector:
+            location: bottom
+            active_color: black
+            active_bg_color: lightblue
+            buttons:
+              - hours: 1
+                title: 1 hour
+                active: true
+              - hours: 8
+                title: 8 hours
+              - hours: 24
+                title: 1 day
+              - hours: 240
+                title: 10 days
+        refresh_interval: 10
+        windspeed_bar_location: right
+        wind_direction_entity:
+          entity: sensor.jasper_wind_direction
+          use_statistics: false
+          direction_compensation: 0
+          direction_letters: NOZWX
+        windspeed_entities:
+          - entity: sensor.jasper_wind_speed
+            name: Speed
+            speed_unit: auto
+            use_statistics: false
+            windspeed_bar_full: false
+            output_speed_unit: mph
+            speed_range_beaufort: true
+          - entity: sensor.jasper_wind_gust
+            name: Gust
+            speed_unit: auto
+            use_statistics: false
+            windspeed_bar_full: true
+            output_speed_unit: mph
+            speed_range_beaufort: false
+            speed_ranges:
+              - from_value: 0
+                color: rgb(0, 204, 255)
+              - from_value: 2
+                color: rgb(0,255,0)
+              - from_value: 5
+                color: rgb(247, 224, 19)
+              - from_value: 10
+                color: rgb(255, 170, 0)
+              - from_value: 15
+                color: rgb(255, 0, 0)
+        windrose_draw_north_offset: 20
+        current_direction:
+          show_arrow: true
+          arrow_size: 50
+          center_circle_size: 30
+        corner_info:
+          top_left:
+            label: Gusts
+            unit: " mph"
+            entity: sensor.jasper_wind_gust
+            label_text_size: 60
+            value_text_size: 50
+            precision: 1
+          bottom_left:
+            label: Speed
+            unit: " mph"
+            entity: sensor.jasper_wind_speed
+            label_text_size: 60
+            value_text_size: 50
+            precision: 1
+          top_right:
+            label: Wind direction
+            unit: °
+            label_text_size: 60
+            value_text_size: 50
+            color: skyblue
+            entity: sensor.jasper_wind_direction
+          bottom_right:
+            label: Rain
+            unit: '"'
+            label_text_size: 60
+            value_text_size: 50
+            color: skyblue
+            entity: sensor.jasper_sensors_precipitation_today_checked
+        actions:
+          top_left:
+            tap_action:
+              entity: sensor.jasper_wind_gust
+              action: more-info
+          bottom_left:
+            tap_action:
+              entity: sensor.jasper_wind_speed_average
+              action: more-info
+          bottom_right:
+            tap_action:
+              entity: sensor.jasper_sensors_precipitation_today
+              action: more-info
+              name: Rain
+              icon: mdi:weather-partly-cloudy
+        direction_labels:
+          cardinal_direction_letters: NESW
+          show_cardinal_directions: true
+          show_intercardinal_directions: true
+          show_secondary_intercardinal_directions: true
+          cardinal_directions_text_size: 60
+          intercardinal_directions_text_size: 45
+          secondary_intercardinal_directions_text_size: 30
+        show_intercardinal_directions: true
+        show_secondary_intercardinal_directions: true
+        matching_strategy: full-time
+        center_calm_percentage: true
+        colors:
+          rose_lines: rgb(0,255,0)
+          rose_cardinal_direction_labels: green
+          rose_intercardinal_direction_labels: skyblue
+          rose_secondary_intercardinal_direction_labels: orange
+          rose_center_percentage: white
+          rose_percentages: white
+          rose_current_direction_arrow: red
+          bar_border: rgba(20, 20, 30, 1)
+          bar_unit_name: white
+          bar_name: white
+          bar_unit_values: white
+          bar_percentages: auto
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: binary_sensor.precipitation_forecast_binary_sensor
+            state: "on"
+        card:
+          type: custom:weather-radar-card
+          data_source: RainViewer-NEXRAD
+          map_style: Dark
+          zoom_level: 9
+          show_marker: true
+          show_zoom: true
+          show_playback: false
+          show_recenter: false
+          show_range: false
+          show_scale: true
+          extra_labels: false
+          square_map: false
+          static_map: true
+          frame_delay: 250
+          restart_delay: 1500
+          frame_count: 24

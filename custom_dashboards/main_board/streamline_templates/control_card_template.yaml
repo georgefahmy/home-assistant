@@ -1,0 +1,102 @@
+default:
+  - room_name: none
+  - room_temp_entity: none
+  - popup_nav_path: none
+  - menu_button_tap_action: navigate
+  - menu_button_hold_action: none
+  - menu_button_show_icon: true
+
+  - sub_button_1_entity: none
+  - sub_button_1_tap_action: none
+  - sub_button_1_hold_action: none
+  - sub_button_1_nav_path: none
+  - sub_button_1_name: none
+  - sub_button_1_state: false
+  - sub_button_1_enabled: false
+  - sub_button_1_icon: ""
+
+  - sub_button_2_entity: none
+  - sub_button_2_tap_action: none
+  - sub_button_2_hold_action: none
+  - sub_button_2_nav_path: none
+  - sub_button_2_name: none
+  - sub_button_2_state: false
+  - sub_button_2_enabled: false
+  - sub_button_2_icon: ""
+
+card:
+  type: custom:vertical-stack-in-card
+  cards:
+    - type: custom:bubble-card
+      card_type: separator
+      card_layout: large
+      name: "[[room_name]]"
+      sub_button:
+        - entity: "[[room_temp_entity]]"
+          show_background: false
+          show_icon: false
+          show_state: true
+        - show_icon: "[[menu_button_show_icon]]"
+          show_state: false
+          state_background: true
+          icon: mdi:menu
+          tap_action:
+            action: "[[menu_button_tap_action]]"
+            navigation_path: "[[popup_nav_path]]"
+          hold_action:
+            action: "[[menu_button_hold_action]]"
+      styles: |
+        * {
+          .bubble-line {
+            flex-grow: 1;
+            margin-right: 0px;
+            }
+    - type: custom:bubble-card
+      card_type: separator
+      icon: "[[room_icon]]"
+      card_layout: normal
+      styles: |
+        * {
+        --bubble-line-background-color: none
+        --height: 100px
+        }
+          .bubble-icon {
+            color: [[icon_color]] !important;
+            --mdc-icon-size: 65px !important;
+            margin: 0 5px 0 5px;
+          }
+            .bubble-sub-button-icon {
+            --mdc-icon-size: 30px !important;
+          }
+            .bubble-sub-button {
+            height: 30px !important;
+            min-width: 2px !important;
+            border-radius: 12px;
+          }
+          .bubble-line {
+                flex-grow: 0;
+                margin-right: 0px;
+          }
+      sub_button:
+        - entity: "[[sub_button_1_entity]]"
+          show_background: "[[sub_button_1_enabled]]"
+          show_name: false
+          show_state: "[[sub_button_1_state]]"
+          tap_action:
+            action: "[[sub_button_1_tap_action]]"
+            navigation_path: "[[sub_button_1_nav_path]]"
+          hold_action:
+            action: "[[sub_button_1_hold_action]]"
+          icon: "[[sub_button_1_icon]]"
+          name: "[[sub_button_1_name]]"
+        - entity: "[[sub_button_2_entity]]"
+          show_background: "[[sub_button_2_enabled]]"
+          show_name: false
+          show_state: "[[sub_button_2_state]]"
+          tap_action:
+            action: "[[sub_button_2_tap_action]]"
+            navigation_path: "[[sub_button_2_nav_path]]"
+          hold_action:
+            action: "[[sub_button_2_hold_action]]"
+          name: "[[sub_button_2_name]]"
+          icon: "[[sub_button_2_icon]]"

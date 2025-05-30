@@ -1,0 +1,219 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#familyroom"
+    name: Family Room
+    show_icon: true
+    force_icon: false
+    show_state: false
+    show_last_changed: false
+    show_attribute: false
+    icon: mdi:sofa
+    sub_button:
+      - entity: sensor.family_room_temp_temperature
+        show_state: true
+        state_background: false
+        show_last_changed: false
+    styles: |
+      .bubble-button-card-container {
+        background: darkorange !important;
+      }
+    width_desktop: 840px
+    bg_opacity: "30"
+    bg_blur: "60"
+    backdrop_blur: ""
+    shadow_opacity: "50"
+    margin_top_desktop: 20px
+    margin_top_mobile: 10px
+  - type: custom:bubble-card
+    card_type: separator
+    name: Lights
+    icon: mdi:light-recessed
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        button_type: slider
+        entity: light.family_room_light_group
+        name: Room
+        icon: mdi:lightbulb-group
+        columns: 2
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        slider_live_update: false
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        button_type: slider
+        name: Ceiling
+        icon: mdi:light-recessed
+        show_state: false
+        entity: light.family_room_main
+        styles: ""
+        use_accent_color: false
+      - type: custom:bubble-card
+        card_type: button
+        button_type: slider
+        name: Plant Lamp
+        icon: mdi:flower
+        force_icon: false
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        columns: 2
+        entity: light.plant_lamp
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        button_type: switch
+        name: TV Lightstrip
+        icon: mdi:led-strip-variant
+        show_state: false
+        show_attribute: false
+        attribute: color_mode
+        force_icon: false
+        entity: switch.tv_leds_switch
+      - type: custom:bubble-card
+        card_type: empty-column
+        button_type: switch
+        name: Plant Lamp
+        icon: mdi:floor-lamp
+        force_icon: false
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        columns: 2
+        entity: light.plant_lamp
+  - type: custom:bubble-card
+    card_type: separator
+    name: Window Blinds
+    icon: mdi:blinds-horizontal
+  - type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: window_template
+        variables:
+          - name: Family 1
+          - entity: cover.family_room_window_1
+          - tilt_entity: sensor.family_room_window_1_tilt
+      - type: custom:streamline-card
+        template: window_template
+        variables:
+          - name: Family 2
+          - entity: cover.family_room_window_2
+          - tilt_entity: sensor.family_room_window_2_tilt
+  - type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: window_template
+        variables:
+          - name: Family 3
+          - entity: cover.family_room_window_3
+          - tilt_entity: sensor.family_room_window_3_tilt
+      - type: custom:streamline-card
+        template: window_template
+        variables:
+          - name: Family 4
+          - entity: cover.family_room_window_4
+          - tilt_entity: sensor.family_room_window_4_tilt
+  - type: custom:bubble-card
+    card_type: separator
+    name: Temperature & Humidity
+    icon: mdi:home-thermometer-outline
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        button_type: state
+        name: Temperature
+        icon: mdi:thermometer
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        slider_live_update: true
+        sub_button: []
+        card_type: button
+        entity: sensor.family_room_temp_temperature
+      - type: custom:bubble-card
+        button_type: state
+        name: Humidity
+        icon: mdi:water-percent
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        slider_live_update: true
+        sub_button: []
+        card_type: button
+        entity: sensor.family_room_temp_humidity
+  - type: custom:bubble-card
+    card_type: separator
+    name: Media
+    icon: mdi:television
+  - type: custom:bubble-card
+    name: Samsung
+    icon: mdi:television
+    show_state: false
+    hide:
+      next_button: true
+      previous_button: true
+      volume_button: false
+      play_pause_button: true
+      power_button: true
+    sub_button:
+      - entity: media_player.samsung_q80aa_65_tv
+        show_attribute: true
+        select_attribute: source_list
+        icon: mdi:import
+        attribute: source_list
+        show_arrow: true
+        show_state: false
+        state_background: true
+        show_background: false
+    tap_action:
+      action: toggle
+    double_tap_action:
+      action: more-info
+    hold_action:
+      action: none
+    cover_background: true
+    card_type: button
+    button_type: name
+    button_action:
+      tap_action:
+        action: navigate
+        navigation_path: "#remote"
+  - type: custom:bubble-card
+    card_type: button
+    name: Sonos
+    icon: mdi:speaker
+    entity: media_player.sonos
+    show_state: false
+    hide:
+      play_pause_button: true
+      next_button: true
+      previous_button: true
+      power_button: true
+    button_type: slider
+    slider_live_update: false
+    card_layout: normal
+    sub_button:
+      - entity: media_player.sonos
+        show_attribute: true
+        attribute: volume_level
+        tap_action:
+          action: none
+        show_background: false
+        show_icon: true
+        show_state: false
+    show_attribute: false
+    attribute: volume_level
+grid_options:
+  rows: auto

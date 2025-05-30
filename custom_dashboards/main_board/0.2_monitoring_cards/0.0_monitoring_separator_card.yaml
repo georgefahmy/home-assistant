@@ -1,0 +1,8 @@
+type: custom:streamline-card # monitoring header separator card
+template: separator_card_template
+variables:
+  separator_name: Monitoring
+  separator_icon: mdi:home-analytics
+  sub_button_1_entity: input_boolean.display_map
+  sub_button_1_icon_bool: true
+  sub_button_1_tap_action: toggle

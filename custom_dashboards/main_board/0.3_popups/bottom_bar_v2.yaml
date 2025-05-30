@@ -1,0 +1,17 @@
+type: custom:bubble-card
+card_type: horizontal-buttons-stack
+1_link: "#remote"
+1_name: Remote
+1_icon: mdi:remote
+2_link: "#security"
+2_name: Security
+2_icon: mdi:security
+3_link: "#windows"
+3_name: Windows
+3_icon: mdi:blinds-horizontal
+auto_order: false
+highlight_current_view: true
+hide_gradient: false
+rise_animation: true
+width_desktop: 100%
+margin: 0px

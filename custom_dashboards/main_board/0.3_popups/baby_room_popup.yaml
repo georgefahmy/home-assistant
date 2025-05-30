@@ -1,0 +1,118 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#baby-room"
+    button_type: name
+    name: Baby Room
+    icon: mdi:bed
+    sub_button:
+      - entity: sensor.baby_room_temp_temperature
+        state_background: false
+        show_state: true
+        show_attribute: false
+        show_last_changed: false
+        show_name: false
+    bg_color: ""
+    hide_backdrop: true
+    styles: |-
+      .bubble-button-card-container {
+        background: skyblue !important;
+      }
+      .bubble-name {
+        color: black
+      }
+    width_desktop: 840px
+    bg_opacity: "30"
+    bg_blur: "60"
+    backdrop_blur: ""
+    shadow_opacity: "50"
+    margin_top_desktop: 20px
+    margin_top_mobile: 10px
+  - type: custom:bubble-card
+    card_type: separator
+    name: Lights
+    icon: mdi:lamps
+  - type: custom:bubble-card
+    card_type: button
+    button_type: slider
+    name: Floor Lamp
+    icon: mdi:lamp
+    hold_action:
+      action: more-info
+    show_attribute: false
+    show_state: false
+    use_accent_color: false
+    entity: light.baby_room_rgb
+  - type: custom:mushroom-light-card
+    entity: light.baby_room_rgb
+    show_color_temp_control: true
+    show_color_control: true
+    show_brightness_control: false
+    collapsible_controls: false
+    layout: horizontal
+    primary_info: none
+    secondary_info: none
+    icon_type: none
+    card_mod:
+      style:
+        mushroom-light-color-control$:
+          mushroom-slider$: |
+            .slider {
+              height: 50px !important;
+              border-radius: 40px !important;
+              transform: scalex(-1);
+            }
+        mushroom-light-color-temp-control$:
+          mushroom-slider$: |
+            .slider {
+              height: 50px !important;
+              border-radius: 40px !important;
+              transform: scalex(-1);
+            }
+        .: |
+          .actions {
+            transform: scalex(-1);
+          }
+          mushroom-light-color-control {
+            height: 55px;
+          }
+          mushroom-light-color-temp-control {
+            height: 55px;
+          }
+  - type: custom:bubble-card
+    card_type: separator
+    name: Temperature & Humidity
+    icon: mdi:home-thermometer-outline
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        button_type: state
+        name: Temperature
+        icon: mdi:thermometer
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        slider_live_update: true
+        sub_button: []
+        card_type: button
+        entity: sensor.baby_room_temp_temperature
+      - type: custom:bubble-card
+        button_type: state
+        name: Humidity
+        icon: mdi:water-percent
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        slider_live_update: true
+        sub_button: []
+        card_type: button
+        entity: sensor.baby_room_temp_humidity
+  - type: entities
+    entities:
+      - entity: binary_sensor.baby_room_baby_crying
+      - entity: binary_sensor.baby_room_motion_2
+    title: Sensors
+    state_color: true

@@ -1,0 +1,100 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: '#master-bedroom'
+    button_type: name
+    name: Master Bedroom
+    icon: mdi:bed
+    sub_button:
+      - entity: sensor.master_bedroom_temp_temperature
+        state_background: false
+        show_state: true
+        show_attribute: false
+        show_last_changed: false
+        show_name: false
+    bg_color: ''
+    hide_backdrop: true
+    styles: |-
+      .bubble-button-card-container {
+        background: green !important;
+      }
+    width_desktop: 840px
+    bg_opacity: "30"
+    bg_blur: "60"
+    backdrop_blur: ""
+    shadow_opacity: "50"
+    margin_top_desktop: 20px
+    margin_top_mobile: 10px
+  - type: custom:bubble-card
+    card_type: separator
+    name: Lights
+    icon: mdi:lamps
+  - type: custom:bubble-card
+    card_type: button
+    entity: light.nightstands
+    name: Room
+    styles: |-
+      * {
+      --bubble-pop-up-background-color: green
+      }
+    icon: mdi:lamps
+    button_type: slider
+    show_attribute: true
+    attribute: color_temp_kelvin
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        button_type: slider
+        entity: light.george_nightstand_rgb_tapo
+        name: George Nightstand
+        icon: mdi:lamp
+        show_attribute: true
+        show_state: false
+        use_accent_color: false
+        slider_live_update: true
+        double_tap_action:
+          action: none
+      - type: custom:bubble-card
+        card_type: button
+        button_type: slider
+        name: Britney Nightstand
+        icon: mdi:lamp
+        entity: light.britney_nightstand_rgb_tapo
+        show_attribute: true
+        show_state: false
+        slider_live_update: true
+        double_tap_action:
+          action: none
+        use_accent_color: false
+  - type: custom:bubble-card
+    card_type: separator
+    name: Temperature & Humidity
+    icon: mdi:home-thermometer-outline
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        button_type: state
+        name: Temperature
+        icon: mdi:thermometer
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        slider_live_update: true
+        sub_button: []
+        card_type: button
+        entity: sensor.master_bedroom_temp_temperature
+      - type: custom:bubble-card
+        button_type: state
+        name: Humidity
+        icon: mdi:water-percent
+        tap_action:
+          action: toggle
+        hold_action:
+          action: more-info
+        slider_live_update: true
+        sub_button: []
+        card_type: button
+        entity: sensor.master_bedroom_temp_humidity

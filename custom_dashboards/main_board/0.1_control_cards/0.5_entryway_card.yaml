@@ -1,0 +1,30 @@
+type: custom:streamline-card # entryway card
+grid_options:
+  columns: 6
+  rows: auto
+template: control_card_template
+variables:
+  # card info
+  - room_name: Entryway
+  - room_icon: mdi:door-open
+  - icon_color: rgba(255, 98, 98, 1)
+  - menu_button_tap_action: none
+  - menu_button_hold_action: none
+  - menu_button_show_icon: true
+  - popup_nav_path: "#entryway"
+
+  # sub button 1
+  - sub_button_1_entity: light.entrance_main
+  - sub_button_1_tap_action: toggle
+  - sub_button_1_hold_action: more-info
+  - sub_button_1_icon: mdi:ceiling-light-multiple
+  - sub_button_1_name: Entrance Main
+  - sub_button_1_enabled: true
+
+  # sub button 2
+  - sub_button_2_entity: light.entrance_stairs
+  - sub_button_2_tap_action: toggle
+  - sub_button_2_hold_action: more-info
+  - sub_button_2_icon: mdi:stairs
+  - sub_button_2_name: Entrance Stairs
+  - sub_button_2_enabled: true
