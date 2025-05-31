@@ -93,6 +93,7 @@ entities:
       color_value: true
       color_icon: true
       calculate_flow_rate: true
+      display_zero_tolerance: 2
     - entity: sensor.heater_power_minute_average
       secondary_info: {}
       name: AC/Heater Blower
