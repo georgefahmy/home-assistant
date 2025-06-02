@@ -1,0 +1,60 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#automations"
+    name: Automations
+    button_type: state
+    icon: mdi:home-automation
+    sub_button:
+      - entity: sensor.enabled_automations
+        show_state: true
+        show_attribute: false
+        show_last_changed: false
+        show_name: false
+        state_background: true
+        show_background: true
+    styles: |-
+      .bubble-button-card-container {
+        background: rgb(80,140,190) !important;
+      }
+    width_desktop: 840px
+    tap_action:
+      action: none
+    double_tap_action:
+      action: none
+    hold_action:
+      action: none
+    button_action:
+      tap_action:
+        action: none
+      double_tap_action:
+        action: none
+      hold_action:
+        action: none
+  - type: custom:vertical-stack-in-card
+    cards:
+      - type: custom:auto-entities
+        card:
+          type: entities
+        filter:
+          include:
+            - domain: automation
+              state: "off"
+          exclude:
+            - entity_id: "*nightstand*"
+        sort:
+          method: name
+          reverse: false
+      - type: custom:auto-entities
+        card:
+          type: entities
+        filter:
+          include:
+            - domain: automation
+              state: "on"
+          exclude:
+            - entity_id: "*nightstand*"
+        sort:
+          method: name
+          reverse: false

@@ -1,0 +1,186 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#remote"
+    button_type: name
+    name: Remote
+    icon: mdi:remote-tv
+    width_desktop: 840px
+    bg_opacity: "30"
+    bg_blur: "60"
+    backdrop_blur: ""
+    shadow_opacity: "50"
+    margin_top_desktop: 20px
+    margin_top_mobile: 10px
+  - type: custom:bubble-card
+    card_type: media-player
+    hide:
+      volume_button: true
+      power_button: false
+      next_button: true
+      previous_button: true
+      play_pause_button: true
+    name: ""
+    entity: media_player.samsung_q80_tv
+    show_name: true
+    show_state: false
+    show_last_changed: false
+    show_attribute: true
+    sub_button:
+      - entity: media_player.samsung_q80_tv
+        select_attribute: source_list
+        show_attribute: false
+        show_state: true
+        name: Source
+        icon: mdi:import
+    attribute: media_content_type
+    cover_background: true
+  - type: custom:bubble-card
+    card_type: media-player
+    button_type: slider
+    name: Volume
+    icon: mdi:volume-source
+    show_attribute: true
+    attribute: volume_level
+    tap_action:
+      action: more-info
+      target:
+        entity_id: media_player.denon_avr_s720w
+      service: media_player.volume_mute
+    sub_button: []
+    hide:
+      next_button: true
+      previous_button: true
+      power_button: true
+      volume_button: false
+      play_pause_button: true
+    entity: media_player.sonos
+  - type: custom:bubble-card
+    card_type: separator
+    name: Samsung
+    icon: mdi:remote
+  - type: custom:android-tv-card
+    rows:
+      - - back
+        - blank
+        - home
+        - play_pause
+        - blank
+      - - blank
+        - blank
+        - navigation_buttons
+        - blank
+        - blank
+      - - blank
+        - volume_mute
+        - volume_down
+        - volume_up
+        - blank
+      - blank
+      - - Netflix
+        - AppleTV
+        - AmazonPrime
+      - - YouTube
+        - ReoLink
+        - DisneyPlus
+        - Playstation
+    remote_id: remote.samsung_q80_tv
+    custom_actions:
+      - type: button
+        tap_action:
+          action: perform-action
+          perform_action: remote.send_command
+          target:
+            entity_id: remote.samsung_q80_tv
+          data:
+            command: ST_HDMI1
+        name: ReoLink
+        icon: mdi:cctv
+      - type: button
+        tap_action:
+          action: perform-action
+          perform_action: remote.send_command
+          target:
+            entity_id: remote.samsung_q80_tv
+          data:
+            command: ST_HDMI4
+        name: Playstation
+        icon: mdi:sony-playstation
+      - type: button
+        tap_action:
+          action: perform-action
+          perform_action: remote.send_command
+          target:
+            entity_id: remote.samsung_q80_tv
+          data:
+            command: ST_HDMI3
+        name: Sonos
+        icon: mdi:speaker-wireless
+      - type: button
+        tap_action:
+          action: perform-action
+          perform_action: media_player.play_media
+          target:
+            entity_id:
+              - media_player.samsung_q80_tv
+          data:
+            media_content_id: "3201907018807"
+            media_content_type: app
+        name: Netflix
+        icon: mdi:netflix
+      - type: button
+        name: YouTube
+        tap_action:
+          action: perform-action
+          perform_action: media_player.play_media
+          target:
+            entity_id: media_player.samsung_q80_tv
+          data:
+            media_content_type: app
+            media_content_id: "111299001912"
+        icon: mdi:youtube
+      - type: button
+        name: AppleTV
+        tap_action:
+          action: perform-action
+          perform_action: media_player.play_media
+          target:
+            entity_id: media_player.samsung_q80_tv
+          data:
+            media_content_type: app
+            media_content_id: "3201807016597"
+        icon: mdi:apple
+      - type: button
+        name: AmazonPrime
+        tap_action:
+          action: perform-action
+          perform_action: media_player.play_media
+          target:
+            entity_id: media_player.samsung_q80_tv
+          data:
+            media_content_type: app
+            media_content_id: "3201910019365"
+        icon: mdi:video
+        label: |-
+          Prime
+          Video
+      - type: button
+        name: DisneyPlus
+        tap_action:
+          action: perform-action
+          perform_action: media_player.play_media
+          target:
+            entity_id: media_player.samsung_q80_tv
+          data:
+            media_content_type: app
+            media_content_id: "3201901017640"
+        icon: mdi:alpha-d
+        label: |-
+          Disney
+          Plus
+        value_attribute: state
+        autofill_entity_id: true
+    media_player_id: media_player.samsung_q80_tv
+    custom_icons: []
+    platform: Samsung TV

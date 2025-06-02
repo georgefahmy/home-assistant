@@ -1,0 +1,42 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#f1"
+    name: Formula 1
+    button_type: state
+    icon: mdi:alpha-f
+    styles: |-
+      .bubble-button-card-container {
+        background: rgb(221, 0, 6) !important;
+      }
+    width_desktop: 840px
+    tap_action:
+      action: none
+    double_tap_action:
+      action: none
+    hold_action:
+      action: none
+    button_action:
+      tap_action:
+        action: none
+      double_tap_action:
+        action: none
+      hold_action:
+        action: none
+  - type: custom:formulaone-card
+    card_type: countdown
+    show_raceinfo: true
+    image_clickable: true
+    f1_font: true
+    countdown_type:
+      - qualifying
+      - sprint
+      - race
+  - type: custom:formulaone-card
+    title: Last Result
+    card_type: results
+    show_raceinfo: true
+    image_clickable: true
+    f1_font: true
+    row_limit: 10
