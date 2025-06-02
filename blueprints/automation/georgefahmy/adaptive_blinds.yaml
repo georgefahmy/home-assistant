@@ -63,14 +63,14 @@ blueprint:
 
     minimum_interval:
       name: Minimum Interval
-      description: The minimum time between slat adjustment (default is 2 minutes)
+      description: The minimum time between slat adjustment (default is 2 minutes). Increase value to save battery.
       default: 2
       selector:
         number:
           min: 2
           max: 90
           step: 1
-          mode: slider
+          mode: box
 
     window_azimuth:
       name: Window Azimuth
@@ -86,6 +86,7 @@ blueprint:
     fov_left_input:
       name: Field of View Left
       description: the angle to the left side of the window which the sun is exposed
+      default: 90
       selector:
         number:
           min: 0
@@ -95,6 +96,7 @@ blueprint:
     fov_right_input:
       name: Field of View Right
       description: the angle to the right side of the window which the sun is exposed
+      default: 90
       selector:
         number:
           min: 0
@@ -103,7 +105,7 @@ blueprint:
 
     default_position:
       name: Default slat position
-      description: The default slat position for the cover
+      description: The default slat position for the cover (0 closed down, 50 open, 100 closed up)
       default: 50
       selector:
         number:
@@ -122,6 +124,16 @@ blueprint:
           max: 100
           step: 1
           mode: slider
+
+    outdoor_temperature_sensor:
+      name: Outdoor Temperature Sensor
+      description: Outdoor temperature sensor used for summer/winter modes to improve efficiency
+      selector:
+        entity:
+          multiple: false
+          filter:
+            device_class: temperature
+            domain: sensor
 
     target_cover:
       name: Target Cover Entity
