@@ -167,6 +167,7 @@ variables:
   fov_right_input: !input fov_right_input
   default_position: !input default_position
   sun_down_position: !input sun_down_position
+  sun_azimuth: { { states('sensor.sun_solar_azimuth') | float } }
 
 triggers:
   - trigger: state
@@ -206,7 +207,6 @@ actions:
               {{ now() - this.attributes.last_triggered >= timedelta(minutes=minimum_interval)}}
           - condition: template
             value_template: >-
-              {% set sun_azimuth = states('sensor.sun_solar_azimuth') | float %}
               {% set fov_left = window_azimuth - fov_left_input %}
               {% set fov_right = window_azimuth + fov_right_input %}
               {% set valid = fov_left < sun_azimuth < fov_right %}
