@@ -128,6 +128,18 @@ blueprint:
     outdoor_temperature_sensor:
       name: Outdoor Temperature Sensor
       description: Outdoor temperature sensor used for summer/winter modes to improve efficiency
+      default:
+      selector:
+        entity:
+          multiple: false
+          filter:
+            device_class: temperature
+            domain: sensor
+
+    indoor_temperature_sensor:
+      name: Indoor Temperature Sensor
+      description: Indoor temperature sensor used for summer/winter modes to improve efficiency
+      default:
       selector:
         entity:
           multiple: false
@@ -179,8 +191,8 @@ actions:
   - action: cover.set_cover_tilt_position
     data:
       tilt_position: >
-        {% set rad2deg = pi/180 %}
-        {% set deg2rad =180/pi %}
+        {% set deg2rad = pi/180 %}
+        {% set rad2deg =180/pi %}
 
         {% set sun_azimuth = states('sensor.sun_solar_azimuth') |float %}
         {% set sun_elevation = states('sensor.sun_solar_elevation') | float %}
@@ -190,7 +202,7 @@ actions:
         {% set fov_right = window_azimuth + fov_right_input %}
         {% set valid = fov_left < sun_azimuth < fov_right and min_elevation < sun_elevation <max_elevation %}
         {% set gamma = (window_azimuth - sun_azimuth + 180) % 360 - 180 %}
-        {% set beta = atan(tan(sun_elevation*rad2deg) / cos(gamma*rad2deg)) %}
+        {% set beta = atan(tan(sun_elevation*deg2rad) / cos(gamma*deg2rad)) %}
         {% set sqrt_value = (tan(beta) ** 2) - ((slat_spacing/slat_depth)**2) + 1 %}
         {% set slat = 2 * atan(
             (
@@ -200,7 +212,7 @@ actions:
               )
             )
             / (1+slat_spacing/slat_depth))
-          *deg2rad
+          *rad2deg
         %}
         {% set calculated_position = 2 + (1 - slat/180)*100  %}
         {% if sun_up == true %}
