@@ -204,6 +204,14 @@ actions:
           - condition: template
             value_template: >-
               {{ now() - this.attributes.last_triggered >= timedelta(minutes=minimum_interval)}}
+          - condition: template
+            value_template: >-
+              {% set sun_azimuth = states('sensor.sun_solar_azimuth') | float %}
+              {% set fov_left = window_azimuth - fov_left_input %}
+              {% set fov_right = window_azimuth + fov_right_input %}
+              {% set valid = fov_left < sun_azimuth < fov_right %}
+              {{ valid == true }}
+
         sequence:
           - action: cover.set_cover_tilt_position
             target: !input target_cover
@@ -211,27 +219,10 @@ actions:
               tilt_position: >
                 {% set deg2rad = pi/180 %}
                 {% set rad2deg =180/pi %}
-
-                {% set sun_azimuth = states('sensor.sun_solar_azimuth') |float %}
-                {% set sun_elevation = states('sensor.sun_solar_elevation') | float %}
-                {% set sun_up = states('sun.sun') == 'above_horizon' %}
-
-                {% set fov_left = window_azimuth - fov_left_input %}
-                {% set fov_right = window_azimuth + fov_right_input %}
-                {% set valid = fov_left < sun_azimuth < fov_right and min_elevation < sun_elevation <max_elevation %}
                 {% set gamma = (window_azimuth - sun_azimuth + 180) % 360 - 180 %}
                 {% set beta = atan(tan(sun_elevation*deg2rad) / cos(gamma*deg2rad)) %}
                 {% set sqrt_value = (tan(beta) ** 2) - ((slat_spacing/slat_depth)**2) + 1 %}
-                {% set slat = 2 * atan(
-                    (
-                      tan(beta)
-                      + sqrt(
-                        sqrt_value | abs
-                      )
-                    )
-                    / (1+slat_spacing/slat_depth))
-                  *rad2deg
-                %}
+                {% set slat = 2 * atan((tan(beta) + sqrt(sqrt_value | abs)) / (1 + slat_spacing / slat_depth)) * rad2deg %}
                 {% set calculated_position = 2 + (1 - slat/180)*100  %}
                 {{ calculated_position | int }}
       - conditions:
