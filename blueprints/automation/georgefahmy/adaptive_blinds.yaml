@@ -167,7 +167,8 @@ variables:
   fov_right_input: !input fov_right_input
   default_position: !input default_position
   sun_down_position: !input sun_down_position
-  sun_azimuth: { { states('sensor.sun_solar_azimuth') | float } }
+  sun_azimuth: "{{ states('sensor.sun_solar_azimuth') | float }}"
+  sun_elevation: "{{ states('sensor.sun_solar_elevation') | float }}"
 
 triggers:
   - trigger: state
@@ -220,7 +221,7 @@ actions:
                 {% set deg2rad = pi/180 %}
                 {% set rad2deg =180/pi %}
                 {% set gamma = (window_azimuth - sun_azimuth + 180) % 360 - 180 %}
-                {% set beta = atan(tan(sun_elevation*deg2rad) / cos(gamma*deg2rad)) %}
+                {% set beta = atan(tan((sun_elevation-3)*deg2rad) / cos(gamma*deg2rad)) %}
                 {% set sqrt_value = (tan(beta) ** 2) - ((slat_spacing/slat_depth)**2) + 1 %}
                 {% set slat = 2 * atan((tan(beta) + sqrt(sqrt_value | abs)) / (1 + slat_spacing / slat_depth)) * rad2deg %}
                 {% set calculated_position = 2 + (1 - slat/180)*100  %}

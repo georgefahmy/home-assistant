@@ -303,6 +303,39 @@
     - condition: user
       users:
         - 88e302fbf7ab4f8ab29332a3880e1aa6
+- type: custom:mushroom-template-badge
+  icon: |-
+    mdi:flash
+    {% set t = states('sensor.current_electricity_tariff_label') %}
+
+    {% if 'PEAK' not in t %}
+    mdi:alert
+    {% endif %}
+  color: |-
+    {% set t = states('sensor.current_electricity_tariff_label') %}
+
+    {% if '_OFFPEAK' in t %}
+    green
+    {% elif '_PARTIALPEAK' in t %}
+    orange
+    {% elif '_PEAK' in t %}
+    red
+    {% else %}
+    gray
+    {% endif %}
+  tap_action:
+    action: none
+  hold_action:
+    action: none
+  double_tap_action:
+    action: none
+  label: ""
+  content: |-
+    {% set t = states('sensor.current_electricity_tariff_label') %}
+
+    {% if 'PEAK' not in t %}
+    UNAVAILABLE
+    {% endif %}
 - type: custom:modern-circular-gauge-badge
   entity: sensor.net_power_minute_average
   name: Net Power
