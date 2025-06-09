@@ -1,5 +1,5 @@
 sensor:
-    name: Signed Average Temperature Rate
+  - name: Signed Average Temperature Rate
     unique_id: signed_average_temperature_rate
     state: "{{ states('sensor.average_temperature_rate') }}"
     unit_of_measurement: °F/h

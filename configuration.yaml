@@ -53,5 +53,6 @@ template:
   - !include template_sensors/daily_weather_forecast.yaml
   - !include template_sensors/hourly_weather_forecast.yaml
   - !include template_sensors/signed_temperature_rate.yaml
+  - !include template_sensors/delta_t.yaml
 # rest:
 #   - !include rest.yaml

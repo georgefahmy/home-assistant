@@ -33,13 +33,13 @@ sensor:
   - name: Temperature Forecast High
     unique_id: temperature_forecast_high
     icon: mdi:thermometer-high
-    device_class: Temperature
+    device_class: temperature
     state: "{{ daily['weather.forecast_jasper'].forecast[0].temperature }}"
     unit_of_measurement: °F
   - name: Temperature Forecast Low
     unique_id: temperature_forecast_low
     icon: mdi:thermometer-low
-    device_class: Temperature
+    device_class: temperature
     state: "{{ daily['weather.forecast_jasper'].forecast[0].templow }}"
     unit_of_measurement: °F
   - name: Precipitation Forecast Probability

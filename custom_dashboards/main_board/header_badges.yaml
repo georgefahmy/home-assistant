@@ -34,17 +34,6 @@
     - type: conditional
       conditions:
         - condition: state
-          entity: binary_sensor.family_room_person
-          state_not: "off"
-      chip:
-        type: entity
-        entity: binary_sensor.family_room_person
-        use_entity_picture: true
-        icon_color: red
-        icon: mdi:sofa
-    - type: conditional
-      conditions:
-        - condition: state
           entity: binary_sensor.front_door_package
           state_not: "off"
       chip:
@@ -66,26 +55,6 @@
     - type: conditional
       conditions:
         - condition: state
-          entity: binary_sensor.entry_motion
-          state_not: "off"
-      chip:
-        type: entity
-        entity: binary_sensor.entry_motion
-        icon: mdi:door
-        icon_color: red
-    - type: conditional
-      conditions:
-        - condition: state
-          entity: binary_sensor.office_person
-          state_not: "off"
-      chip:
-        type: entity
-        entity: binary_sensor.office_person
-        icon: mdi:desktop-tower-monitor
-        icon_color: red
-    - type: conditional
-      conditions:
-        - condition: state
           entity: lock.front_door_lock
           state_not: locked
       chip:
@@ -93,18 +62,6 @@
         entity: lock.front_door_lock
         use_entity_picture: true
         icon_color: red
-    - type: conditional
-      conditions:
-        - condition: state
-          entity: binary_sensor.front_door_opening
-          state_not: "off"
-      chip:
-        type: entity
-        entity: binary_sensor.front_door_opening
-        icon: mdi:door-open
-        icon_color: red
-        use_entity_picture: false
-        name: Front Door
     - type: conditional
       conditions:
         - condition: state
@@ -289,7 +246,7 @@
       users:
         - 88e302fbf7ab4f8ab29332a3880e1aa6
 - type: custom:mushroom-template-badge
-  content: Formula 1
+  content: F1
   icon: mdi:alpha-f-circle
   color: rgb(221, 0, 6)
   tap_action:
@@ -304,6 +261,7 @@
       users:
         - 88e302fbf7ab4f8ab29332a3880e1aa6
 - type: custom:mushroom-template-badge
+  entity: sensor.current_electricity_tariff_label
   icon: |-
     mdi:flash
     {% set t = states('sensor.current_electricity_tariff_label') %}
@@ -324,7 +282,7 @@
     gray
     {% endif %}
   tap_action:
-    action: none
+    action: more-info
   hold_action:
     action: none
   double_tap_action:
@@ -473,3 +431,30 @@
     - condition: numeric_state
       entity: sensor.solar_generation_power_minute_average
       above: 0
+- type: custom:modern-circular-gauge-badge
+  entity: sensor.net_energy_cost
+  name: Daily Cost
+  unit: $
+  needle: true
+  min: -10
+  max: 10
+  show_name: true
+  smooth_segments: true
+  show_icon: true
+  icon: mdi:lightning-bolt
+  segments:
+    - color:
+        - 0
+        - 255
+        - 76
+      from: -10
+    - color:
+        - 0
+        - 132
+        - 255
+      from: 0
+    - color:
+        - 255
+        - 0
+        - 0
+      from: 10

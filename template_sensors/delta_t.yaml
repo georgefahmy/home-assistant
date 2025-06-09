@@ -1,0 +1,38 @@
+sensor:
+  - name: Inside Outside Delta T
+    unique_id: inside_outside_delta_t
+    state: |-
+      {% set outdoor = states('sensor.jasper_temperature') | float %}
+      {% set indoor = states('sensor.average_inside_temperature') | float %}
+      {% set delta_t = (indoor - outdoor) | float %}
+      {% set hvac_mode = states('climate.main_floor_thermostat') %}
+      {% if hvac_mode == "cool" or "unavaiable" %}
+        {% set delta_t = delta_t * -1 %}
+      {% endif %}
+      {{ delta_t | round(3) }}
+    state_class: measurement
+    unit_of_measurement: °F
+    attributes:
+      outdoor: "{{states('sensor.jasper_temperature') | float }} °F"
+      inside: "{{states('sensor.average_inside_temperature') | float }} °F"
+      hvac_mode: "{{ states('climate.main_floor_thermostat') }}"
+      calc_mode: |-
+        {% set hvac_mode = states('climate.main_floor_thermostat') %}
+        {% if hvac_mode == "cool" %}
+          outside - inside
+        {% else %}
+          inside - outside
+        {% endif %}
+
+  - name: Heat Pump Power Delta T
+    unique_id: heat_pump_power_delta_t
+    state: |-
+      {% set heat_pump_power = states('sensor.air_conditioner_power_minute_average') | float / 1000 %}
+      {% set delta_t = states('sensor.delta_t') | float %}
+      {{ (heat_pump_power/delta_t) | float | round(3) }}
+    state_class: measurement
+    unit_of_measurement: kW/°F
+    attributes:
+      heat_pump_power: "{{ states('sensor.air_conditioner_power_minute_average') | float / 1000 }} kW"
+      delta_t: "{{ states('sensor.delta_t') | float }} °F"
+      hvac_mode: "{{ states('climate.main_floor_thermostat') }}"
