@@ -1,0 +1,32 @@
+type: custom:modern-circular-gauge-badge
+entity: sensor.net_energy_today
+name: Daily Energy
+needle: true
+show_name: true
+show_icon: true
+smooth_segments: true
+max: 20
+min: -20
+segments:
+  - from: -15
+    color:
+      - 66
+      - 198
+      - 255
+  - from: 0
+    color:
+      - 42
+      - 244
+      - 65
+  - from: 12
+    color:
+      - 249
+      - 232
+      - 36
+  - from: 20
+    color:
+      - 255
+      - 0
+      - 0
+tap_action:
+  action: more-info

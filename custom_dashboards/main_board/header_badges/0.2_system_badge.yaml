@@ -1,0 +1,34 @@
+type: custom:mushroom-template-badge
+content: |-
+  Memory - {{ states('sensor.system_monitor_memory_usage') }}%
+  | CPU - {{ states('sensor.system_monitor_processor_use') | float  }}%
+  {{ states('sensor.system_monitor_processor_temperature')}}°C
+icon: mdi:server
+color: >-
+  {% if states('sensor.system_monitor_memory_usage') | float > 40  or
+  states('sensor.system_monitor_processor_use') | float > 50 %}
+  red
+  {% elif states('sensor.system_monitor_memory_usage') | float > 30  or
+  states('sensor.system_monitor_processor_use') | float > 30 %}
+  orange
+  {% elif states('sensor.system_monitor_memory_usage') | float > 20  or
+  states('sensor.system_monitor_processor_use') | float > 20 %}
+  yellow
+  {% elif states('sensor.system_monitor_memory_usage') | float > 10  or
+  states('sensor.system_monitor_processor_use') | float > 10 %}
+  blue
+  {% else %}
+  green
+  {% endif %}
+label: System
+tap_action:
+  action: navigate
+  navigation_path: "#system"
+hold_action:
+  action: none
+double_tap_action:
+  action: none
+visibility:
+  - condition: user
+    users:
+      - 88e302fbf7ab4f8ab29332a3880e1aa6

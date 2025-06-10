@@ -1,0 +1,27 @@
+type: custom:modern-circular-gauge-badge
+entity: sensor.net_energy_cost
+name: Daily Cost
+unit: $
+needle: true
+min: -10
+max: 10
+show_name: true
+smooth_segments: true
+show_icon: true
+icon: mdi:lightning-bolt
+segments:
+  - color:
+      - 0
+      - 255
+      - 76
+    from: -10
+  - color:
+      - 0
+      - 132
+      - 255
+    from: 0
+  - color:
+      - 255
+      - 0
+      - 0
+    from: 10

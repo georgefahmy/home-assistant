@@ -1,0 +1,187 @@
+type: custom:mushroom-chips-card
+alignment: center
+chips:
+  - type: alarm-control-panel
+    entity: alarm_control_panel.home
+    content_info: state
+  - type: weather
+    entity: weather.forecast_jasper
+    show_conditions: true
+    show_temperature: true
+  - type: conditional
+    conditions:
+      - condition: or
+        conditions:
+          - condition: state
+            entity: lock.front_door_lock
+            state: unlocked
+          - condition: state
+            entity: lock.front_door_lock
+            state: jammed
+    chip:
+      type: entity
+      entity: lock.front_door_lock
+      tap_action:
+        action: more-info
+      hold_action:
+        action: none
+      double_tap_action:
+        action: none
+      icon: mdi:lock-open-alert
+      name: Front Door
+      content_info: name
+      icon_color: red
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: binary_sensor.front_door_package
+        state_not: "off"
+    chip:
+      type: entity
+      entity: binary_sensor.front_door_package
+      icon_color: blue
+      icon: mdi:garage
+      use_entity_picture: true
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: binary_sensor.front_door_person
+        state_not: "off"
+    chip:
+      type: entity
+      entity: binary_sensor.front_door_person
+      icon: mdi:doorbell-video
+      icon_color: red
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: lock.front_door_lock
+        state_not: locked
+    chip:
+      type: entity
+      entity: lock.front_door_lock
+      use_entity_picture: true
+      icon_color: red
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: input_boolean.britney_meds_toggle
+        state: "on"
+    chip:
+      type: template
+      tap_action:
+        action: toggle
+      entity: input_boolean.britney_meds_toggle
+      icon: mdi:pill-multiple
+      icon_color: red
+      hold_action:
+        action: none
+      double_tap_action:
+        action: none
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: input_boolean.britney_meds_toggle
+        state: "off"
+    chip:
+      type: template
+      tap_action:
+        action: perform-action
+        perform_action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.britney_meds_toggle
+      hold_action:
+        action: none
+      double_tap_action:
+        action: none
+      entity: input_boolean.britney_meds_toggle
+      icon: mdi:pill-multiple
+      icon_color: green
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: sun.sun
+        state: below_horizon
+      - condition: numeric_state
+        entity: sensor.baby_room_rgb_brightness
+        above: 15
+    chip:
+      type: action
+      tap_action:
+        action: perform-action
+        perform_action: automation.trigger
+        target:
+          entity_id: automation.baby_room_slow_dimming
+      hold_action:
+        action: none
+      double_tap_action:
+        action: none
+      icon: mdi:baby-carriage
+      icon_color: cyan
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: sun.sun
+        state: below_horizon
+      - condition: numeric_state
+        entity: sensor.baby_room_rgb_brightness
+        below: 16
+    chip:
+      type: entity
+      entity: light.baby_room_rgb
+      tap_action:
+        action: more-info
+      hold_action:
+        action: none
+      double_tap_action:
+        action: none
+      icon: mdi:baby-carriage
+      icon_color: deep-orange
+      content_info: none
+  - type: conditional
+    conditions:
+      - condition: or
+        conditions:
+          - condition: state
+            entity: binary_sensor.family_room_window_1_sensor_opening
+            state: "on"
+          - condition: state
+            entity: binary_sensor.family_room_window_2_sensor_opening
+            state: "on"
+          - condition: state
+            entity: binary_sensor.family_room_window_3_sensor_opening
+            state: "on"
+          - condition: state
+            entity: binary_sensor.family_room_window_4_sensor_opening
+            state: "on"
+          - condition: state
+            entity: binary_sensor.kitchen_window_1_sensor_opening
+            state: "on"
+          - condition: state
+            entity: binary_sensor.kitchen_window_2_sensor_opening
+            state: "on"
+          - condition: state
+            entity: binary_sensor.kitchen_window_3_sensor_opening
+            state: "on"
+          - condition: state
+            entity: binary_sensor.kitchen_window_4_sensor_opening
+            state: "on"
+          - condition: state
+            entity: binary_sensor.guest_room_window_1_sensor_opening
+            state: "on"
+          - condition: state
+            entity: binary_sensor.guest_room_window_2_sensor_opening
+            state: "on"
+          - condition: state
+            entity: binary_sensor.guest_room_window_3_sensor_opening
+            state: "on"
+    chip:
+      type: action
+      tap_action:
+        action: none
+      hold_action:
+        action: none
+      double_tap_action:
+        action: none
+      icon: mdi:window-open
+      icon_color: green

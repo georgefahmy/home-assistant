@@ -1,0 +1,39 @@
+type: custom:modern-circular-gauge-badge
+entity: sensor.solar_generation_power_minute_average
+name: Solar
+smooth_segments: true
+segments:
+  - color:
+      - 66
+      - 198
+      - 255
+    from: 2000
+  - color:
+      - 118
+      - 187
+      - 64
+    from: 1000
+  - color:
+      - 255
+      - 149
+      - 0
+    from: 500
+  - color:
+      - 255
+      - 0
+      - 0
+    from: 0
+show_icon: true
+show_unit: true
+needle: true
+max: 3100
+show_name: true
+tap_action:
+  action: more-info
+unit: W
+icon: mdi:solar-power
+min: 0
+visibility:
+  - condition: numeric_state
+    entity: sensor.solar_generation_power_minute_average
+    above: 0

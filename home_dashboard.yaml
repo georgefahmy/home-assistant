@@ -20,7 +20,8 @@ views:
       attachment: fixed
 
     header: !include custom_dashboards/main_board/header.yaml
-    badges: !include custom_dashboards/main_board/header_badges.yaml
+    # badges: !include custom_dashboards/main_board/header_badges.yaml
+    badges: !include_dir_list custom_dashboards/main_board/header_badges/
     sections:
       #thermostats section
       - type: grid

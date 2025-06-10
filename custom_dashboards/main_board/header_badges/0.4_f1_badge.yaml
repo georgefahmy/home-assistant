@@ -1,0 +1,15 @@
+type: custom:mushroom-template-badge
+content: F1
+icon: mdi:alpha-f-circle
+color: rgb(221, 0, 6)
+tap_action:
+  action: navigate
+  navigation_path: "#f1"
+hold_action:
+  action: none
+double_tap_action:
+  action: none
+visibility:
+  - condition: user
+    users:
+      - 88e302fbf7ab4f8ab29332a3880e1aa6
