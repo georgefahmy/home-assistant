@@ -1,14 +1,14 @@
 type: custom:mushroom-chips-card
 alignment: center
 chips:
-  - type: alarm-control-panel
+  - type: alarm-control-panel #alarm
     entity: alarm_control_panel.home
     content_info: state
-  - type: weather
+  - type: weather #weather
     entity: weather.forecast_jasper
     show_conditions: true
     show_temperature: true
-  - type: conditional
+  - type: conditional #front door lock
     conditions:
       - condition: or
         conditions:
@@ -31,7 +31,7 @@ chips:
       name: Front Door
       content_info: name
       icon_color: red
-  - type: conditional
+  - type: conditional #front door package
     conditions:
       - condition: state
         entity: binary_sensor.front_door_package
@@ -40,9 +40,9 @@ chips:
       type: entity
       entity: binary_sensor.front_door_package
       icon_color: blue
-      icon: mdi:garage
+      icon: mdi:package-variant
       use_entity_picture: true
-  - type: conditional
+  - type: conditional #front door person
     conditions:
       - condition: state
         entity: binary_sensor.front_door_person
@@ -52,17 +52,7 @@ chips:
       entity: binary_sensor.front_door_person
       icon: mdi:doorbell-video
       icon_color: red
-  - type: conditional
-    conditions:
-      - condition: state
-        entity: lock.front_door_lock
-        state_not: locked
-    chip:
-      type: entity
-      entity: lock.front_door_lock
-      use_entity_picture: true
-      icon_color: red
-  - type: conditional
+  - type: conditional #meds toggle on (red)
     conditions:
       - condition: state
         entity: input_boolean.britney_meds_toggle
@@ -78,7 +68,7 @@ chips:
         action: none
       double_tap_action:
         action: none
-  - type: conditional
+  - type: conditional #meds toggle off (green)
     conditions:
       - condition: state
         entity: input_boolean.britney_meds_toggle
@@ -97,7 +87,7 @@ chips:
       entity: input_boolean.britney_meds_toggle
       icon: mdi:pill-multiple
       icon_color: green
-  - type: conditional
+  - type: conditional #baby room light slow dim (cyan)
     conditions:
       - condition: state
         entity: sun.sun
@@ -118,7 +108,7 @@ chips:
         action: none
       icon: mdi:baby-carriage
       icon_color: cyan
-  - type: conditional
+  - type: conditional #baby room light slow dim (orange)
     conditions:
       - condition: state
         entity: sun.sun
@@ -138,7 +128,7 @@ chips:
       icon: mdi:baby-carriage
       icon_color: deep-orange
       content_info: none
-  - type: conditional
+  - type: conditional #window open/close sensors
     conditions:
       - condition: or
         conditions:
