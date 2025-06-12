@@ -142,6 +142,13 @@ entities:
       color_value: true
       color_icon: true
       display_zero_tolerance: 3
+    - entity: sensor.whirlpool_dishwasher_power
+      secondary_info: {}
+      name: Dishwasher
+      icon: mdi:dishwasher
+      color_value: true
+      color_icon: true
+      display_zero_tolerance: 2
 clickable_entities: true
 display_zero_lines:
   mode: transparency
