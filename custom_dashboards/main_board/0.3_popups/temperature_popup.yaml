@@ -40,8 +40,8 @@ cards:
           show: true
           show_states: true
           colorize_states: true
-        update_interval: 5s
-        graph_span: 1h
+        update_interval: 1m
+        graph_span: 6h
         series:
           - entity: sensor.family_room_temp_temperature
             name: Family
@@ -89,8 +89,8 @@ cards:
           show: true
           show_states: true
           colorize_states: true
-        update_interval: 5s
-        graph_span: 1h
+        update_interval: 1m
+        graph_span: 6h
         series:
           - entity: sensor.family_room_temp_rate
             name: Family
@@ -124,8 +124,8 @@ cards:
           show: true
           show_states: true
           colorize_states: true
-        update_interval: 30s
-        graph_span: 1h
+        update_interval: 1m
+        graph_span: 6h
         series:
           - entity: sensor.family_room_temp_humidity
             name: Family
