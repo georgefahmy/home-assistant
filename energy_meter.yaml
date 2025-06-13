@@ -1,0 +1,12 @@
+energy_costs_only:
+  name: Daily Net Energy Costs
+  unique_id: daily_net_energy_costs
+  source: sensor.net_energy
+  price_entity: sensor.current_electricity_tariff
+  create_utility_meter: false
+  cycle: daily
+  net_consumption: true
+  tariffs:
+    - peak
+    - offpeak
+    - partialpeak

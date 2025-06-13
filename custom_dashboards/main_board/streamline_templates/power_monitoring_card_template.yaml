@@ -563,7 +563,7 @@ card:
                   columns: 6
                   rows: 3
               - type: custom:modern-circular-gauge
-                entity: sensor.net_energy_cost
+                entity: sensor.net_energy_daily_current_electricity_tariff_cost
                 secondary: {}
                 tertiary: {}
                 name: Costs
