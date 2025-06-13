@@ -2,7 +2,7 @@ type: vertical-stack
 cards:
   - type: custom:bubble-card
     card_type: pop-up
-    hash: '#weather'
+    hash: "#weather"
     name: Weather
     icon: mdi:weather-lightning-rainy
     sub_button:
@@ -18,7 +18,7 @@ cards:
       .bubble-name {
         color: black
       }
-    width_desktop: 840px
+    width_desktop: 60%
     bg_opacity: "30"
     bg_blur: "60"
     backdrop_blur: ""

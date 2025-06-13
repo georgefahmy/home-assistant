@@ -6,7 +6,7 @@ cards:
     button_type: name
     name: System
     icon: mdi:server
-    width_desktop: 840px
+    width_desktop: 60%
     bg_opacity: "30"
     bg_blur: "60"
     backdrop_blur: ""

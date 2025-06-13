@@ -16,7 +16,7 @@ cards:
       .bubble-name {
         color: black
       }
-    width_desktop: 840px
+    width_desktop: 60%
   - type: custom:spotifyplus-card
     cardUniqueId: c61ece39-bc94-4bab-8f1e-56c5c04f4c66
     sections:

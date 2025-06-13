@@ -18,7 +18,7 @@ cards:
       .bubble-button-card-container {
         background: rgb(80,140,190) !important;
       }
-    width_desktop: 840px
+    width_desktop: 60%
     tap_action:
       action: none
     double_tap_action:
