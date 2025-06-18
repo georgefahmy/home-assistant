@@ -10,3 +10,4 @@ energy_costs_only:
     - peak
     - offpeak
     - partialpeak
+  periodically_resetting: false

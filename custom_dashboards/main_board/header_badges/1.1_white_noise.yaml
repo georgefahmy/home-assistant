@@ -1,0 +1,41 @@
+type: custom:mushroom-chips-card
+chips:
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: media_player.homepod_mini_blue
+        state: playing
+    chip:
+      type: template
+      icon: mdi:speaker-off
+      icon_color: blue
+      content: White Noise
+      tap_action:
+        action: perform-action
+        perform_action: media_player.media_stop
+        target:
+          entity_id: media_player.homepod_mini_blue
+      hold_action:
+        action: more-info
+        entity: media_player.homepod_mini_blue
+
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: media_player.homepod_mini_blue
+        state_not: playing
+    chip:
+      type: template
+      content: White Noise
+      icon: mdi:speaker-wireless
+      icon_color: green
+      tap_action:
+        action: perform-action
+        perform_action: music_assistant.play_media
+        target:
+          entity_id: media_player.homepod_mini_blue
+        data:
+          media_id: Rain Sounds.mp3
+      hold_action:
+        action: more-info
+        entity: media_player.homepod_mini_blue

@@ -1,21 +1,41 @@
 card:
   type: markdown
   content: >-
-    {% if "00:00:00" < as_datetime(now()).strftime("%H:%M:%S") < "12:00:00" %}
-      # Good Morning {{ user.split()[0] }}
-    {% elif "12:00:00" <= as_datetime(now()).strftime("%H:%M:%S") < "17:00:00" %}
-      # Good Afternoon {{ user.split()[0] }}
-    {% elif "17:00:00" <= as_datetime(now()).strftime("%H:%M:%S") <= "23:59:59" %}
-      # Good Evening {{ user.split()[0] }}
-    {% else %}
-      # Hello {{ user.split()[0] }}
-    {% endif %}
-
+    {% set now = as_datetime(now()) %}
+    {% set day = now.strftime("%-d") | int %}
     {% set weather = states('weather.forecast_jasper') %}
     {% set temp = states('sensor.jasper_sensors_temperature') | float | round(0) %}
     {% set humidity = states('sensor.jasper_sensors_humidity') | float | round(0) %}
     {% set wind_speed = states('sensor.jasper_sensors_wind_speed') | float | round(1) %}
     {% set rain_intensity = states('sensor.jasper_sensors_precipitation_intensity') %}
+
+    {% if "00:00:00" < now.strftime("%H:%M:%S") < "12:00:00" %}
+      # Good Morning {{ user.split()[0] }}
+    {% elif "12:00:00" <= now.strftime("%H:%M:%S") < "17:00:00" %}
+      # Good Afternoon {{ user.split()[0] }}
+    {% elif "17:00:00" <= now.strftime("%H:%M:%S") <= "23:59:59" %}
+      # Good Evening {{ user.split()[0] }}
+    {% else %}
+      # Hello {{ user.split()[0] }}
+    {% endif %}
+
+    {% if day == 1 %}
+      ## {{ now.strftime("%A %B %-d")}}st
+    {% elif day == 2 %}
+      ## {{ now.strftime("%A %B %-d")}}nd
+    {% elif day == 3 %}
+      ## {{ now.strftime("%A %B %-d")}}rd
+    {% elif day == 21 %}
+      ## {{ now.strftime("%A %B %-d")}}st
+    {% elif day == 22 %}
+      ## {{ now.strftime("%A %B %-d")}}nd
+    {% elif day == 23 %}
+      ## {{ now.strftime("%A %B %-d")}}rd
+    {% elif day == 31 %}
+      ## {{ now.strftime("%A %B %-d")}}st
+    {% else %}
+      ## {{ now.strftime("%A %B %-d")}}th
+    {% endif %}
 
     {% if weather == "sunny" %}
       The sun is shining brightly with a pleasant tempeature of **{{ temp }}°F**. A perfect day to be outside!

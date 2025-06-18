@@ -24,7 +24,7 @@ card:
       visibility:
         - condition: numeric_state
           entity: "[[tilt_entity]]"
-          below: 0.5
+          below: 0.8
       icon: mdi:arrow-up
     - entity: "[[entity]]"
       icon: mdi:arrow-down
@@ -39,7 +39,7 @@ card:
       visibility:
         - condition: numeric_state
           entity: "[[tilt_entity]]"
-          above: -0.5
+          above: -0.8
     - entity: "[[entity]]"
       icon: mdi:weather-sunny
       tap_action:
