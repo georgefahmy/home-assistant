@@ -1,5 +1,5 @@
 type: custom:modern-circular-gauge-badge
-entity: sensor.net_energy_daily_current_electricity_tariff_cost
+entity: sensor.daily_energy_cost
 name: Daily Cost
 unit: $
 needle: true
