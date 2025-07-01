@@ -68,7 +68,7 @@ entities:
       color_value: true
       display_zero: false
       secondary_info: {}
-      display_zero_tolerance: 16
+      display_zero_tolerance: 17
       show_direction: false
     - entity: sensor.air_conditioner_power_minute_average
       secondary_info: {}
