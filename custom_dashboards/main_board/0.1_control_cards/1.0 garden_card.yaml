@@ -9,7 +9,7 @@ variables:
   - room_icon: mdi:grass
   - room_temp_entity: sensor.jasper_temperature
   - icon_color: rgba(98, 225, 35, 0.25)
-  - popup_nav_path: "#garden"
+  - popup_nav_path: "#garden_v2"
   - menu_button_tap_action: navigate
   - menu_button_hold_action: none
   - menu_button_show_icon: true

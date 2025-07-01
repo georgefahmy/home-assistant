@@ -1,0 +1,13 @@
+type: entity
+show_name: true
+show_state: true
+show_icon: true
+entity: media_player.homepod_mini_blue
+state_content:
+  - media_title
+  - state
+show_entity_picture: false
+visibility:
+  - condition: state
+    entity: media_player.homepod_mini_blue
+    state: playing

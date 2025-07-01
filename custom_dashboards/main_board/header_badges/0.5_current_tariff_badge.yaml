@@ -4,17 +4,17 @@ icon: |-
   mdi:flash
   {% set t = states('sensor.current_electricity_tariff_label') %}
 
-  {% if 'PEAK' not in t %}
+  {% if 'Peak' not in t %}
   mdi:alert
   {% endif %}
 color: |-
   {% set t = states('sensor.current_electricity_tariff_label') %}
 
-  {% if '_OFFPEAK' in t %}
+  {% if t == 'Off Peak' %}
   green
-  {% elif '_PARTIALPEAK' in t %}
+  {% elif t == 'Partial Peak' %}
   orange
-  {% elif '_PEAK' in t %}
+  {% elif t == 'Peak' %}
   red
   {% else %}
   gray
@@ -29,6 +29,6 @@ label: ""
 content: |-
   {% set t = states('sensor.current_electricity_tariff_label') %}
 
-  {% if 'PEAK' not in t %}
+  {% if 'Peak' not in t %}
   UNAVAILABLE
   {% endif %}

@@ -1,0 +1,44 @@
+#   "SUMMER_OFFPEAK": 0.39562,
+#   "SUMMER_PARTIALPEAK": 0.45230,
+#   "SUMMER_PEAK": 0.61418,
+#   "WINTER_OFFPEAK": 0.34671,
+#   "WINTER_PARTIALPEAK": 0.36057,
+#   "WINTER_PEAK": 0.38266
+
+input_number:
+  summer_off_peak:
+    name: Summer Off Peak
+    initial: 0.39562
+    min: 0
+    max: 1
+    step: 0.00001
+  summer_parial_peak:
+    name: Summer Partial Peak
+    initial: 0.45230
+    min: 0
+    max: 1
+    step: 0.00001
+  summer_peak:
+    name: Summer Partial Peak
+    initial: 0.61418
+    min: 0
+    max: 1
+    step: 0.00001
+  winter_off_peak:
+    name: Winter Off Peak
+    initial: 0.34671
+    min: 0
+    max: 1
+    step: 0.00001
+  winter_parial_peak:
+    name: Winter Partial Peak
+    initial: 0.36057
+    min: 0
+    max: 1
+    step: 0.00001
+  winter_peak:
+    name: Winter Partial Peak
+    initial: 0.38266
+    min: 0
+    max: 1
+    step: 0.00001

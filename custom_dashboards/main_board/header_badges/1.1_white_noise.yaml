@@ -35,7 +35,8 @@ chips:
         target:
           entity_id: media_player.homepod_mini_blue
         data:
-          media_id: Rain Sounds.mp3
+          media_id: library://track/314
+          enqueue: replace
       hold_action:
         action: more-info
         entity: media_player.homepod_mini_blue

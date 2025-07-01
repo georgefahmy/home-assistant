@@ -297,7 +297,7 @@ card:
             name: Battery Simulator & Results
           - square: false
             type: grid
-            columns: 5
+            columns: 4
             cards:
               - type: custom:modern-circular-gauge
                 entity: sensor.total_usage_power_minute_average
@@ -401,10 +401,6 @@ card:
                 grid_options:
                   columns: 6
                   rows: 3
-                visibility:
-                  - condition: numeric_state
-                    entity: sensor.solar_generation_power_minute_average
-                    above: 0.1
               - type: custom:modern-circular-gauge
                 entity: sensor.battery_sim_basengreen_percentage
                 secondary:
@@ -557,43 +553,6 @@ card:
                     color:
                       - 245
                       - 180
-                      - 0
-                header_position: top
-                grid_options:
-                  columns: 6
-                  rows: 3
-              - type: custom:modern-circular-gauge
-                entity: sensor.net_energy_daily_current_electricity_tariff_cost
-                secondary: {}
-                tertiary: {}
-                name: Costs
-                icon: mdi:currency-usd
-                max: 10
-                min: -10
-                smooth_segments: true
-                needle: true
-                adaptive_state_color: false
-                adaptive_icon_color: true
-                segments:
-                  - from: -10
-                    color:
-                      - 0
-                      - 132
-                      - 255
-                  - from: -5
-                    color:
-                      - 1
-                      - 254
-                      - 5
-                  - from: 5
-                    color:
-                      - 251
-                      - 255
-                      - 0
-                  - from: 10
-                    color:
-                      - 255
-                      - 0
                       - 0
                 header_position: top
                 grid_options:

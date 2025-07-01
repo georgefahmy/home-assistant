@@ -1,0 +1,279 @@
+state_color: true
+show_header_toggle: false
+type: entities
+entities:
+  - type: conditional
+    conditions:
+      - entity: switch.west_garden_bed
+        state: "off"
+    row:
+      type: buttons
+      entities:
+        - entity: switch.west_garden_bed
+          show_name: true
+        - entity: switch.settings_3
+          show_name: true
+  - type: conditional
+    conditions:
+      - entity: switch.west_garden_bed
+        state: "on"
+    row:
+      type: buttons
+      entities:
+        - entity: switch.west_garden_bed
+          show_name: true
+        - entity: switch.settings_3
+          show_name: true
+        - entity: switch.pause_2
+          show_name: true
+  - type: conditional
+    conditions:
+      - entity: switch.west_garden_bed
+        state_not: "on"
+      - entity: switch.settings_3
+        state_not: "on"
+    row:
+      type: simple-entity
+      entity: time.start_time_2
+  - type: conditional
+    conditions:
+      - entity: switch.settings_3
+        state: "on"
+    row:
+      type: simple-entity
+      entity: time.start_time_2
+  - type: conditional
+    conditions:
+      - entity: switch.settings_3
+        state: "on"
+    row:
+      entity: number.sunrise_offset_2
+  - type: conditional
+    conditions:
+      - entity: switch.west_garden_bed
+        state: "on"
+    row:
+      entity: sensor.remaining_time_3
+  - type: conditional
+    conditions:
+      - entity: switch.settings_3
+        state: "on"
+    row:
+      entity: switch.enable_program_2
+  - type: conditional
+    conditions:
+      - entity: switch.settings_3
+        state: "on"
+    row:
+      entity: number.zone_transition
+  - type: section
+    label: ""
+  - type: conditional
+    conditions:
+      - entity: switch.unnamed_zone_zone_5
+        state: "off"
+    row:
+      type: buttons
+      entities:
+        - entity: switch.unnamed_zone_zone_5
+          show_name: true
+          show_icon: true
+          tap_action:
+            action: call-service
+            service: switch.toggle
+            service_data:
+              entity_id: switch.unnamed_zone_zone_5
+        - entity: switch.settings_4
+          show_name: true
+  - type: conditional
+    conditions:
+      - entity: switch.unnamed_zone_zone_5
+        state_not: "off"
+    row:
+      type: buttons
+      entities:
+        - entity: switch.unnamed_zone_zone_5
+          show_name: true
+          show_icon: true
+          tap_action:
+            action: call-service
+            service: switch.toggle
+            service_data:
+              entity_id: switch.unnamed_zone_zone_5
+        - entity: switch.settings_4
+          show_name: true
+        - entity: sensor.zone_status_2
+          show_name: false
+  - type: conditional
+    conditions:
+      - entity: sensor.zone_status_2
+        state:
+          - "off"
+    row:
+      entity: sensor.next_run_2
+  - type: conditional
+    conditions:
+      - entity: sensor.zone_status_2
+        state_not:
+          - "off"
+          - "on"
+          - pending
+          - eco
+    row:
+      entity: sensor.zone_status_2
+  - type: conditional
+    conditions:
+      - entity: sensor.zone_status_2
+        state:
+          - "on"
+          - eco
+          - pending
+    row:
+      entity: sensor.remaining_time_4
+  - type: conditional
+    conditions:
+      - entity: sensor.zone_status_2
+        state_not:
+          - "on"
+          - eco
+          - pending
+      - entity: switch.settings_4
+        state: "on"
+    row:
+      entity: sensor.last_ran_2
+  - type: conditional
+    conditions:
+      - entity: switch.settings_4
+        state: "on"
+    row:
+      entity: switch.enable_zone_2
+  - type: conditional
+    conditions:
+      - entity: switch.settings_4
+        state: "on"
+    row:
+      entity: select.frequency_3
+  - type: conditional
+    conditions:
+      - entity: switch.settings_4
+        state: "on"
+    row:
+      entity: number.watering_time_2
+  - type: conditional
+    conditions:
+      - entity: switch.settings_4
+        state: "on"
+    row:
+      entity: binary_sensor.jasper_binary_sensors_is_raining
+  - type: conditional
+    conditions:
+      - entity: switch.settings_4
+        state: "on"
+    row:
+      entity: switch.ignore_sensors_2
+  - type: section
+    label: ""
+  - type: conditional
+    conditions:
+      - entity: switch.unnamed_zone_zone_6
+        state: "off"
+    row:
+      type: buttons
+      entities:
+        - entity: switch.unnamed_zone_zone_6
+          show_name: true
+          show_icon: true
+          tap_action:
+            action: call-service
+            service: switch.toggle
+            service_data:
+              entity_id: switch.unnamed_zone_zone_6
+        - entity: switch.settings_5
+          show_name: true
+  - type: conditional
+    conditions:
+      - entity: switch.unnamed_zone_zone_6
+        state_not: "off"
+    row:
+      type: buttons
+      entities:
+        - entity: switch.unnamed_zone_zone_6
+          show_name: true
+          show_icon: true
+          tap_action:
+            action: call-service
+            service: switch.toggle
+            service_data:
+              entity_id: switch.unnamed_zone_zone_6
+        - entity: switch.settings_5
+          show_name: true
+        - entity: sensor.zone_status_3
+          show_name: false
+  - type: conditional
+    conditions:
+      - entity: sensor.zone_status_3
+        state:
+          - "off"
+    row:
+      entity: sensor.next_run_3
+  - type: conditional
+    conditions:
+      - entity: sensor.zone_status_3
+        state_not:
+          - "off"
+          - "on"
+          - pending
+          - eco
+    row:
+      entity: sensor.zone_status_3
+  - type: conditional
+    conditions:
+      - entity: sensor.zone_status_3
+        state:
+          - "on"
+          - eco
+          - pending
+    row:
+      entity: sensor.remaining_time_5
+  - type: conditional
+    conditions:
+      - entity: sensor.zone_status_3
+        state_not:
+          - "on"
+          - eco
+          - pending
+      - entity: switch.settings_5
+        state: "on"
+    row:
+      entity: sensor.last_ran_3
+  - type: conditional
+    conditions:
+      - entity: switch.settings_5
+        state: "on"
+    row:
+      entity: switch.enable_zone_3
+  - type: conditional
+    conditions:
+      - entity: switch.settings_5
+        state: "on"
+    row:
+      entity: select.frequency_4
+  - type: conditional
+    conditions:
+      - entity: switch.settings_5
+        state: "on"
+    row:
+      entity: number.watering_time_3
+  - type: conditional
+    conditions:
+      - entity: switch.settings_5
+        state: "on"
+    row:
+      entity: binary_sensor.jasper_binary_sensors_is_raining
+  - type: conditional
+    conditions:
+      - entity: switch.settings_5
+        state: "on"
+    row:
+      entity: switch.ignore_sensors_3
+title: West Garden Bed

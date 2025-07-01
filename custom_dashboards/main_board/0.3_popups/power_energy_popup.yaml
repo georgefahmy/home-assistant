@@ -23,6 +23,11 @@ cards:
     shadow_opacity: "50"
     margin_top_desktop: 20px
     margin_top_mobile: 10px
+  - type: entities
+    entities:
+      - entity: sensor.net_daily_energy_cost
+      - entity: sensor.net_daily_energy_cost_2
+
   - type: custom:bubble-card
     card_type: separator
     name: Power
