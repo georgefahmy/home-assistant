@@ -41,41 +41,41 @@ cards:
         tap_action:
           action: navigate
           navigation_path: /lovelace-yaml/security
-  # - type: custom:bubble-card
-  #   card_type: select
-  #   entity: input_select.cameras
-  #   show_state: true
-  #   show_attribute: false
-  #   name: Camera
-  #   icon: mdi:cctv
-  #   sub_button: []
-  #   tap_action:
-  #     action: none
-  #   double_tap_action:
-  #     action: none
-  #   hold_action:
-  #     action: none
-  #   show_name: true
-  #   button_type: state
-  #   button_action:
-  #     tap_action:
-  #       action: none
-  #     double_tap_action:
-  #       action: none
-  #     hold_action:
-  #       action: none
-  #   card_layout: normal
-  #   show_icon: true
-  #   force_icon: false
-  - type: custom:mushroom-select-card
+  - type: custom:bubble-card
+    card_type: select
     entity: input_select.cameras
+    show_state: true
+    show_attribute: false
+    name: Camera
     icon: mdi:cctv
+    sub_button: []
     tap_action:
-      action: none
-    hold_action:
       action: none
     double_tap_action:
       action: none
+    hold_action:
+      action: none
+    show_name: true
+    button_type: state
+    button_action:
+      tap_action:
+        action: none
+      double_tap_action:
+        action: none
+      hold_action:
+        action: none
+    card_layout: normal
+    show_icon: true
+    force_icon: false
+  # - type: custom:mushroom-select-card
+  #   entity: input_select.cameras
+  #   icon: mdi:cctv
+  #   tap_action:
+  #     action: none
+  #   hold_action:
+  #     action: none
+  #   double_tap_action:
+  #     action: none
   - type: conditional
     conditions:
       - condition: state

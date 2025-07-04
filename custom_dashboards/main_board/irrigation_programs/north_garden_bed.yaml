@@ -1,5 +1,5 @@
 type: custom:irrigation-card
-program: switch.west_garden_bed
+program: switch.north_garden_bed
 entities:
-  - switch.west_bed
+  - switch.north_bed
 show_program: true

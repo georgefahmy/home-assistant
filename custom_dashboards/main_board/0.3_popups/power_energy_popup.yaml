@@ -23,10 +23,18 @@ cards:
     shadow_opacity: "50"
     margin_top_desktop: 20px
     margin_top_mobile: 10px
-  - type: entities
-    entities:
-      - entity: sensor.net_daily_energy_cost
-      - entity: sensor.net_daily_energy_cost_2
+  - type: horizontal-stack
+    cards:
+      - type: entities
+        entities:
+          - entity: sensor.e_elec_daily_energy_cost
+          - entity: sensor.e_tou_d_daily_energy_cost
+          - entity: sensor.e_tou_c_daily_energy_cost
+      - type: entities
+        entities:
+          - entity: sensor.current_electricity_tariff
+          - entity: sensor.e_tou_d_tariff
+          - entity: sensor.e_tou_c_tariff
 
   - type: custom:bubble-card
     card_type: separator

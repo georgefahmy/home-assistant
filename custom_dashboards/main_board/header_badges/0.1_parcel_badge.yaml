@@ -5,4 +5,4 @@ show_icon: true
 entity: sensor.parcel_active_shipment
 tap_action:
   action: navigate
-  navigation_path: "#deliveries"
+  navigation_path: "#deliveries_v2"

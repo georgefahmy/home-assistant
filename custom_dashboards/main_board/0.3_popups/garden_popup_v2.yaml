@@ -46,15 +46,15 @@ cards:
       - type: vertical-stack
         cards:
           - !include ../irrigation_programs/grass.yaml
-          # - !include ../irrigation_programs/west_garden_bed.yaml
-          # - !include ../irrigation_programs/north_garden_bed.yaml
-      - show_state: false
-        show_name: false
-        camera_view: live
-        type: picture-entity
-        theme: macOS Theme
-        camera_image: camera.front_door_fluent
-        entity: camera.front_door_fluent
+          - !include ../irrigation_programs/west_garden_bed.yaml
+          - !include ../irrigation_programs/north_garden_bed.yaml
+      # - show_state: false
+      #   show_name: false
+      #   camera_view: live
+      #   type: picture-entity
+      #   theme: macOS Theme
+      #   camera_image: camera.front_door_fluent
+      #   entity: camera.front_door_fluent
   - type: custom:bubble-card
     card_type: separator
     name: Pollen Tracker
