@@ -1,0 +1,60 @@
+sensor:
+  - name: Maximum Daily Energy Cost
+    unique_id: maximum_daily_energy_cost
+    state: >
+      {% set elec = states('sensor.e_elec_daily_energy_cost') | float %}
+      {% set touc = states('sensor.e_tou_c_daily_energy_cost') | float %}
+      {% set toud = states('sensor.e_tou_d_daily_energy_cost') | float %}
+
+      {{ max(elec, touc, toud) | round(2) }}
+    attributes:
+      maximum: >
+        {% set elec = states('sensor.e_elec_daily_energy_cost') | float %}
+        {% set touc = states('sensor.e_tou_c_daily_energy_cost') | float %}
+        {% set toud = states('sensor.e_tou_d_daily_energy_cost') | float %}
+        {% if elec < 0 or touc < 0 or toud < 0 %}
+          {{ expand('sensor.e_elec_daily_energy_cost', 'sensor.e_tou_c_daily_energy_cost', 'sensor.e_tou_d_daily_energy_cost')
+          | sort(attribute='state', reverse=false)
+          | map(attribute='name') | first }}
+        {% else %}
+          {{ expand('sensor.e_elec_daily_energy_cost','sensor.e_tou_c_daily_energy_cost','sensor.e_tou_d_daily_energy_cost')
+          | sort(attribute='state', reverse=true)
+          | map(attribute='name') | first }}
+        {% endif %}
+  - name: E-ELEC Daily Energy Cost Percent Difference
+    unique_id: e_elec_daily_energy_cost_percent_difference
+    unit_of_measurement: "%"
+    state: >
+      {% set meas = states('sensor.e_elec_daily_energy_cost') | float %}
+      {% set max = states('sensor.maximum_daily_energy_cost') | float %}
+
+      {% set max_entity = state_attr('sensor.maximum_daily_energy_cost','maximum') %}
+      {% if max_entity == "E-ELEC Daily Energy Cost" %}
+      0
+      {% else %}
+      {{ min(100, (((max - meas) / max * 100) | round(2) | abs)) }}
+      {% endif %}
+  - name: E-TOU-C Daily Energy Cost Percent Difference
+    unique_id: e_tou_c_daily_energy_cost_percent_difference
+    unit_of_measurement: "%"
+    state: >
+      {% set meas = states('sensor.e_tou_c_daily_energy_cost') | float %}
+      {% set max = states('sensor.maximum_daily_energy_cost') | float %}
+      {% set max_entity = state_attr('sensor.maximum_daily_energy_cost','maximum') %}
+      {% if max_entity == "E-TOU-C Daily Energy Cost" %}
+      0
+      {% else %}
+      {{ min(100, (((max - meas) / max * 100) | round(2) | abs)) }}
+      {% endif %}
+  - name: E-TOU-D Daily Energy Cost Percent Difference
+    unique_id: e_tou_d_daily_energy_cost_percent_difference
+    unit_of_measurement: "%"
+    state: >
+      {% set meas = states('sensor.e_tou_d_daily_energy_cost') | float %}
+      {% set max = states('sensor.maximum_daily_energy_cost') | float %}
+      {% set max_entity = state_attr('sensor.maximum_daily_energy_cost','maximum') %}
+      {% if max_entity == "E-TOU-D Daily Energy Cost" %}
+      0
+      {% else %}
+      {{ min(100, (((max - meas) / max * 100) | round(2) | abs)) }}
+      {% endif %}

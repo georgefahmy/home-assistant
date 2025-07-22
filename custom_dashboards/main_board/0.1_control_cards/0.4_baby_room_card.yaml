@@ -9,7 +9,7 @@ variables:
   - room_temp_entity: sensor.baby_room_temp_temperature
   - popup_nav_path: "#baby-room"
   - room_icon: mdi:cradle
-  - icon_color: rgba(127, 222, 243, 0.25)
+  - icon_color: rgba(55, 209, 244, 0.98)
 
   # sub button 1
   - sub_button_1_entity: light.baby_room_rgb

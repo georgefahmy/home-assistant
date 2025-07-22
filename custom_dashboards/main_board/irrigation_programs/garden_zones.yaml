@@ -1,0 +1,8 @@
+type: custom:irrigation-card
+program: switch.garden
+entities:
+  - switch.west_bed_2
+  - switch.north_bed_2
+  - switch.potted_plants_zone_2
+  - switch.rose_zone_2
+show_program: true

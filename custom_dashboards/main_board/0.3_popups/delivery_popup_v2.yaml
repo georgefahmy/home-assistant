@@ -66,8 +66,9 @@ cards:
       title: 📦 Packages
     filter:
       template: >
-        {% set parcels = state_attr('sensor.parcel_raw_shipment_data', 'deliveries')
-        or [] %} [
+        {% set parcels = state_attr('sensor.parcel_raw_shipment_data', 'deliveries')or [] %} 
+          
+        [
 
           {# === En Route === #}
           {% set enroute = parcels | selectattr('status_code', 'in', [2,3,4]) | list %}
@@ -75,7 +76,7 @@ cards:
             { "type": "section", "label": "📦 En Route" },
             {% for p in enroute %}
               {% set events = p.events or [] %}
-              {% set latest = events[0] if events else {'event': 'No Events', 'date': '', 'location': ''} %}
+              {% set latest = events[0] if events else {'event': 'No Events', 'date': ''} %}
               {
                 "type": "custom:fold-entity-row",
                 "head": {
@@ -83,7 +84,7 @@ cards:
                   "entity": "sensor.parcel_raw_shipment_data",
                   "name": "[{{ p.carrier_code | upper }}] {{ p.description or 'Unknown Package' }} - {{ p.tracking_number }}",
                   "state": "{{ latest.event }}",
-                  "secondary": "Latest update: {{ latest.date }}{% if latest.location %} @ {{ latest.location }}{% endif %}",
+                  "secondary": "Latest update: {% if 'date' in latest.keys()%}{{ latest.date }}{% else %}--%--{% endif %}",
                   "icon": "mdi:truck-delivery"
                 },
                 "entities": [
@@ -91,7 +92,7 @@ cards:
                     {
                       "type": "custom:template-entity-row",
                       "entity": "sensor.parcel_raw_shipment_data",
-                      "name": "{{ e.date }}{% if e.location %} @ {{ e.location }}{% endif %}",
+                      "name": "{% if 'date' in e.keys() %}{{ e.date }}{% else %}--%--{% endif %}",
                       "state": "{{ e.event }}"
                     }{% if not loop.last %},{% endif %}
                   {% endfor %}
@@ -106,7 +107,7 @@ cards:
             ,{ "type": "section", "label": "✅ Delivered" },
             {% for p in delivered %}
               {% set events = p.events or [] %}
-              {% set latest = events[0] if events else {'event': 'No events', 'date': '', 'location': ''} %}
+              {% set latest = events[0] if events else {'event': 'No events', 'date': ''} %}
               {
                 "type": "custom:fold-entity-row",
                 "head": {
@@ -114,7 +115,7 @@ cards:
                   "entity": "sensor.parcel_raw_shipment_data",
                   "name": "[{{ p.carrier_code | upper }}] {{ p.description or 'Unknown Package' }} - {{ p.tracking_number }}",
                   "state": "{{ latest.event }}",
-                  "secondary": "Delivered: {{ latest.date }}{% if latest.location %} @ {{ latest.location }}{% endif %}",
+                  "secondary": "Delivered: {% if 'date' in latest.keys()%}{{ latest.date }}{% else %}--%--{% endif %}",
                   "icon": "mdi:package-check"
                 },
                 "entities": [
@@ -122,7 +123,7 @@ cards:
                     {
                       "type": "custom:template-entity-row",
                       "entity": "sensor.parcel_raw_shipment_data",
-                      "name": "{{ e.date }}{% if e.location %} @ {{ e.location }}{% endif %}",
+                      "name": "{% if 'date' in e.keys() %}{{ e.date }}{% else %}--%--{% endif %}",
                       "state": "{{ e.event }}"
                     }{% if not loop.last %},{% endif %}
                   {% endfor %}
@@ -137,7 +138,7 @@ cards:
             ,{ "type": "section", "label": "❄️ Frozen" },
             {% for p in frozen %}
               {% set events = p.events or [] %}
-              {% set latest = events[0] if events else {'event': 'No events', 'date': '', 'location': ''} %}
+              {% set latest = events[0] if events else {'event': 'No events', 'date': ''} %}
               {
                 "type": "custom:fold-entity-row",
                 "head": {
@@ -145,7 +146,7 @@ cards:
                   "entity": "sensor.parcel_raw_shipment_data",
                   "name": "[{{ p.carrier_code | upper }}] {{ p.description or 'Onbekend pakket' }} - {{ p.tracking_number }}",
                   "state": "{{ latest.event }}",
-                  "secondary": "Frozen: {{ latest.date }}{% if latest.location %} @ {{ latest.location }}{% endif %}",
+                  "secondary": "Frozen: {% if 'date' in latest.keys()%}{{ latest.date }}{% else %}--%--{% endif %}",
                   "icon": "mdi:snowflake-alert"
                 },
                 "entities": [
@@ -153,7 +154,7 @@ cards:
                     {
                       "type": "custom:template-entity-row",
                       "entity": "sensor.parcel_raw_shipment_data",
-                      "name": "{{ e.date }}{% if e.location %} @ {{ e.location }}{% endif %}",
+                      "name": "{% if 'date' in e.keys() %}{{ e.date }}{% else %}--%--{% endif %}",
                       "state": "{{ e.event }}"
                     }{% if not loop.last %},{% endif %}
                   {% endfor %}
@@ -168,7 +169,7 @@ cards:
             ,{ "type": "section", "label": "❗ Exception" },
             {% for p in exception %}
               {% set events = p.events or [] %}
-              {% set latest = events[0] if events else {'event': 'No events', 'date': '', 'location': ''} %}
+              {% set latest = events[0] if events else {'event': 'No events', 'date': ''} %}
               {
                 "type": "custom:fold-entity-row",
                 "head": {
@@ -176,7 +177,7 @@ cards:
                   "entity": "sensor.parcel_raw_shipment_data",
                   "name": "[{{ p.carrier_code | upper }}] {{ p.description or 'Unknown Package' }} - {{ p.tracking_number }}",
                   "state": "{{ latest.event }}",
-                  "secondary": "Notification: {{ latest.date }}{% if latest.location %} @ {{ latest.location }}{% endif %}",
+                  "secondary": "Notification: {% if 'date' in latest.keys()%}{{ latest.date }}{% else %}--%--{% endif %}",
                   "icon": "mdi:alert-circle-outline"
                 },
                 "entities": [
@@ -184,7 +185,7 @@ cards:
                     {
                       "type": "custom:template-entity-row",
                       "entity": "sensor.parcel_raw_shipment_data",
-                      "name": "{{ e.date }}{% if e.location %} @ {{ e.location }}{% endif %}",
+                      "name": "{% if 'date' in e.keys() %}{{ e.date }}{% else %}--%--{% endif %}",
                       "state": "{{ e.event }}"
                     }{% if not loop.last %},{% endif %}
                   {% endfor %}
@@ -199,7 +200,7 @@ cards:
             ,{ "type": "section", "label": "📋 Info Received" },
             {% for p in info %}
               {% set events = p.events or [] %}
-              {% set latest = events[0] if events else {'event': 'No Updates Yet', 'date': '', 'location': ''} %}
+              {% set latest = events[0] if events else {'event': 'No Updates Yet', 'date': ''} %}
               {
                 "type": "custom:fold-entity-row",
                 "head": {
@@ -207,7 +208,7 @@ cards:
                   "entity": "sensor.parcel_raw_shipment_data",
                   "name": "[{{ p.carrier_code | upper }}] {{ p.description or 'Unknown Package' }} - {{ p.tracking_number }}",
                   "state": "{{ latest.event }}",
-                  "secondary": "Received: {{ latest.date }}{% if latest.location %} @ {{ latest.location }}{% endif %}",
+                  "secondary": "Received: {% if 'date' in latest.keys()%}{{ latest.date }}{% else %}--%--{% endif %}",
                   "icon": "mdi:clipboard-text"
                 },
                 "entities": [
@@ -215,7 +216,7 @@ cards:
                     {
                       "type": "custom:template-entity-row",
                       "entity": "sensor.parcel_raw_shipment_data",
-                      "name": "{{ e.date }}{% if e.location %} @ {{ e.location }}{% endif %}",
+                      "name": "{% if 'date' in e.keys() %}{{ e.date }}{% else %}--%--{% endif %}",
                       "state": "{{ e.event }}"
                     }{% if not loop.last %},{% endif %}
                   {% endfor %}

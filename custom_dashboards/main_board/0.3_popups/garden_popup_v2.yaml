@@ -45,9 +45,10 @@ cards:
     cards:
       - type: vertical-stack
         cards:
-          - !include ../irrigation_programs/grass.yaml
-          - !include ../irrigation_programs/west_garden_bed.yaml
-          - !include ../irrigation_programs/north_garden_bed.yaml
+          - !include ../irrigation_programs/garden_zones.yaml
+          # - !include ../irrigation_programs/grass.yaml
+          # - !include ../irrigation_programs/west_garden_bed.yaml
+          # - !include ../irrigation_programs/north_garden_bed.yaml
       # - show_state: false
       #   show_name: false
       #   camera_view: live

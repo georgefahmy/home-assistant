@@ -72,6 +72,7 @@ card:
     }
     .bubble-icon {
       opacity: 0.6 !important;
+      color: white !important;
     }
     .large .bubble-sub-button-container {
       margin-right: 0 !important;

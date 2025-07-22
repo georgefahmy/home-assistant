@@ -102,6 +102,7 @@ card:
                 flex-grow: 1;
                 margin-right: 0px;
                 }
+      rows: "1"
       card_layout: large
       icon: "[[separator_icon]]"
     - type: conditional

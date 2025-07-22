@@ -52,41 +52,6 @@ chips:
       entity: binary_sensor.front_door_person
       icon: mdi:doorbell-video
       icon_color: red
-  - type: conditional #meds toggle on (red)
-    conditions:
-      - condition: state
-        entity: input_boolean.britney_meds_toggle
-        state: "on"
-    chip:
-      type: template
-      tap_action:
-        action: toggle
-      entity: input_boolean.britney_meds_toggle
-      icon: mdi:pill-multiple
-      icon_color: red
-      hold_action:
-        action: none
-      double_tap_action:
-        action: none
-  - type: conditional #meds toggle off (green)
-    conditions:
-      - condition: state
-        entity: input_boolean.britney_meds_toggle
-        state: "off"
-    chip:
-      type: template
-      tap_action:
-        action: perform-action
-        perform_action: input_boolean.turn_on
-        target:
-          entity_id: input_boolean.britney_meds_toggle
-      hold_action:
-        action: none
-      double_tap_action:
-        action: none
-      entity: input_boolean.britney_meds_toggle
-      icon: mdi:pill-multiple
-      icon_color: green
   - type: conditional #baby room light slow dim (cyan)
     conditions:
       - condition: state

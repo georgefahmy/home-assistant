@@ -8,7 +8,6 @@ card:
     {% set humidity = states('sensor.jasper_sensors_humidity') | float | round(0) %}
     {% set wind_speed = states('sensor.jasper_sensors_wind_speed') | float | round(1) %}
     {% set rain_intensity = states('sensor.jasper_sensors_precipitation_intensity') %}
-
     {% if "00:00:00" < now.strftime("%H:%M:%S") < "12:00:00" %}
       ## Good Morning {{ user.split()[0] }}
     {% elif "12:00:00" <= now.strftime("%H:%M:%S") < "17:00:00" %}
@@ -18,7 +17,6 @@ card:
     {% else %}
       ## Hello {{ user.split()[0] }}
     {% endif %}
-
     {% if day == 1 %}
       ### {{ now.strftime("%A %B %-d")}}st
     {% elif day == 2 %}
@@ -36,7 +34,6 @@ card:
     {% else %}
       ### {{ now.strftime("%A %B %-d")}}th
     {% endif %}
-
     {% if weather == "sunny" %}
       The sun is shining brightly with a pleasant tempeature of **{{ temp }}°F**. A perfect day to be outside!
     {% elif weather == "cloudy" %}

@@ -45,6 +45,7 @@ card:
             navigation_path: "[[popup_nav_path]]"
           hold_action:
             action: "[[menu_button_hold_action]]"
+      rows: "1"
       styles: |
         * {
           .bubble-line {
@@ -58,7 +59,7 @@ card:
       styles: |
         * {
         --bubble-line-background-color: none
-        --height: 100px
+        --height: 200px
         }
           .bubble-icon {
             color: [[icon_color]] !important;

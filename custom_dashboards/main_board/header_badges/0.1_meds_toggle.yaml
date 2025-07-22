@@ -1,0 +1,15 @@
+type: custom:mushroom-template-badge
+entity: input_boolean.britney_meds_toggle
+icon: mdi:pill-multiple
+content: ""
+color: |-
+  {% set state = states('input_boolean.britney_meds_toggle') %}
+  {% if state == "on" %}
+  red
+  {% else %}
+  green
+  {% endif %}
+tap_action:
+  action: toggle
+
+  
