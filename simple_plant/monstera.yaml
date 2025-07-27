@@ -1,0 +1,6 @@
+Monstera:
+  sensors:
+    moisture: sensor.monstera_moisture_humidity
+    temperature: sensor.monstera_moisture_temperature
+    battery: sensor.monstera_moisture_battery
+  min_moisture: 25

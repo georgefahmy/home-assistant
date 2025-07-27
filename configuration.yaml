@@ -47,6 +47,7 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 sensor: !include sensors.yaml
+input_number: !include input_numbers.yaml
 # scrape: !include scrape.yaml
 
 template:
@@ -56,56 +57,8 @@ template:
   - !include template_sensors/delta_t.yaml
   - !include template_sensors/bubble_module.yaml
   - !include template_sensors/max_daily_cost.yaml
+  - !include template_sensors/max_percent_cost.yaml
 
-plant:
-  Monstera:
-    sensors:
-      moisture: sensor.monstera_moisture_humidity
-      temperature: sensor.monstera_moisture_temperature
-      battery: sensor.monstera_moisture_battery
-    min_moisture: 10
-
-input_number:
-  summer_off_peak:
-    name: Summer Off Peak
-    initial: 0.39562
-    min: 0
-    max: 1
-    step: 0.00001
-    mode: box
-  summer_parial_peak:
-    name: Summer Partial Peak
-    initial: 0.45230
-    min: 0
-    max: 1
-    step: 0.00001
-    mode: box
-  summer_peak:
-    name: Summer Partial Peak
-    initial: 0.61418
-    min: 0
-    max: 1
-    step: 0.00001
-    mode: box
-  winter_off_peak:
-    name: Winter Off Peak
-    initial: 0.34671
-    min: 0
-    max: 1
-    step: 0.00001
-    mode: box
-  winter_parial_peak:
-    name: Winter Partial Peak
-    initial: 0.36057
-    min: 0
-    max: 1
-    step: 0.00001
-  winter_peak:
-    name: Winter Partial Peak
-    initial: 0.38266
-    min: 0
-    max: 1
-    step: 0.00001
-    mode: box
+plant: !include simple_plant/monstera.yaml
 # rest:
 #   - !include rest.yaml

@@ -1,0 +1,19 @@
+trigger:
+  - trigger: time
+    at: "23:59:00"
+sensor:
+  - name: "E-ELEC Daily Cost Percentage"
+    unique_id: "e_elec_daily_cost_percentage"
+    state: "{{ states('sensor.e_elec_daily_energy_cost_percent_difference') | float}}"
+    unit_of_measurement: "%"
+    state_class: measurement
+  - name: "E-TOU-C Daily Cost Percentage"
+    unique_id: "e_tou_c_daily_cost_percentage"
+    state: "{{ states('sensor.e_tou_c_daily_energy_cost_percent_difference') | float}}"
+    unit_of_measurement: "%"
+    state_class: measurement
+  - name: "E-TOU-D Daily Cost Percentage"
+    unique_id: "e_tou_d_daily_cost_percentage"
+    state: "{{ states('sensor.e_tou_d_daily_energy_cost_percent_difference') | float}}"
+    unit_of_measurement: "%"
+    state_class: measurement
