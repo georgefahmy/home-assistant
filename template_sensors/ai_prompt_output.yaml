@@ -1,0 +1,6 @@
+sensor:
+  - name: AI Output Sensor
+    unique_id: ai_output_sensor
+    state: AI Response
+    attributes:
+      full_text: ""

@@ -6,6 +6,7 @@ frontend:
   themes: !include_dir_merge_named themes
   extra_module_url:
     - /hacsfiles/lovelace-card-mod/card-mod.js
+
 zha_toolkit:
 
 lovelace:
@@ -15,8 +16,9 @@ lovelace:
       mode: yaml
       title: Home
       icon: mdi:view-dashboard-variant-outline
-      show_in_sidebar: true
+      show_in_sidebar: false
       filename: home_dashboard.yaml
+      require_admin: true
 
 recorder:
   commit_interval: 10
@@ -26,6 +28,7 @@ recorder:
       - binary_sensor.*_occupancy
       - weather.*
       - sensor.everything_presence_lite*
+      - sensor.sensy_one*
     domains:
       - automation
     event_types:
@@ -58,7 +61,14 @@ template:
   - !include template_sensors/bubble_module.yaml
   - !include template_sensors/max_daily_cost.yaml
   - !include template_sensors/max_percent_cost.yaml
+  - !include template_sensors/ai_prompt_output.yaml
 
 plant: !include simple_plant/monstera.yaml
 # rest:
 #   - !include rest.yaml
+
+# Uncomment this if you are using SSL/TI
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 127.0.0.1

@@ -11,4 +11,25 @@
   entities:
     - sensor.whirlpool_washing_machine_power
 
+- platform: apparent_temperature
+  name: "Family Room Apparent Temperature"
+  unique_id: family_room_apparent_temperature
+  source:
+    - sensor.family_room_temp_temperature
+    - sensor.family_room_temp_humidity
+
+- platform: apparent_temperature
+  name: "Kitchen Apparent Temperature"
+  unique_id: kitchen_apparent_temperature
+  source:
+    - sensor.kitchen_temp_temperature
+    - sensor.kitchen_temp_humidity
+
+- platform: apparent_temperature
+  name: "Office Apparent Temperature"
+  unique_id: office_apparent_temperature
+  source:
+    - sensor.office_temp_temperature
+    - sensor.office_temp_humidity
+
 - !include subreddit.yaml

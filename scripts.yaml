@@ -124,3 +124,128 @@ color_wheel:
       entity_id: light.baby_room_rgb
   alias: Color Wheel
   description: ''
+ai_thermostat_temperature_suggestion:
+  sequence:
+  - alias: AI Thermostat Suggestion
+    action: ai_task.generate_data
+    data:
+      instructions: "Current Conditions:\n\nOccupants:\n  - George: {{ states('device_tracker.george_16pro')
+        }}\n  - Britney: {{ states('device_tracker.britneys_iphone') }}\n\nRoom Occupancy
+        Sensors:\n  - Office: {{states('binary_sensor.everything_presence_lite_056504_occupancy')
+        }}\n  - Family Room: {{states('binary_sensor.everything_presence_lite_061618_occupancy')
+        }}\n  - Baby Room:{{ states('sensor.sensy_one_161098_any_presence') }}\n  -
+        Master Bedroom: {{ states('media_player.home_pod_mini_blue') == \"playing\"
+        or states('binary_sensor.everything_presence_lite_057b20_occupancy') }}\n
+        \ \nThe downstairs rooms are as follows:\n  - Current Downstairs Thermostat
+        Target Temperature: {{ states('sensor.main_floor_thermostat_target_temperature')
+        }}\n  - Current Downstairs Thermostat State: {{ states('climate.main_floor_thermostat')
+        }}\n\n  - Family Room Temperature: {{ states('sensor.family_room_temp_temperature')
+        }}\n  - Family Room Humidity: {{ states('sensor.family_room_temp_humidity')
+        }}\n  - Family Room Temperature Rate: {{ states('sensor.family_room_temp_rate')
+        }}\n  \n  - Kitchen Temperature: {{ states('sensor.kitchen_temp_temperature')
+        }}\n  - Kitchen Humidity: {{ states('sensor.kitchen_temp_humidity') }}\n  -
+        Kitchen Temperature Rate: {{ states('sensor.kitchen_temperature_rate') }}\n
+        \ \n  - Office Temperature: {{ states('sensor.office_temp_temperature') }}\n
+        \ - Office Humidity: {{ states('sensor.office_temp_humidity') }}\n  - Office
+        Temperature Rate: {{ states('sensor.office_temperature_rate') }}\n\nThe upstairs
+        rooms are as follows:\n  - Current Upstairs Thermostat Target Temperature:
+        {{ states('sensor.upstairs_thermostat_target_temperature') }}\n  - Current
+        Upstairs Thermostat State: {{ states('climate.upstairs_thermostat') }}\n\n
+        \ - Master Bedroom Temperature: {{ states('sensor.master_bedroom_temp_temperature')
+        }}\n  - Master Bedroom Humidity: {{ states('sensor.master_bedroom_temp_humidity')
+        }}\n  - Master Bedroom Temperature Rate: {{ states('sensor.master_bedroom_temperature_rate')
+        }}\n  \n  - Baby Room Temperature: {{ states('sensor.baby_room_temp_temperature')
+        }}\n  - Baby Room Humidity: {{ ('sensor.baby_room_temp_humidity') }}\n  -
+        Baby Room Temperature Rate: {{ states('sensor.baby_room_temperature_rate')
+        }}\n\nThe outdoor conditions are as follows:\n  - Outdoor Temperature: {{
+        states('sensor.jasper_temperature') }}\n  - Outdoor Humidity: {{ states('sensor.jasper_humidity')
+        }}\n  - Outdoor Temperature Rate: {{ states('sensor.jasper_temperature_rate')
+        }}\n\nWindow State:\n  - Open Windows: {{ states('binary_sensor.windows_open')
+        }}\n\nOff Settings:\n  - Summer AC OFF setting: 78F\n  - Winter Heater OFF
+        setting: 68F\n\nTarget Comfort Ranges:\n  - Summer Comfort: 70F - 75F\n  -
+        Winter Comfort: 68F - 73F\n\nYou are the smartest and most efficient thermostat
+        that has ever existed. \n\nUsing the provided realtime sensor data, set the
+        upstairs and downstairs thermostats. If a room is occupied, set the thermostat
+        of the floor that room is on to bring the temperature of that room to within
+        the comfort range. If the windows are open, set the thermostats to the off
+        setting. \n\n{# Suggest a target temperature (whole numbers only) for the
+        downstairs and upstairs thermostat. Use the provided lists of sensors broken
+        down by room and floor. Use the occupancy information to decide whether to
+        turn AC on or not if a room on the respective floor is occupied or not. The
+        downstairs thermostat controls the family room, kitchen, and office. The upstairs
+        thermostat controls the master bedroom and the baby room. If it is night time
+        do not suggest to open the windows. The goal is to bring the room temperatures
+        to within the comfort ranges and maintained when they are occupied.  #}\n\nProvide
+        a concise summary of the conditions upstairs, downstairs, and outside, including
+        temperature rates. The summary format should be as follows:\n  - temperature
+        (F) and temperature rates (F/hr) for each room\n  - Room (occupied/unoccupied)\n\n{#
+        Set the target temperature the respective Off Setting based on season if the
+        temperature is within the target comfort range or if the windows are open.
+        #}\n\nTry to optimize for efficiency as well as comfort, but prioritize efficiency. "
+      structure:
+        outdoor_summary:
+          description: Assessment of the outside conditions
+          selector:
+            text:
+              multiline: true
+        upstairs_summary:
+          description: Assessment of the master bedroom conditions
+          selector:
+            text:
+              multiline: true
+              multiple: true
+        downstairs_summary:
+          description: Assessment of the downstairs conditions
+          selector:
+            text:
+              multiline: true
+              multiple: true
+        downstairs_target_temperature:
+          description: AI calculated Target Temperature for the downstairs thermostat
+          selector:
+            number:
+        upstairs_target_temperature:
+          description: AI calculated Target Temperature for the upstairs thermostat
+          selector:
+            number:
+      task_name: Thermostat Control
+      entity_id: ai_task.ai_task_smart_thermostat
+    response_variable: ai_response
+  - action: variable.update_sensor
+    metadata: {}
+    data:
+      replace_attributes: true
+      value: '{{ now() }}'
+      attributes:
+        outdoor:
+          summary: '{{ ai_response.data.outdoor_summary }}'
+        upstairs:
+          target: '{{ ai_response.data.upstairs_target_temperature }}°F'
+          summary: '{{ ai_response.data.upstairs_summary }}'
+        downstairs:
+          target: '{{ ai_response.data.downstairs_target_temperature }}°F'
+          summary: '{{ ai_response.data.downstairs_summary }}'
+    target:
+      entity_id: sensor.ai_thermostat_control
+  - action: variable.update_sensor
+    metadata: {}
+    data:
+      replace_attributes: true
+      value: '{{ ai_response.data.upstairs_target_temperature }}'
+      attributes:
+        summary: '{{ ai_response.data.upstairs_summary }}'
+    target:
+      entity_id: sensor.ai_thermostat_upstairs_target
+  - action: variable.update_sensor
+    metadata: {}
+    data:
+      replace_attributes: true
+      value: '{{ ai_response.data.downstairs_target_temperature }}'
+      attributes:
+        summary: '{{ ai_response.data.downstairs_summary }}'
+    target:
+      entity_id: sensor.ai_thermostat_downstairs_target
+  alias: AI Thermostat Temperature Suggestion
+  description: Analyzes indoor and outdoor environmental conditions, occupancy, and
+    temperature trends to intelligently suggest optimal target temperatures for upstairs
+    and downstairs thermostats, aiming for enhanced comfort and energy efficiency.
